@@ -8,32 +8,69 @@
     <title>Movies</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <styles>
+    <style>
+        /*Background Colors*/
+        main,
+        .width {
+            width: 100%;
+        }
 
-    </styles>
+        #nav-bar {
+            background-color: #393939;
+            color: #FFFFFF;
+        }
+
+        #search-bar {
+            background-color: #E7C160;
+        }
+
+        .bg-lightgray {
+            background-color: #E1E1E1;
+        }
+    </style>
 </head>
 
 <body>
     <main>
-        <div>
-            <div id="nav-bar">
-
+        <div class="width">
+            <div class="row justify-content-center" id="nav-bar">
+                <div class="col-md-4 d-flex justify-content-evenly">
+                    <span class="p-3">Home</span>
+                    <span class="p-3">Categories</span>
+                    <span class="p-3">People</span>
+                    <span class="p-3">Calendar</span>
+                </div>
             </div>
-            <div id="search-bar">
-                <input>
+            <div class="row justify-content-around align-items-center p-3" id="search-bar">
+                <div class="col-md-2 text-center">
+                    <h3>MOBEES</h3>
+                </div>
+                <div class="col-md-8">
+                    <input class="form-control border rounded-pill">
+                </div>
             </div>
         </div>
-        <div>
-            <div id="movie-poster">
-
+        <div class="row bg-lightgray">
+            <div class="col-md-3" id="movie-poster">
+                <img>
             </div>
-            <div id="movie-info">
-                <div id="head"></div>
-                <div id="synopsis">
-
+            <div class="col-md-8 m-3" id="movie-info">
+                <div id="head">
+                    <h3>Movie Title</h3>
+                    <h6>Genre & Other Important Info</h6>
                 </div>
+                <hr>
+                <div id="synopsis">
+                    <h6>Synopsis</h6>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus maiores quam asperiores?
+                        Consequatur quia velit commodi molestiae tempora consequuntur dolor! Fugiat, eaque! Commodi qui
+                        similique aut iure, repudiandae facilis temporibus.
+                    </p>
+                </div>
+                <hr>
                 <div id="cast">
-
+                    <h6>Cast</h6>
+                    <div></div>
                 </div>
             </div>
         </div>
@@ -42,7 +79,7 @@
 
             </div>
         </div>
-        <div>
+        <div class="bg-lightgray">
             <div id="ratings">
 
             </div>
