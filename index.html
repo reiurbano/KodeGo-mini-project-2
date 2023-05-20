@@ -173,22 +173,22 @@
 
             
             // display
-            // browse.forEach((browseitem) => {
-            //     fetch(`https://api.themoviedb.org/3/movie/${browseitem}?language=en-US&page=1`, options)
-            //         .then(response => response.json())
-            //         .then(response => {
+            browse.forEach((browseitem) => {
+                fetch(`https://api.themoviedb.org/3/movie/${browseitem}?language=en-US&page=1`, options)
+                    .then(response => response.json())
+                    .then(response => {
 
-            //             const results = response.results
-            //             const upcoming = document.querySelector(`#${browseitem}-sectionbox`);
+                        const results = response.results
+                        const upcoming = document.querySelector(`#${browseitem}-sectionbox`);
 
-            //             results.forEach((result) => {
-            //                 upcoming.innerHTML += `
-            //                 <img  class="rounded sha s m-2" src="	https://www.themoviedb.org/t/p/w220_and_h330_face${result.poster_path}" alt="${result.title}">
-            //             `;
-            //             })
-            //         })
-            //         .catch(err => console.error(err));
-            // });
+                        results.forEach((result) => {
+                            upcoming.innerHTML += `
+                            <img  class="rounded sha s m-2" src="	https://www.themoviedb.org/t/p/w220_and_h330_face${result.poster_path}" alt="${result.title}">
+                        `;
+                        })
+                    })
+                    .catch(err => console.error(err));
+            });
 
     </script>
 </body>
