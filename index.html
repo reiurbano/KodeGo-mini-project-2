@@ -46,6 +46,20 @@
             font-size: 90px;
             font-weight: 1000;
         }
+        .sha {
+            box-shadow: 0 4px 8px -2px #E7C160;
+        }
+        .btn-more{
+            color: #E7C160;
+        }
+        .btn-more:hover {
+            color: #393939;
+            background-color: #E7C160;
+        }
+        ::-webkit-scrollbar{
+            width: 0;
+        }
+        
     </style>
 </head>
 <body>
@@ -73,7 +87,10 @@
                         <a class="nav-link text-light fs-4" href="#popular-section">Popular</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-light fs-4" href="#newReleases-section">New Releases</a>
+                        <a class="nav-link text-light fs-4" href="#now_playing-section">New Releases</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light fs-4" href="#top_rated-section">Top Rated</a>
                     </li>
                 </ul>
             </div>
@@ -91,16 +108,34 @@
         
         <!-- Browse Section -->
         <section class="py-4 mx-4" id="browse">
-            <div>
-                <h3>Upcoming</h3>
+            <div class="mb-4 " id="upcoming-section">
+                <div class="row d-flex flex-wrap">
+                    <h3 class="col">Upcoming</h3>
+                    <button class="btn  btn-more col-1 rounded-pill btn-sm">Show More</button>
+                </div>
+                <div class="width mx-5 d-flex justify-content-between overflow-auto" id="upcoming-sectionbox"></div>
             </div>
-            <div>
-                <h3>Popular</h3>
+            <div class="mb-4" id="popular-section">
+                <div class="row d-flex flex-wrap">
+                    <h3 class="col">Popular</h3>
+                    <button class="btn  btn-more col-1 rounded-pill btn-sm">Show More</button>
+                </div>
+                <div class="width mx-5 d-flex justify-content-between overflow-auto" id="popular-sectionbox"></div>
             </div>
-            <div>
-                <h3>New Releases</h3>
+            <div class="mb-4" id="newReleases-section">
+                <div class="row d-flex flex-wrap">
+                    <h3 class="col">New Releases</h3>
+                    <button class="btn  btn-more col-1 rounded-pill btn-sm">Show More</button>
+                </div>
+                <div class="width mx-5 d-flex justify-content-between overflow-auto" id="now_playing-sectionbox"></div>
             </div>
-        
+            <div class="mb-4" id="trending-section">
+                <div class="row d-flex flex-wrap">
+                    <h3 class="col">Top Rated</h3>
+                    <button class="btn  btn-more col-1 rounded-pill btn-sm">Show More</button>
+                </div>
+                <div class="width mx-5 d-flex justify-content-between overflow-auto" id="top_rated-sectionbox"></div>
+            </div>
         </section>
 
     </main>
@@ -111,6 +146,32 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <!-- General Script -->
     <script>
+
+         const browse = ["upcoming", "popular", "now_playing", "top_rated"];
+            const options = {
+                method: 'GET',
+                headers: {
+                    accept: 'application/json',
+                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMzJjNGZlZWViNzFhY2FiMDc4M2QyYTVhNzNjZGQ3NiIsInN1YiI6IjY0NjFmZDc2YTY3MjU0MDE2NGRlYzc3YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.BV3-59m-NcEVwdz_snr_om5eyrwF2zgIdmkHo-Wd7Ls'
+                }
+            };
+
+            browse.forEach((browseitem) => {
+                fetch(`https://api.themoviedb.org/3/movie/${browseitem}?language=en-US&page=1`, options)
+                    .then(response => response.json())
+                    .then(response => {
+
+                        const results = response.results
+                        const upcoming = document.querySelector(`#${browseitem}-sectionbox`);
+
+                        results.forEach((result) => {
+                            upcoming.innerHTML += `
+                            <img  class="rounded sha s m-2" src="	https://www.themoviedb.org/t/p/w220_and_h330_face${result.poster_path}" alt="${result.title}">
+                        `;
+                        })
+                    })
+                    .catch(err => console.error(err));
+            });
 
     </script>
 </body>
