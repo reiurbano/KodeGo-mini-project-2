@@ -72,8 +72,9 @@
                 <div class="input-group justify-content-center">
                     <div class="col-md-6 input-group-text form rounded-pill qbox">
                         <i class="fa-solid fa-magnifying-glass"></i>
-                        <input type="text" class="form-control-plaintext ps-3" placeholder="Search Here...">
-                        <i class="fa-solid fa-arrow-right"></i>
+                        <input type="text" class="form-control-plaintext ps-3" id="searchInput" placeholder="Search Here...">
+                        <button class="btn" id="searchBtn"><i class="fa-solid fa-arrow-right"></i></button>
+                        
                     </div>
                 </div>
             </div>
@@ -101,7 +102,7 @@
                 <div class="col-md-6 text-center">
                     <h4>Not Sure What To Watch?</h4>
                     <p>Click the "Random" Button and we'll pick things for you</p>
-                    <button class="btn p-2 bg-transparent border border-dark border-2 rounded-5"><i class="fa-solid fa-shuffle"></i> Random</button>
+                    <button class="btn p-2 bg-transparent border border-dark border-2 rounded-5" id="randomBtn"><i class="fa-solid fa-shuffle"></i> Random</button>
                 </div>                
             </div>
         </section>
@@ -111,28 +112,28 @@
             <div class="mb-4 " id="upcoming-section">
                 <div class="row d-flex flex-wrap">
                     <h3 class="col">Upcoming</h3>
-                    <button class="btn  btn-more col-1 rounded-pill btn-sm">Show More</button>
+                    <button class="btn  btn-more col-1 rounded-pill btn-sm" onclick="window.location.href='./upcoming';">Show More</button>
                 </div>
                 <div class="width mx-5 d-flex justify-content-between overflow-auto" id="upcoming-sectionbox"></div>
             </div>
             <div class="mb-4" id="popular-section">
                 <div class="row d-flex flex-wrap">
                     <h3 class="col">Popular</h3>
-                    <button class="btn  btn-more col-1 rounded-pill btn-sm">Show More</button>
+                    <button class="btn  btn-more col-1 rounded-pill btn-sm" onclick="window.location.href='./popular';">Show More</button>
                 </div>
                 <div class="width mx-5 d-flex justify-content-between overflow-auto" id="popular-sectionbox"></div>
             </div>
-            <div class="mb-4" id="newReleases-section">
+            <div class="mb-4" id="now_playing-section">
                 <div class="row d-flex flex-wrap">
                     <h3 class="col">New Releases</h3>
-                    <button class="btn  btn-more col-1 rounded-pill btn-sm">Show More</button>
+                    <button class="btn  btn-more col-1 rounded-pill btn-sm" onclick="window.location.href='./now_playing';">Show More</button>
                 </div>
                 <div class="width mx-5 d-flex justify-content-between overflow-auto" id="now_playing-sectionbox"></div>
             </div>
-            <div class="mb-4" id="trending-section">
+            <div class="mb-4" id="top_rated-section">
                 <div class="row d-flex flex-wrap">
                     <h3 class="col">Top Rated</h3>
-                    <button class="btn  btn-more col-1 rounded-pill btn-sm">Show More</button>
+                    <button class="btn  btn-more col-1 rounded-pill btn-sm" onclick="window.location.href='./top_rated';">Show More</button>
                 </div>
                 <div class="width mx-5 d-flex justify-content-between overflow-auto" id="top_rated-sectionbox"></div>
             </div>
@@ -148,30 +149,46 @@
     <script>
 
          const browse = ["upcoming", "popular", "now_playing", "top_rated"];
-            const options = {
+         const randomNumber = Math.floor(Math.random()*1129450)+2;
+
+        
+
+
+
+         const options = {
                 method: 'GET',
                 headers: {
                     accept: 'application/json',
                     Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMzJjNGZlZWViNzFhY2FiMDc4M2QyYTVhNzNjZGQ3NiIsInN1YiI6IjY0NjFmZDc2YTY3MjU0MDE2NGRlYzc3YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.BV3-59m-NcEVwdz_snr_om5eyrwF2zgIdmkHo-Wd7Ls'
                 }
             };
+        
+            document.querySelector("#searchBtn").addEventListener('click',()=>{
+                const searchInputValue = document.querySelector('#searchInput').value;
+                location.href = `./search/${searchInputValue}`;
 
-            browse.forEach((browseitem) => {
-                fetch(`https://api.themoviedb.org/3/movie/${browseitem}?language=en-US&page=1`, options)
-                    .then(response => response.json())
-                    .then(response => {
-
-                        const results = response.results
-                        const upcoming = document.querySelector(`#${browseitem}-sectionbox`);
-
-                        results.forEach((result) => {
-                            upcoming.innerHTML += `
-                            <img  class="rounded sha s m-2" src="	https://www.themoviedb.org/t/p/w220_and_h330_face${result.poster_path}" alt="${result.title}">
-                        `;
-                        })
-                    })
-                    .catch(err => console.error(err));
             });
+
+            document.querySelector("#randomBtn").addEventListener('click',()=>location.href = `./movie/${randomNumber}`);
+
+            
+            // display
+            // browse.forEach((browseitem) => {
+            //     fetch(`https://api.themoviedb.org/3/movie/${browseitem}?language=en-US&page=1`, options)
+            //         .then(response => response.json())
+            //         .then(response => {
+
+            //             const results = response.results
+            //             const upcoming = document.querySelector(`#${browseitem}-sectionbox`);
+
+            //             results.forEach((result) => {
+            //                 upcoming.innerHTML += `
+            //                 <img  class="rounded sha s m-2" src="	https://www.themoviedb.org/t/p/w220_and_h330_face${result.poster_path}" alt="${result.title}">
+            //             `;
+            //             })
+            //         })
+            //         .catch(err => console.error(err));
+            // });
 
     </script>
 </body>
