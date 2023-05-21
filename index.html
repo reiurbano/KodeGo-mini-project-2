@@ -4,9 +4,192 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>MOBEES - Home</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <!-- Custom CSS -->
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <!-- Font Awesome Kit -->
+    <script src="https://kit.fontawesome.com/da2581949d.js" crossorigin="anonymous"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+        * {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: #393939;
+        }
+        #hero {
+            background-color: #E7C160;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        #browse {
+            color: #E7C160;
+        }
+
+        .nav-link {
+            text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        }
+        .qbox {
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+        }
+
+        .divider20 {
+            height: 200px;
+        }
+        .text-logo {
+            font-size: 90px;
+            font-weight: 1000;
+        }
+        .sha {
+            box-shadow: 0 4px 8px -2px #E7C160;
+        }
+        .btn-more{
+            color: #E7C160;
+        }
+        .btn-more:hover {
+            color: #393939;
+            background-color: #E7C160;
+        }
+        ::-webkit-scrollbar{
+            width: 0;
+        }
+        
+    </style>
 </head>
 <body>
-    
+    <main>
+        <!-- Hero Section-->
+        <section class="col-md-12 py-4 d-flex flex-column" id="hero">
+            <h1 class="text-logo text-dark text-center py-4 mt-5">MOBEES</h1>
+            
+            <div class="d-flex">
+                <div class="input-group justify-content-center">
+                    <div class="col-md-6 input-group-text form rounded-pill qbox">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" class="form-control-plaintext ps-3" id="searchInput" placeholder="Search Here...">
+                        <button class="btn" id="searchBtn"><i class="fa-solid fa-arrow-right"></i></button>
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <ul class="nav justify-content-center">
+                    <li class="nav-item">
+                        <a class="nav-link text-light fs-4" href="#upcoming-section">Upcoming</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light fs-4" href="#popular-section">Popular</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light fs-4" href="#now_playing-section">New Releases</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light fs-4" href="#top_rated-section">Top Rated</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="divider20"></div>
+
+            <div class="d-flex justify-content-center">
+                <div class="col-md-6 text-center">
+                    <h4>Not Sure What To Watch?</h4>
+                    <p>Click the "Random" Button and we'll pick things for you</p>
+                    <button class="btn p-2 bg-transparent border border-dark border-2 rounded-5" id="randomBtn"><i class="fa-solid fa-shuffle"></i> Random</button>
+                </div>                
+            </div>
+        </section>
+        
+        <!-- Browse Section -->
+        <section class="py-4 mx-4" id="browse">
+            <div class="mb-4 " id="upcoming-section">
+                <div class="row d-flex flex-wrap">
+                    <h3 class="col">Upcoming</h3>
+                    <button class="btn  btn-more col-1 rounded-pill btn-sm" onclick="window.location.href='./upcoming';">Show More</button>
+                </div>
+                <div class="width mx-5 d-flex justify-content-between overflow-auto" id="upcoming-sectionbox"></div>
+            </div>
+            <div class="mb-4" id="popular-section">
+                <div class="row d-flex flex-wrap">
+                    <h3 class="col">Popular</h3>
+                    <button class="btn  btn-more col-1 rounded-pill btn-sm" onclick="window.location.href='./popular';">Show More</button>
+                </div>
+                <div class="width mx-5 d-flex justify-content-between overflow-auto" id="popular-sectionbox"></div>
+            </div>
+            <div class="mb-4" id="now_playing-section">
+                <div class="row d-flex flex-wrap">
+                    <h3 class="col">New Releases</h3>
+                    <button class="btn  btn-more col-1 rounded-pill btn-sm" onclick="window.location.href='./now_playing';">Show More</button>
+                </div>
+                <div class="width mx-5 d-flex justify-content-between overflow-auto" id="now_playing-sectionbox"></div>
+            </div>
+            <div class="mb-4" id="top_rated-section">
+                <div class="row d-flex flex-wrap">
+                    <h3 class="col">Top Rated</h3>
+                    <button class="btn  btn-more col-1 rounded-pill btn-sm" onclick="window.location.href='./top_rated';">Show More</button>
+                </div>
+                <div class="width mx-5 d-flex justify-content-between overflow-auto" id="top_rated-sectionbox"></div>
+            </div>
+        </section>
+
+    </main>
+
+
+
+    <!-- Bootstrap Script -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <!-- General Script -->
+    <script>
+
+         const browse = ["upcoming", "popular", "now_playing", "top_rated"];
+         const randomNumber = Math.floor(Math.random()*1129450)+2;
+
+        
+
+
+
+         const options = {
+                method: 'GET',
+                headers: {
+                    accept: 'application/json',
+                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMzJjNGZlZWViNzFhY2FiMDc4M2QyYTVhNzNjZGQ3NiIsInN1YiI6IjY0NjFmZDc2YTY3MjU0MDE2NGRlYzc3YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.BV3-59m-NcEVwdz_snr_om5eyrwF2zgIdmkHo-Wd7Ls'
+                }
+            };
+        
+            document.querySelector("#searchBtn").addEventListener('click',()=>{
+                const searchInputValue = document.querySelector('#searchInput').value;
+                location.href = `./search/${searchInputValue}`;
+
+            });
+
+            document.querySelector("#randomBtn").addEventListener('click',()=>location.href = `./movie/${randomNumber}`);
+
+            
+            // display
+            browse.forEach((browseitem) => {
+                fetch(`https://api.themoviedb.org/3/movie/${browseitem}?language=en-US&page=1`, options)
+                    .then(response => response.json())
+                    .then(response => {
+
+                        const results = response.results
+                        const upcoming = document.querySelector(`#${browseitem}-sectionbox`);
+
+                        results.forEach((result) => {
+                            upcoming.innerHTML += `
+                            <img  class="rounded sha s m-2" src="	https://www.themoviedb.org/t/p/w220_and_h330_face${result.poster_path}" alt="${result.title}">
+                        `;
+                        })
+                    })
+                    .catch(err => console.error(err));
+            });
+
+    </script>
 </body>
 </html>
