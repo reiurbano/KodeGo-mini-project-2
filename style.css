@@ -12,9 +12,10 @@ html {
 .navbar {
   ul {
     list-style-type: none;
+    text-align: :left
     margin: 0;
     padding: 0;
-  }
+  }  
   
   li {
     display: inline;
@@ -27,7 +28,7 @@ html {
   background-color: #ccbd59;
   color: #eee;
   display: flex;
-  justify-content: center;
+  justify-content:center;
   align-items: center;
 }
 
@@ -41,7 +42,7 @@ html {
 .month {
   width: 100%;
   height: 12rem;
-  background-color: #3f3e2b;
+  background-color: #393931;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -117,5 +118,5 @@ html {
 }
 
 .today {
-  background-color: #167e56;
+  background-color: #d3ba2c;
 }
