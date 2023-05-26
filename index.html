@@ -70,12 +70,13 @@
             
             <div class="d-flex">
                 <div class="input-group justify-content-center">
-                    <div class="col-md-6 input-group-text form rounded-pill qbox">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                        <input type="text" class="form-control-plaintext ps-3" id="searchInput" placeholder="Search Here...">
-                        <button class="btn" id="searchBtn"><i class="fa-solid fa-arrow-right"></i></button>
-                        
-                    </div>
+                    <form action="search.html"  method="get" class="col-md-6">
+                        <div class="input-group-text form rounded-pill qbox">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" class="form-control-plaintext ps-3 search" id="searchInput" placeholder="Search Here...">
+                            <button class="btn" id="searchBtn"><i class="fa-solid fa-arrow-right"></i></button> 
+                        </div>
+                </form>
                 </div>
             </div>
             
@@ -163,11 +164,11 @@
                 }
             };
         
-            document.querySelector("#searchBtn").addEventListener('click',()=>{
-                const searchInputValue = document.querySelector('#searchInput').value;
-                location.href = `./search/${searchInputValue}`;
+            // document.querySelector("#searchBtn").addEventListener('click',()=>{
+            //     const searchInputValue = document.querySelector('#searchInput').value;
+            //     location.href = `./search/${searchInputValue}`;
 
-            });
+            // });
 
             document.querySelector("#randomBtn").addEventListener('click',()=>location.href = `./movie/${randomNumber}`);
 
