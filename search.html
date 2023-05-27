@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOBESS - Search</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <!-- Custom CSS -->
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <!-- Font Awesome Kit -->
+    <script src="https://kit.fontawesome.com/da2581949d.js" crossorigin="anonymous"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+        * {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: #393939;
+            color: #E7C160;
+            overflow-x: hidden;
+        }
+        .sha {
+            box-shadow: 0px 4px 4px #E7C160;
+        }
+        #resultBox{
+            color: #fff;
+        }
+        .bg-e7 {
+            background-color: #E7C160;
+        }
+        .text-e7{
+            color: #E7C160;
+        }
+
+    </style>
+</head>
+<body>
+    <main>
+        <!-- Search bar -->
+        <div class="container-fluid mt-5 pt-5">          
+            <div class="d-flex">
+                <div class="input-group justify-content-center">
+                    <form action="search.html"  method="get" class="col-md-6">
+                        <div class="input-group-text form rounded-pill sha">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" class="form-control-plaintext ps-3 search" id="searchInput" name="search-query" placeholder="Search Here...">
+                            <button class="btn bg-e" id="searchBtn"><i class="fa-solid fa-arrow-right"></i></button> 
+                        </div>
+                </form>
+                </div>
+            </div>
+            <!-- Sort & Filter Feature -->
+            <div class="row my-4" id="searchContainer">
+                <div class="d-flex justify-content-around">
+                    <p><span id="totalResultCount">74</span> total result for '<span id="searchQ"></span>'</p>
+                    <span>
+                        <button class="btn bg-e7" data-bs-toggle="collapse" data-bs-target="#collapseSort"><i class="fa-solid fa-sort"></i></span> Sort</button>
+                        <button class="btn bg-e7" data-bs-toggle="collapse" data-bs-target="#collapseFilter"><i class="fa-solid fa-filter"></i></span> Filter</button>
+                    </span>
+                </div>
+            </div>
+            <!-- S&F Feature inside -->
+            <div class="row">
+                <div class="d-flex justify-content-center">
+                    <div>
+                        <div class="collapse multi-collapse" id="collapseSort">
+                            <div class="">
+                                <span>
+                                    Sort By: 
+                                    <button class="btn bg-transparent text-white ">Popularity</button>
+                                    <button class="btn bg-transparent text-white text-decoration-underline">A-Z</button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="collapse multi-collapse" id="collapseFilter">
+                            <div class="">
+                                <span class="ms-2">
+                                    Filter By: 
+                                    <button class=" btn dropdown-toggle bg-transparent text-white">Category</button>
+                                    
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagination top-->
+            <nav>
+                <ul class="d-flex justify-content-center list-unstyled">
+                    <li class="p-2 mx-1 rounded-start-1 opacity-50"><a class="text-decoration-none text-e7" href=""><</a></li>
+                    <li class="p-2 mx-1 bg-e7 rounded-5"><a class="text-decoration-none text-dark" href="">1</a></li>
+                    <li class="p-2 mx-1"><a class="text-decoration-none text-e7" href="">2</a></li>
+                    <li class="p-2 mx-1"><a class="text-decoration-none text-e7" href="">3</a></li>
+                    <li class="p-2 mx-1"><a class="text-decoration-none text-e7" href="">4</a></li>
+                    <li class="p-2 mx-1  rounded-end-1"><a class="text-decoration-none text-e7" href="">></a></li>
+                </ul>
+            </nav>
+            <!-- List Results -->
+            <div class="p-3">
+                <div class="text-break d-flex flex-wrap text-center" id="resultBox">
+                    <div class="col m-3">
+                        <img class="sha rounded" src="https://www.themoviedb.org/t/p/w220_and_h330_face/dImWM7GJqryWJO9LHa3XQ8DD5NH.jpg" alt="">
+                        <p class="my-2">The Fast</p>
+                    </div>
+                    <div class="col m-3 ">
+                        <img class="sha rounded" src="https://www.themoviedb.org/t/p/w220_and_h330_face/dImWM7GJqryWJO9LHa3XQ8DD5NH.jpg" alt="">
+                        <p class="my-2">The Fast of the Furiousksdlaskdnasdlk</p>
+                    </div>
+                    <div class="col m-3 ">
+                        <img class="sha rounded" src="https://www.themoviedb.org/t/p/w220_and_h330_face/dImWM7GJqryWJO9LHa3XQ8DD5NH.jpg" alt="">
+                        <p class="my-2">The Fast of the Furiousksdlaskdnasdlk</p>
+                    </div>
+                    <div class="col m-3 ">
+                        <img class="sha rounded" src="https://www.themoviedb.org/t/p/w220_and_h330_face/dImWM7GJqryWJO9LHa3XQ8DD5NH.jpg" alt="">
+                        <p class="my-2">The Fast of the Furiousksdlaskdnasdlk</p>
+                    </div>
+                    <div class="col m-3 ">
+                        <img class="sha rounded" src="https://www.themoviedb.org/t/p/w220_and_h330_face/dImWM7GJqryWJO9LHa3XQ8DD5NH.jpg" alt="">
+                        <p class="my-2">The Fast of the Furiousksdlaskdnasdlk</p>
+                    </div>
+                    <div class="col m-3 ">
+                        <img class="sha rounded" src="https://www.themoviedb.org/t/p/w220_and_h330_face/dImWM7GJqryWJO9LHa3XQ8DD5NH.jpg" alt="">
+                        <p class="my-2">The Fast of the Furiousksdlaskdnasdlk</p>
+                    </div>
+                    <div class="col m-3">
+                        <img class="sha rounded" src="https://www.themoviedb.org/t/p/w220_and_h330_face/dImWM7GJqryWJO9LHa3XQ8DD5NH.jpg" alt="">
+                        <p class="my-2">The Fast</p>
+                    </div>
+                    <div class="col m-3 ">
+                        <img class="sha rounded" src="https://www.themoviedb.org/t/p/w220_and_h330_face/dImWM7GJqryWJO9LHa3XQ8DD5NH.jpg" alt="">
+                        <p class="my-2">The Fast of the Furiousksdlaskdnasdlk</p>
+                    </div>
+                    <div class="col m-3 ">
+                        <img class="sha rounded" src="https://www.themoviedb.org/t/p/w220_and_h330_face/dImWM7GJqryWJO9LHa3XQ8DD5NH.jpg" alt="">
+                        <p class="my-2">The Fast of the Furiousksdlaskdnasdlk</p>
+                    </div>
+                    <div class="col m-3 ">
+                        <img class="sha rounded" src="https://www.themoviedb.org/t/p/w220_and_h330_face/dImWM7GJqryWJO9LHa3XQ8DD5NH.jpg" alt="">
+                        <p class="my-2">The Fast of the Furiousksdlaskdnasdlk</p>
+                    </div>
+                    <div class="col m-3 ">
+                        <img class="sha rounded" src="https://www.themoviedb.org/t/p/w220_and_h330_face/dImWM7GJqryWJO9LHa3XQ8DD5NH.jpg" alt="">
+                        <p class="my-2">The Fast of the Furiousksdlaskdnasdlk</p>
+                    </div>
+                    <div class="col m-3 ">
+                        <img class="sha rounded" src="https://www.themoviedb.org/t/p/w220_and_h330_face/dImWM7GJqryWJO9LHa3XQ8DD5NH.jpg" alt="">
+                        <p class="my-2">The Fast of the Furiousksdlaskdnasdlk</p>
+                    </div>
+                    
+                </div>
+            </div>
+            <!-- Pagination bottom-->
+            <nav>
+                <ul class="d-flex justify-content-center list-unstyled">
+                    <li class="p-2 mx-1 rounded-start-1 opacity-50"><a class="text-decoration-none text-e7" href=""><</a></li>
+                    <li class="p-2 mx-1 bg-e7 rounded-5"><a class="text-decoration-none text-dark" href="">1</a></li>
+                    <li class="p-2 mx-1"><a class="text-decoration-none text-e7" href="">2</a></li>
+                    <li class="p-2 mx-1"><a class="text-decoration-none text-e7" href="">3</a></li>
+                    <li class="p-2 mx-1"><a class="text-decoration-none text-e7" href="">4</a></li>
+                    <li class="p-2 mx-1  rounded-end-1"><a class="text-decoration-none text-e7" href="">></a></li>
+                </ul>
+            </nav>
+        </div>
+    </main>
+    
+    
+
+
+
+
+
+
+
+
+
+    <!-- Bootstrap Script -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <!-- General Script -->
+    <script>
+        const searchParams = new URLSearchParams(window.location.search);
+        const query = searchParams.get('search-query');
+        
+        const searchval = document.getElementById('searchQ');
+        searchval.innerHTML = query;
+
+
+    </script>
+    
+</body>
+</html>
