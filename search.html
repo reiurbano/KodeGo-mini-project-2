@@ -65,25 +65,62 @@
             </div>
             <!-- S&F Feature inside -->
             <div class="row">
-                <div class="d-flex justify-content-center">
-                    <div>
+                <div class="text-center">
+                    <div class="">
                         <div class="collapse multi-collapse" id="collapseSort">
                             <div class="">
                                 <span>
                                     Sort By: 
                                     <button class="btn bg-transparent text-white ">Popularity</button>
                                     <button class="btn bg-transparent text-white text-decoration-underline">A-Z</button>
+                                    <button class="btn bg-transparent text-white ">Z-A</button>
+                                    <button class="btn bg-transparent text-white ">Newest-Oldest</button>
+                                    <button class="btn bg-transparent text-white ">Oldest-Newest</button>
                                 </span>
                             </div>
                         </div>
                     </div>
-                    <div>
+                    
+                    <div class="">
                         <div class="collapse multi-collapse" id="collapseFilter">
                             <div class="">
-                                <span class="ms-2">
+                                <span class="">
                                     Filter By: 
-                                    <button class=" btn dropdown-toggle bg-transparent text-white">Category</button>
-                                    
+                                    <button class=" btn dropdown-toggle bg-transparent text-white" id="dropdownGenreBtn" data-bs-toggle="dropdown">Genre</button>
+                                        <ul class="dropdown-menu text-bg-dark rounded p-1">
+                                            <li>
+                                                <div class="form-check">
+                                                  <input class="form-check-input" type="checkbox" value="option1" id="checkbox1">
+                                                  <label class="form-check-label" for="checkbox1">
+                                                    Action
+                                                  </label>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="form-check">
+                                                  <input class="form-check-input" type="checkbox" value="option1" id="checkbox1">
+                                                  <label class="form-check-label" for="checkbox1">
+                                                    Horror
+                                                  </label>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="form-check">
+                                                  <input class="form-check-input" type="checkbox" value="option1" id="checkbox1">
+                                                  <label class="form-check-label" for="checkbox1">
+                                                    Romance
+                                                  </label>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="form-check">
+                                                  <input class="form-check-input" type="checkbox" value="option1" id="checkbox1">
+                                                  <label class="form-check-label" for="checkbox1">
+                                                    Drama
+                                                  </label>
+                                                </div>
+                                            </li>
+                                        </ul>
                                 </span>
                             </div>
                         </div>
