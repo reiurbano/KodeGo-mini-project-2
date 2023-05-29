@@ -35,6 +35,9 @@
         .text-e7{
             color: #E7C160;
         }
+        ::-webkit-scrollbar{
+            width: 0;
+        }
 
     </style>
 </head>
@@ -48,7 +51,7 @@
                         <div class="input-group-text form rounded-pill sha">
                             <i class="fa-solid fa-magnifying-glass"></i>
                             <input type="text" class="form-control-plaintext ps-3 search" id="searchInput" name="search-query" placeholder="Search Here...">
-                            <button class="btn bg-e" id="searchBtn"><i class="fa-solid fa-arrow-right"></i></button> 
+                            <button class="btn bg-e" id="searchBtn"><i class="fa-solid fa-arrow-right">.</i></button> 
                         </div>
                 </form>
                 </div>
@@ -56,7 +59,7 @@
             <!-- Sort & Filter Feature -->
             <div class="row my-4" id="searchContainer">
                 <div class="d-flex justify-content-around">
-                    <p><span id="totalResultCount">74</span> total result for '<span id="searchQ"></span>'</p>
+                    <p><span id="totalResultCount"></span> total result for '<span id="searchQ"></span>'</p>
                     <span>
                         <button class="btn bg-e7" data-bs-toggle="collapse" data-bs-target="#collapseSort"><i class="fa-solid fa-sort"></i></span> Sort</button>
                         <button class="btn bg-e7" data-bs-toggle="collapse" data-bs-target="#collapseFilter"><i class="fa-solid fa-filter"></i></span> Filter</button>
@@ -87,39 +90,9 @@
                                 <span class="">
                                     Filter By: 
                                     <button class=" btn dropdown-toggle bg-transparent text-white" id="dropdownGenreBtn" data-bs-toggle="dropdown">Genre</button>
-                                        <ul class="dropdown-menu text-bg-dark rounded p-1" aria-labelledby="dropdownGenreBtn">
-                                            <li>
-                                                <div class="form-check">
-                                                  <input class="form-check-input" type="checkbox" value="option1" id="checkbox1">
-                                                  <label class="form-check-label" for="checkbox1">
-                                                    Action
-                                                  </label>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="form-check">
-                                                  <input class="form-check-input" type="checkbox" value="option1" id="checkbox1">
-                                                  <label class="form-check-label" for="checkbox1">
-                                                    Horror
-                                                  </label>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="form-check">
-                                                  <input class="form-check-input" type="checkbox" value="option1" id="checkbox1">
-                                                  <label class="form-check-label" for="checkbox1">
-                                                    Romance
-                                                  </label>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="form-check">
-                                                  <input class="form-check-input" type="checkbox" value="option1" id="checkbox1">
-                                                  <label class="form-check-label" for="checkbox1">
-                                                    Drama
-                                                  </label>
-                                                </div>
-                                            </li>
+                                        <ul class="dropdown-menu text-bg-dark rounded p-1" aria-labelledby="dropdownGenreBtn" id="genreItems">
+                                            
+
                                         </ul>
                                     <button class=" btn dropdown-toggle bg-transparent text-white" id="dropdownYearBtn" data-bs-toggle="dropdown">Year</button>
                                     <ul class="dropdown-menu text-bg-dark rounded p-1" aria-labelledby="dropdownYearBtn">
@@ -166,90 +139,25 @@
             </div>
 
             <!-- Pagination top-->
-            <nav>
-                <ul class="d-flex justify-content-center list-unstyled">
-                    <li class="p-2 mx-1 rounded-start-1 opacity-50"><a class="text-decoration-none text-e7" href=""><</a></li>
-                    <li class="p-2 mx-1 bg-e7 rounded-5"><a class="text-decoration-none text-dark" href="">1</a></li>
-                    <li class="p-2 mx-1"><a class="text-decoration-none text-e7" href="">2</a></li>
-                    <li class="p-2 mx-1"><a class="text-decoration-none text-e7" href="">3</a></li>
-                    <li class="p-2 mx-1"><a class="text-decoration-none text-e7" href="">4</a></li>
-                    <li class="p-2 mx-1  rounded-end-1"><a class="text-decoration-none text-e7" href="">></a></li>
+            <nav id="tPagination">
+                <ul class="d-flex justify-content-center list-unstyled" id="tPagination-ul">
+                    
                 </ul>
             </nav>
             <!-- List Results -->
             <div class="p-3">
-                <div class="text-break d-flex flex-wrap text-center" id="resultBox">
-                    <div class="col m-3">
-                        <img class="sha rounded" src="https://www.themoviedb.org/t/p/w220_and_h330_face/dImWM7GJqryWJO9LHa3XQ8DD5NH.jpg" alt="">
-                        <p class="my-2">The Fast</p>
-                    </div>
-                    <div class="col m-3 ">
-                        <img class="sha rounded" src="https://www.themoviedb.org/t/p/w220_and_h330_face/dImWM7GJqryWJO9LHa3XQ8DD5NH.jpg" alt="">
-                        <p class="my-2">The Fast of the Furiousksdlaskdnasdlk</p>
-                    </div>
-                    <div class="col m-3 ">
-                        <img class="sha rounded" src="https://www.themoviedb.org/t/p/w220_and_h330_face/dImWM7GJqryWJO9LHa3XQ8DD5NH.jpg" alt="">
-                        <p class="my-2">The Fast of the Furiousksdlaskdnasdlk</p>
-                    </div>
-                    <div class="col m-3 ">
-                        <img class="sha rounded" src="https://www.themoviedb.org/t/p/w220_and_h330_face/dImWM7GJqryWJO9LHa3XQ8DD5NH.jpg" alt="">
-                        <p class="my-2">The Fast of the Furiousksdlaskdnasdlk</p>
-                    </div>
-                    <div class="col m-3 ">
-                        <img class="sha rounded" src="https://www.themoviedb.org/t/p/w220_and_h330_face/dImWM7GJqryWJO9LHa3XQ8DD5NH.jpg" alt="">
-                        <p class="my-2">The Fast of the Furiousksdlaskdnasdlk</p>
-                    </div>
-                    <div class="col m-3 ">
-                        <img class="sha rounded" src="https://www.themoviedb.org/t/p/w220_and_h330_face/dImWM7GJqryWJO9LHa3XQ8DD5NH.jpg" alt="">
-                        <p class="my-2">The Fast of the Furiousksdlaskdnasdlk</p>
-                    </div>
-                    <div class="col m-3">
-                        <img class="sha rounded" src="https://www.themoviedb.org/t/p/w220_and_h330_face/dImWM7GJqryWJO9LHa3XQ8DD5NH.jpg" alt="">
-                        <p class="my-2">The Fast</p>
-                    </div>
-                    <div class="col m-3 ">
-                        <img class="sha rounded" src="https://www.themoviedb.org/t/p/w220_and_h330_face/dImWM7GJqryWJO9LHa3XQ8DD5NH.jpg" alt="">
-                        <p class="my-2">The Fast of the Furiousksdlaskdnasdlk</p>
-                    </div>
-                    <div class="col m-3 ">
-                        <img class="sha rounded" src="https://www.themoviedb.org/t/p/w220_and_h330_face/dImWM7GJqryWJO9LHa3XQ8DD5NH.jpg" alt="">
-                        <p class="my-2">The Fast of the Furiousksdlaskdnasdlk</p>
-                    </div>
-                    <div class="col m-3 ">
-                        <img class="sha rounded" src="https://www.themoviedb.org/t/p/w220_and_h330_face/dImWM7GJqryWJO9LHa3XQ8DD5NH.jpg" alt="">
-                        <p class="my-2">The Fast of the Furiousksdlaskdnasdlk</p>
-                    </div>
-                    <div class="col m-3 ">
-                        <img class="sha rounded" src="https://www.themoviedb.org/t/p/w220_and_h330_face/dImWM7GJqryWJO9LHa3XQ8DD5NH.jpg" alt="">
-                        <p class="my-2">The Fast of the Furiousksdlaskdnasdlk</p>
-                    </div>
-                    <div class="col m-3 ">
-                        <img class="sha rounded" src="https://www.themoviedb.org/t/p/w220_and_h330_face/dImWM7GJqryWJO9LHa3XQ8DD5NH.jpg" alt="">
-                        <p class="my-2">The Fast of the Furiousksdlaskdnasdlk</p>
-                    </div>
-                    
-                </div>
+                <div class="text-break d-flex flex-wrap text-center" id="resultBox"></div>
             </div>
             <!-- Pagination bottom-->
-            <nav>
-                <ul class="d-flex justify-content-center list-unstyled">
-                    <li class="p-2 mx-1 rounded-start-1 opacity-50"><a class="text-decoration-none text-e7" href=""><</a></li>
-                    <li class="p-2 mx-1 bg-e7 rounded-5"><a class="text-decoration-none text-dark" href="">1</a></li>
-                    <li class="p-2 mx-1"><a class="text-decoration-none text-e7" href="">2</a></li>
-                    <li class="p-2 mx-1"><a class="text-decoration-none text-e7" href="">3</a></li>
-                    <li class="p-2 mx-1"><a class="text-decoration-none text-e7" href="">4</a></li>
-                    <li class="p-2 mx-1  rounded-end-1"><a class="text-decoration-none text-e7" href="">></a></li>
+            <nav id="bPagination">
+                <ul class="d-flex justify-content-center list-unstyled" id="bPagination-ul">
+                    
                 </ul>
             </nav>
         </div>
     </main>
     
     
-
-
-
-
-
 
 
 
@@ -264,7 +172,123 @@
         const searchval = document.getElementById('searchQ');
         searchval.innerHTML = query;
 
+        const page = 1;
 
+
+
+        const options = {
+            method: 'GET',
+            headers: {
+                accept: 'application/json',
+                Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMzJjNGZlZWViNzFhY2FiMDc4M2QyYTVhNzNjZGQ3NiIsInN1YiI6IjY0NjFmZDc2YTY3MjU0MDE2NGRlYzc3YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.BV3-59m-NcEVwdz_snr_om5eyrwF2zgIdmkHo-Wd7Ls'
+            }
+            };
+
+        const fetchSearchData =()=>{
+            fetch(`https://api.themoviedb.org/3/search/multi?query=${query}&include_adult=false&language=en-US&page=${page}`, options)
+            .then(response => response.json())
+            .then(response => {
+                const results = response.results
+                const resultBox = document.querySelector("#resultBox");
+
+                document.querySelector("#totalResultCount").innerHTML = `${response.total_results}`;
+                
+                // display results list
+                if(response.total_results){
+                    results.forEach((result)=>{
+                        resultBox.innerHTML += `
+                            <div class="col m-3">
+                                <img class="sha rounded" src="https://www.themoviedb.org/t/p/w220_and_h330_face${result.poster_path}" alt="${result.title}">
+                                <p class="my-2">${result.title}</p>
+                            </div>
+                        `;
+                        
+                    })
+                }else{
+                    resultBox.innerHTML = `<p>No Results Found</p>` 
+                }
+
+                // display pagination
+                if(response.total_pages>1){
+                    const tPaginationUl = document.querySelector("#tPagination-ul");
+                    const bPaginationUl = document.querySelector("#bPagination-ul");
+                    tPaginationUl.innerHTML += `
+                        <li class="p-2 mx-1 rounded-start-1"><a class="text-decoration-none text-e7" id="tpageidprev"><</a></li>
+                    `;
+                    bPaginationUl.innerHTML += `
+                        <li class="p-2 mx-1 rounded-start-1"><a class="text-decoration-none text-e7" id="bpageidprev"><</a></li>
+                    `;
+                    for(let x=1;x<=response.total_pages;x++){
+                        
+                        if(x==response.page){
+                            tPaginationUl.innerHTML += `
+                                <li class="p-2 mx-1 bg-e7 rounded-5" onClick={handlePage(x)}><a class="text-decoration-none text-dark" id="tpageid${x}">${x}</a></li>
+                            `;
+                            bPaginationUl.innerHTML += `
+                                <li class="p-2 mx-1 bg-e7 rounded-5" onClick={handlePage(x)}><a class="text-decoration-none text-dark" id="bpageid${x}">${x}</a></li>
+                            `;
+                        }else{
+                            tPaginationUl.innerHTML += `
+                                <li class="p-2 mx-1" onClick={handlePage(x)><a class="text-decoration-none text-e7" id="tpageid${x}">${x}</a></li>
+                            `;
+                            bPaginationUl.innerHTML += `
+                                <li class="p-2 mx-1" onClick={handlePage(x)><a class="text-decoration-none text-e7" id="bpageid${x}">${x}</a></li>
+                            `;
+                        }
+                        
+                    }
+                    tPaginationUl.innerHTML += `
+                        <li class="p-2 mx-1  rounded-end-1"><a class="text-decoration-none text-e7" id="tpageidnext">></a></li>
+                    `;
+                    bPaginationUl.innerHTML += `
+                        <li class="p-2 mx-1  rounded-end-1"><a class="text-decoration-none text-e7" id="bpageidnext">></a></li>
+                    `;
+                    const handlePage = (pagenum)=>{
+                        
+                    }
+
+                    
+                }else{     
+                    const tPagination = document.querySelector("#tPagination");
+                    const bPagination = document.querySelector("#bPagination");
+                    tPagination.style.display = "none";        
+                    bPagination.style.display = "none";           
+                }
+                
+                
+            })
+            .catch(err => console.error(err));
+        }
+
+        
+        const fetchGenreData = ()=>{
+            fetch('https://api.themoviedb.org/3/genre/movie/list?language=en', options)
+            .then(response => response.json())
+            .then(response => {
+                response=response.genres;
+                
+                // display genre list for filter feature
+                response.forEach((result)=>{
+                    document.querySelector("#genreItems").innerHTML += `
+                    <li>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value=${result.id} id="${result.name}">
+                            <label class="form-check-label" for="${result.name}">
+                                ${result.name}
+                             </label>
+                        </div>
+                    </li>
+                `
+                });
+                
+            })
+            .catch(err => console.error(err));
+        }
+
+
+        fetchSearchData();
+        fetchGenreData();
+        
     </script>
     
 </body>
