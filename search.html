@@ -75,6 +75,7 @@
                                 <span>
                                     Sort By: 
                                     <button class="btn bg-transparent text-white ">Popularity</button>
+                                    <button class="btn bg-transparent text-white ">Ratings</button>
                                     <button class="btn bg-transparent text-white text-decoration-underline">A-Z</button>
                                     <button class="btn bg-transparent text-white ">Z-A</button>
                                     <button class="btn bg-transparent text-white ">Newest-Oldest</button>
@@ -117,6 +118,14 @@
                                               <input class="form-check-input" type="checkbox" value="option1" id="checkbox1">
                                               <label class="form-check-label" for="checkbox1">
                                                 2021
+                                              </label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="form-check">
+                                              <input class="form-check-input" type="checkbox" value="option1" id="checkbox1">
+                                              <label class="form-check-label" for="checkbox1">
+                                                2020
                                               </label>
                                             </div>
                                         </li>
@@ -213,35 +222,35 @@
                     const tPaginationUl = document.querySelector("#tPagination-ul");
                     const bPaginationUl = document.querySelector("#bPagination-ul");
                     tPaginationUl.innerHTML += `
-                        <li class="p-2 mx-1 rounded-start-1"><a class="text-decoration-none text-e7" id="tpageidprev"><</a></li>
+                        <li class="p-2 mx-1 rounded-start-1"><button class="bg-transparent border-0 text-decoration-none text-e7"  id="tpageidprev"><</button></li>
                     `;
                     bPaginationUl.innerHTML += `
-                        <li class="p-2 mx-1 rounded-start-1"><a class="text-decoration-none text-e7" id="bpageidprev"><</a></li>
+                        <li class="p-2 mx-1 rounded-start-1"><button class="bg-transparent border-0 text-decoration-none text-e7" id="bpageidprev"><</button></li>
                     `;
                     for(let x=1;x<=response.total_pages;x++){
                         
                         if(x==response.page){
                             tPaginationUl.innerHTML += `
-                                <li class="p-2 mx-1 bg-e7 rounded-5" onClick={handlePage(x)}><a class="text-decoration-none text-dark" id="tpageid${x}">${x}</a></li>
+                                <li class="p-2 mx-1 bg-e7 rounded-5" ><button class="bg-transparent border-0 text-decoration-none text-dark" id="tpageid${x}">${x}</button></li>
                             `;
                             bPaginationUl.innerHTML += `
-                                <li class="p-2 mx-1 bg-e7 rounded-5" onClick={handlePage(x)}><a class="text-decoration-none text-dark" id="bpageid${x}">${x}</a></li>
+                                <li class="p-2 mx-1 bg-e7 rounded-5"><button class="bg-transparent border-0 text-decoration-none text-dark" id="bpageid${x}">${x}</button></li>
                             `;
                         }else{
                             tPaginationUl.innerHTML += `
-                                <li class="p-2 mx-1" onClick={handlePage(x)><a class="text-decoration-none text-e7" id="tpageid${x}">${x}</a></li>
+                                <li class="p-2 mx-1"><button class="bg-transparent border-0 text-decoration-none text-e7" id="tpageid${x}">${x}</button></li>
                             `;
                             bPaginationUl.innerHTML += `
-                                <li class="p-2 mx-1" onClick={handlePage(x)><a class="text-decoration-none text-e7" id="bpageid${x}">${x}</a></li>
+                                <li class="p-2 mx-1"><button class="bg-transparent border-0 text-decoration-none text-e7" id="bpageid${x}">${x}</button></li>
                             `;
                         }
                         
                     }
                     tPaginationUl.innerHTML += `
-                        <li class="p-2 mx-1  rounded-end-1"><a class="text-decoration-none text-e7" id="tpageidnext">></a></li>
+                        <li class="p-2 mx-1  rounded-end-1"><button class="bg-transparent border-0 text-decoration-none text-e7" id="tpageidnext">></button></li>
                     `;
                     bPaginationUl.innerHTML += `
-                        <li class="p-2 mx-1  rounded-end-1"><a class="text-decoration-none text-e7" id="bpageidnext">></a></li>
+                        <li class="p-2 mx-1  rounded-end-1"><button class="bg-transparent border-0 text-decoration-none text-e7" id="bpageidnext">></button></li>
                     `;
                     const handlePage = (pagenum)=>{
                         
