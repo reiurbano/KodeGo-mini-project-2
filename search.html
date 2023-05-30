@@ -181,7 +181,8 @@
         const searchval = document.getElementById('searchQ');
         searchval.innerHTML = query;
 
-        const page = 1;
+        let Fadult = false;
+        let cpage;
 
 
 
@@ -194,7 +195,7 @@
             };
 
         const fetchSearchData =()=>{
-            fetch(`https://api.themoviedb.org/3/search/multi?query=${query}&include_adult=false&language=en-US&page=${page}`, options)
+            fetch(`https://api.themoviedb.org/3/search/multi?query=${query}&include_adult=${Fadult}&language=en-US&page=1`, options)
             .then(response => response.json())
             .then(response => {
                 const results = response.results
@@ -205,14 +206,17 @@
                 // display results list
                 if(response.total_results){
                     results.forEach((result)=>{
+
+                        const imgUrl = result.poster_path ? `https://www.themoviedb.org/t/p/w220_and_h330_face${result.poster_path}`:`https://picturesofmaidenhead.files.wordpress.com/2019/01/image-not-found.jpg?w=1620`;
+
                         resultBox.innerHTML += `
-                            <div class="col m-3">
-                                <img class="sha rounded" src="https://www.themoviedb.org/t/p/w220_and_h330_face${result.poster_path}" alt="${result.title}">
+                            <div class="col m-3" >
+                                <img class="sha rounded" src=${imgUrl} width="220"px height="330"px alt="${result.title}">
                                 <p class="my-2">${result.title}</p>
                             </div>
                         `;
-                        
                     })
+                    
                 }else{
                     resultBox.innerHTML = `<p>No Results Found</p>` 
                 }
@@ -221,42 +225,40 @@
                 if(response.total_pages>1){
                     const tPaginationUl = document.querySelector("#tPagination-ul");
                     const bPaginationUl = document.querySelector("#bPagination-ul");
+                    cpage=response.page;
+
                     tPaginationUl.innerHTML += `
                         <li class="p-2 mx-1 rounded-start-1"><button class="bg-transparent border-0 text-decoration-none text-e7"  id="tpageidprev"><</button></li>
                     `;
                     bPaginationUl.innerHTML += `
                         <li class="p-2 mx-1 rounded-start-1"><button class="bg-transparent border-0 text-decoration-none text-e7" id="bpageidprev"><</button></li>
                     `;
+
                     for(let x=1;x<=response.total_pages;x++){
                         
                         if(x==response.page){
                             tPaginationUl.innerHTML += `
-                                <li class="p-2 mx-1 bg-e7 rounded-5" ><button class="bg-transparent border-0 text-decoration-none text-dark" id="tpageid${x}">${x}</button></li>
+                                <li class="p-2 mx-1 bg-e7 rounded-5" ><button onClick="handlePage(${x})"class="bg-transparent border-0 text-decoration-none text-dark" id="tpageid${x}">${x}</button></li>
                             `;
                             bPaginationUl.innerHTML += `
-                                <li class="p-2 mx-1 bg-e7 rounded-5"><button class="bg-transparent border-0 text-decoration-none text-dark" id="bpageid${x}">${x}</button></li>
+                                <li class="p-2 mx-1 bg-e7 rounded-5"><button onClick="handlePage(${x})"class="bg-transparent border-0 text-decoration-none text-dark" id="bpageid${x}">${x}</button></li>
                             `;
                         }else{
                             tPaginationUl.innerHTML += `
-                                <li class="p-2 mx-1"><button class="bg-transparent border-0 text-decoration-none text-e7" id="tpageid${x}">${x}</button></li>
+                                <li class="p-2 mx-1"><button onClick="handlePage(${x})"class="bg-transparent border-0 text-decoration-none text-e7" id="tpageid${x}">${x}</button></li>
                             `;
                             bPaginationUl.innerHTML += `
-                                <li class="p-2 mx-1"><button class="bg-transparent border-0 text-decoration-none text-e7" id="bpageid${x}">${x}</button></li>
+                                <li class="p-2 mx-1"><button onClick="handlePage(${x})"class="bg-transparent border-0 text-decoration-none text-e7" id="bpageid${x}">${x}</button></li>
                             `;
                         }
-                        
+
                     }
                     tPaginationUl.innerHTML += `
-                        <li class="p-2 mx-1  rounded-end-1"><button class="bg-transparent border-0 text-decoration-none text-e7" id="tpageidnext">></button></li>
+                        <li class="p-2 mx-1 rounded-start-1"><button class="bg-transparent border-0 text-decoration-none text-e7"  id="tpageidnext">></button></li>
                     `;
                     bPaginationUl.innerHTML += `
-                        <li class="p-2 mx-1  rounded-end-1"><button class="bg-transparent border-0 text-decoration-none text-e7" id="bpageidnext">></button></li>
+                        <li class="p-2 mx-1 rounded-start-1"><button class="bg-transparent border-0 text-decoration-none text-e7" id="bpageidnext">></button></li>
                     `;
-                    const handlePage = (pagenum)=>{
-                        
-                    }
-
-                    
                 }else{     
                     const tPagination = document.querySelector("#tPagination");
                     const bPagination = document.querySelector("#bPagination");
@@ -265,8 +267,9 @@
                 }
                 
                 
+                
             })
-            .catch(err => console.error(err));
+            .catch(err => console.error(`Fetch Data: ${err}`));
         }
 
         
@@ -293,7 +296,31 @@
             })
             .catch(err => console.error(err));
         }
+        const handlePage = (x) =>{
+            fetch(`https://api.themoviedb.org/3/search/multi?query=${query}&include_adult=${Fadult}&language=en-US&page=${x}`, options)
+            .then(response => response.json())
+            .then(response => {
+                cpage=response.page
+                const results = response.results
+                const resultBox = document.querySelector("#resultBox");
+                // delete/remove current display
+                while(resultBox.firstChild){
+                    resultBox.removeChild(resultBox.firstChild);
+                }
 
+                // display new page result
+                results.forEach((result)=>{
+                    resultBox.innerHTML += `
+                        <div class="col m-3">
+                            <img class="sha rounded" src="https://www.themoviedb.org/t/p/w220_and_h330_face${result.poster_path}" alt="${result.title}">
+                            <p class="my-2">${result.title}</p>
+                        </div>
+                    `;
+                })
+
+            })
+            .catch(err => console.error(err));
+        };
 
         fetchSearchData();
         fetchGenreData();
