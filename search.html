@@ -237,6 +237,7 @@
                     for(let x=1;x<=response.total_pages;x++){
                         
                         if(x==response.page){
+                            console.log(`x=${x} is to ${response.page}`);
                             tPaginationUl.innerHTML += `
                                 <li class="p-2 mx-1 bg-e7 rounded-5" ><button onClick="handlePage(${x})"class="bg-transparent border-0 text-decoration-none text-dark" id="tpageid${x}">${x}</button></li>
                             `;
@@ -307,16 +308,41 @@
                 while(resultBox.firstChild){
                     resultBox.removeChild(resultBox.firstChild);
                 }
-
+                console.log(`current page: ${cpage}`);
+                
                 // display new page result
                 results.forEach((result)=>{
+
+                    const imgUrl = result.poster_path ? `https://www.themoviedb.org/t/p/w220_and_h330_face${result.poster_path}`:`https://picturesofmaidenhead.files.wordpress.com/2019/01/image-not-found.jpg?w=1620`;
+
                     resultBox.innerHTML += `
-                        <div class="col m-3">
-                            <img class="sha rounded" src="https://www.themoviedb.org/t/p/w220_and_h330_face${result.poster_path}" alt="${result.title}">
+                        <div class="col m-3" >
+                            <img class="sha rounded" src=${imgUrl} width="220"px height="330"px alt="${result.title}">
                             <p class="my-2">${result.title}</p>
                         </div>
                     `;
-                })
+                    })
+                // update pagination page highlight
+                for(let x=1;x<=response.total_pages;x++){
+                        const tpageid = document.querySelector(`#tpageid${x}`);
+                            const tpageli = tpageid.parentElement;
+                            const bpageid = document.querySelector(`#bpageid${x}`);
+                            const bpageli = bpageid.parentElement;    
+                        if(x==response.page){
+                            tpageli.classList.add("bg-e7","rounded-5");
+                            tpageid.classList.add("text-dark");
+                            bpageli.classList.add("bg-e7","rounded-5");
+                            bpageid.classList.add("text-dark");
+                        }else{
+                            tpageli.classList.remove("bg-e7","rounded-5");
+                            tpageid.classList.remove("text-dark");
+                            tpageid.classList.add("text-e7");
+                            bpageli.classList.remove("bg-e7","rounded-5");
+                            bpageid.classList.remove("text-dark");
+                            bpageid.classList.add("text-e7");
+                        }
+
+                    }
 
             })
             .catch(err => console.error(err));
