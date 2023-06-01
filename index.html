@@ -181,11 +181,13 @@
 
                         const results = response.results
                         const upcoming = document.querySelector(`#${browseitem}-sectionbox`);
-
+                        console.log(results);
                         results.forEach((result) => {
                             upcoming.innerHTML += `
-                            <img  class="rounded sha s m-2" src="	https://www.themoviedb.org/t/p/w220_and_h330_face${result.poster_path}" alt="${result.title}">
-                        `;
+                            <a href="./movie.html/${result.id}">
+                                <img  class="rounded sha s m-2" src="	https://www.themoviedb.org/t/p/w220_and_h330_face${result.poster_path}" alt="${result.title}">
+                            </a>
+                            `;
                         })
                     })
                     .catch(err => console.error(err));
