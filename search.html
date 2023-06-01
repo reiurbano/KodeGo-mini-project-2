@@ -59,7 +59,7 @@
             <!-- Sort & Filter Feature -->
             <div class="row my-4" id="searchContainer">
                 <div class="d-flex justify-content-around">
-                    <p><span id="totalResultCount"></span> total result for '<span id="searchQ"></span>'</p>
+                    <p><span id="totalResultCount"></span> total result(s) for '<span id="searchQ"></span>'</p>
                     <span>
                         <button class="btn bg-e7" data-bs-toggle="collapse" data-bs-target="#collapseSort"><i class="fa-solid fa-sort"></i></span> Sort</button>
                         <button class="btn bg-e7" data-bs-toggle="collapse" data-bs-target="#collapseFilter"><i class="fa-solid fa-filter"></i></span> Filter</button>
@@ -140,6 +140,7 @@
                                     </ul>
                                     <input class="form-check-input" type="checkbox" value="option1" id="adultCheck">
                                     <label class="form-check-label text-white" for="adultCheck">Adult/R-18</label>
+                                    <button class="btn mx-2 p-1 bg-e7 rounded" id="filterApplyBtn">Apply</button>
                                 </span>
                             </div>
                         </div>
@@ -181,10 +182,12 @@
         const searchval = document.getElementById('searchQ');
         searchval.innerHTML = query;
 
-        let Fadult = false;
         let cpage;
 
-
+        // Filters
+        let Fadult = false;
+        const genres = [];
+        const year = [];
 
         const options = {
             method: 'GET',
@@ -237,7 +240,7 @@
                     for(let x=1;x<=response.total_pages;x++){
                         
                         if(x==response.page){
-                            console.log(`x=${x} is to ${response.page}`);
+
                             tPaginationUl.innerHTML += `
                                 <li class="p-2 mx-1 bg-e7 rounded-5" ><button onClick="handlePage(${x})"class="bg-transparent border-0 text-decoration-none text-dark" id="tpageid${x}">${x}</button></li>
                             `;
@@ -282,6 +285,7 @@
                 
                 // display genre list for filter feature
                 response.forEach((result)=>{
+                    genres.push(result.id);
                     document.querySelector("#genreItems").innerHTML += `
                     <li>
                         <div class="form-check">
@@ -324,7 +328,7 @@
                     })
                 // update pagination page highlight
                 for(let x=1;x<=response.total_pages;x++){
-                        const tpageid = document.querySelector(`#tpageid${x}`);
+                            const tpageid = document.querySelector(`#tpageid${x}`);
                             const tpageli = tpageid.parentElement;
                             const bpageid = document.querySelector(`#bpageid${x}`);
                             const bpageli = bpageid.parentElement;    
@@ -347,6 +351,12 @@
             })
             .catch(err => console.error(err));
         };
+        // Apply Filter Changes
+        document.querySelector("#filterApplyBtn").addEventListener(`click`,()=>{
+            
+            console.log(genres);
+            
+        });
 
         fetchSearchData();
         fetchGenreData();
