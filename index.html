@@ -170,7 +170,7 @@
 
             // });
 
-            document.querySelector("#randomBtn").addEventListener('click',()=>location.href = `./movie.html/${randomNumber}`);
+            document.querySelector("#randomBtn").addEventListener('click',()=>location.href = `./movie.html?id=${randomNumber}`);
 
             
             // display
@@ -184,7 +184,7 @@
                         console.log(results);
                         results.forEach((result) => {
                             upcoming.innerHTML += `
-                            <a href="./movie.html/${result.id}">
+                            <a href="./movie.html?id=${result.id}">
                                 <img  class="rounded sha s m-2" src="	https://www.themoviedb.org/t/p/w220_and_h330_face${result.poster_path}" alt="${result.title}">
                             </a>
                             `;
