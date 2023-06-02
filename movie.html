@@ -6,13 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movies</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <style>
-        /*Background Colors*/
-        main,
-        .width {
-            width: 100%;
+        @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
         }
 
         #nav-bar {
@@ -20,77 +23,330 @@
             color: #FFFFFF;
         }
 
-        #search-bar {
+        #search-bar,
+        .bg-yellow {
             background-color: #E7C160;
         }
 
         .bg-lightgray {
             background-color: #E1E1E1;
         }
+
+        .bg-darkgray {
+            background-color: #393939;
+        }
+
+        .input-group-text {
+            background-color: #393939;
+            color: #FFFFFF;
+        }
+
+        .nav-link {
+            color: #393939;
+        }
+
+        .nav-link:hover {
+            color: #393939;
+            background-color: #FBF6E7;
+        }
+
+        .nav-link.active {
+            color: #393939;
+            background-color: #FBF6E7;
+        }
+
+        .top-nav-links {
+            color: #FFFFFF;
+        }
+
+        .top-nav-links:visited {
+            color: #FFFFFF;
+        }
+
+        .top-nav-links:hover {
+            background-color: #5d5d5d;
+        }
+
+        .top-nav-links:active {
+            background-color: #5d5d5d;
+        }
+
+        #v-tab {
+            background-color: #E7C160;
+        }
+
+        #v-tabContent {
+            background-color: #FFFFFF;
+        }
+
+        main {
+            overflow: hidden;
+        }
+
+        .star-container {
+            clip-path: url(#myClip);
+            background-color: #393939;
+            height: 2.5rem;
+            width: 100%;
+        }
+
+        #star-main {
+            background-color: #E7C160;
+            height: 2.5rem;
+            width: 33%;
+        }
+
+        .bar-container {
+            background-color: #FFFFFF;
+            border-radius: 1rem;
+            height: 0.8rem;
+            width: 90%;
+        }
+
+        #bar-0 {
+            background-color: #E7C160;
+            border-radius: 1rem;
+            height: 0.8rem;
+            width: 33%;
+        }
+
+        #review-num {
+            font-size: 1.25rem;
+        }
+
+        @media screen and (min-width: 576px) and (max-width: 992px) {
+            .star-container {
+                width: 70%;
+            }
+        }
+
     </style>
 </head>
 
 <body>
     <main>
-        <div class="width">
-            <div class="row justify-content-center" id="nav-bar">
-                <div class="col-md-4 d-flex justify-content-evenly">
-                    <span class="p-3">Home</span>
-                    <span class="p-3">Categories</span>
-                    <span class="p-3">People</span>
-                    <span class="p-3">Calendar</span>
-                </div>
-            </div>
-            <div class="row justify-content-around align-items-center p-3" id="search-bar">
-                <div class="col-md-2 text-center">
-                    <h3>MOBEES</h3>
-                </div>
-                <div class="col-md-8">
-                    <input class="form-control border rounded-pill">
-                </div>
-            </div>
-        </div>
-        <div class="row bg-lightgray">
-            <div class="col-md-3" id="movie-poster">
-                <img>
-            </div>
-            <div class="col-md-8 m-3" id="movie-info">
-                <div id="head">
-                    <h3>Movie Title</h3>
-                    <h6>Genre & Other Important Info</h6>
-                </div>
-                <hr>
-                <div id="synopsis">
-                    <h6>Synopsis</h6>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus maiores quam asperiores?
-                        Consequatur quia velit commodi molestiae tempora consequuntur dolor! Fugiat, eaque! Commodi qui
-                        similique aut iure, repudiandae facilis temporibus.
-                    </p>
-                </div>
-                <hr>
-                <div id="cast">
-                    <h6>Cast</h6>
-                    <div></div>
-                </div>
-            </div>
-        </div>
         <div>
-            <div id="movie-media">
-
+            <ul class="nav justify-content-center" id="nav-bar">
+                <li class="nav-item">
+                    <a class="nav-link top-nav-links py-3 px-5" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link top-nav-links py-3 px-5" href="#">Categories</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link top-nav-links py-3 px-5" href="#">People</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link top-nav-links py-3 px-5" href="#">Calendar</a>
+                </li>
+            </ul>
+            <div class="row align-items-center px-5 py-2" id="search-bar">
+                <div class="col-md-2 mx-2">
+                    <h1 class="text-center my-auto">MOBEES</h1>
+                </div>
+                <div class="col-md mx-2 input-group">
+                    <span class="input-group-text rounded-start-pill">
+                        <i class="fa fa-search"></i>
+                    </span>
+                    <input class="form-control rounded-end-pill" type="text">
+                </div>
             </div>
+        </div>
+        <div class="row justify-content-center bg-lightgray p-3">
+            <div class="col-md-4 text-center mb-3" id="movie-poster">
+            </div>
+            <div class="col-md-8">
+                <div>
+                    <h3 id="title"></h3>
+                    <h6 id="genres"></h6>
+                </div>
+                <hr>
+                <div>
+                    <h6>Synopsis</h6>
+                    <p id="synopsis"></p>
+                </div>
+                <hr>
+                <div>
+                    <h6>Cast</h6>
+                    <div id="cast"></div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex bg-darkgray align-items-start py-5 px-3">
+            <div class="tab-content ms-5" id="v-tabContent">
+                <div class="tab-pane fade show active" id="v-trailers" role="tabpanel" aria-labelledby="v-trailer-tab"
+                    tabindex="0">
+                </div>
+                <div class="tab-pane fade" id="v-otherVideos" role="tabpanel" aria-labelledby="v-videos-tab"
+                    tabindex="0">
+                </div>
+                <div class="tab-pane fade" id="v-backdrops" role="tabpanel" aria-labelledby="v-backdrops-tab"
+                    tabindex="0"></div>
+                <div class="tab-pane fade" id="v-posters" role="tabpanel" aria-labelledby="v-posters-tab" tabindex="0">
+                </div>
+            </div>
+            <div class="nav flex-column me-5" id="v-tab" role="tablist" aria-orientation="vertical">
+                <button class="nav-link active" id="v-trailer-tab" data-bs-toggle="tab" data-bs-target="#v-trailer"
+                    type="button" role="tab" aria-controls="v-trailer" aria-selected="true">Trailer</button>
+                <button class="nav-link" id="v-videos-tab" data-bs-toggle="tab" data-bs-target="#v-videos" type="button"
+                    role="tab" aria-controls="v-videos" aria-selected="false">Videos</button>
+                <button class="nav-link" id="v-backdrops-tab" data-bs-toggle="tab" data-bs-target="#v-backdrops"
+                    type="button" role="tab" aria-controls="v-backdrops" aria-selected="false">Backdrops</button>
+                <button class="nav-link" id="v-posters-tab" data-bs-toggle="tab" data-bs-target="#v-posters"
+                    type="button" role="tab" aria-controls="v-posters" aria-selected="false">Posters</button>
+            </div>
+        </div>
+        <div class="bg-yellow px-5 py-3">
+            <h4 class="my-auto">Ratings & Reviews <i class="fa fa-arrow-right"></i></h4>
         </div>
         <div class="bg-lightgray">
-            <div id="ratings">
-
-            </div>
-            <div id="reviews">
-
+            <svg width="0" height="0">
+                <defs>
+                    <clipPath id="myClip" clipPathUnits="objectBoundingBox">
+                        <path
+                            d="M0.05,0 L0.062,0.382 H0.098 L0.068,0.618 L0.08,1 L0.05,0.764 L0.021,1 L0.032,0.618 L0.002,0.382 H0.039 L0.05,0 M0.151,0 L0.162,0.382 H0.199 L0.169,0.618 L0.18,1 L0.151,0.764 L0.121,1 L0.132,0.618 L0.103,0.382 H0.139 L0.151,0 M0.251,0 L0.263,0.382 H0.299 L0.269,0.618 L0.281,1 L0.251,0.764 L0.222,1 L0.233,0.618 L0.203,0.382 H0.24 L0.251,0 M0.352,0 L0.363,0.382 H0.4 L0.37,0.618 L0.381,1 L0.352,0.764 L0.322,1 L0.333,0.618 L0.304,0.382 H0.34 L0.352,0 M0.452,0 L0.463,0.382 H0.5 L0.47,0.618 L0.482,1 L0.452,0.764 L0.423,1 L0.434,0.618 L0.404,0.382 H0.441 L0.452,0 M0.553,0 L0.564,0.382 H0.6 L0.571,0.618 L0.582,1 L0.553,0.764 L0.523,1 L0.534,0.618 L0.505,0.382 H0.541 L0.553,0 M0.653,0 L0.664,0.382 H0.701 L0.671,0.618 L0.683,1 L0.653,0.764 L0.624,1 L0.635,0.618 L0.605,0.382 H0.642 L0.653,0 M0.754,0 L0.765,0.382 H0.801 L0.772,0.618 L0.783,1 L0.754,0.764 L0.724,1 L0.735,0.618 L0.706,0.382 H0.742 L0.754,0 M0.854,0 L0.865,0.382 H0.902 L0.872,0.618 L0.884,1 L0.854,0.764 L0.825,1 L0.836,0.618 L0.806,0.382 H0.843 L0.854,0 M0.955,0 L0.966,0.382 H1 L0.973,0.618 L0.984,1 L0.955,0.764 L0.925,1 L0.936,0.618 L0.907,0.382 H0.943 L0.955,0" />
+                    </clipPath>
+                </defs>
+            </svg>
+            <div class="row justify-content-center px-3" id="ratings">
+                <div class="col-lg-4 text-center" id="rating-main">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <h1 class="pe-2">4.1</h1>
+                        <div id="review-num">- 543 Reviews</div>
+                    </div>
+                    <div class="star-container mb-3 mx-auto">
+                        <div id="star-main"></div>
+                    </div>
+                </div>
+                <div class="row col-lg-8">
+                    <div class="col-sm-6">
+                        <div class="d-flex">
+                            <h5 class="m-auto">10</h5>
+                            <div class="m-auto bar-container">
+                                <div id="bar-0"></div>
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <h5 class="m-auto">9</h5>
+                            <div class="m-auto bar-container">
+                                <div id="bar-0"></div>
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <h5 class="m-auto">8</h5>
+                            <div class="m-auto bar-container">
+                                <div id="bar-0"></div>
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <h5 class="m-auto">7</h5>
+                            <div class="m-auto bar-container">
+                                <div id="bar-0"></div>
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <h5 class="m-auto">6</h5>
+                            <div class="m-auto bar-container">
+                                <div id="bar-0"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="d-flex">
+                            <h5 class="m-auto">5</h5>
+                            <div class="m-auto bar-container">
+                                <div id="bar-0"></div>
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <h5 class="m-auto">4</h5>
+                            <div class="m-auto bar-container">
+                                <div id="bar-0"></div>
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <h5 class="m-auto">3</h5>
+                            <div class="m-auto bar-container">
+                                <div id="bar-0"></div>
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <h5 class="m-auto">2</h5>
+                            <div class="m-auto bar-container">
+                                <div id="bar-0"></div>
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <h5 class="m-auto">1</h5>
+                            <div class="m-auto bar-container">
+                                <div id="bar-0"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12" id="reviews">
+                    
+                </div>
             </div>
         </div>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
-        </script>
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+    <script>
+
+        const urlParams = new URLSearchParams(window.location.search);
+        // const movieId = urlParams.get('id');
+        const movieId = '603692'
+
+
+        const options = {
+            method: 'GET',
+            headers: {
+                accept: 'application/json',
+                Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMzJjNGZlZWViNzFhY2FiMDc4M2QyYTVhNzNjZGQ3NiIsInN1YiI6IjY0NjFmZDc2YTY3MjU0MDE2NGRlYzc3YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.BV3-59m-NcEVwdz_snr_om5eyrwF2zgIdmkHo-Wd7Ls'
+            }
+        };
+
+        fetch(`https://api.themoviedb.org/3/movie/${movieId}?append_to_response=videos%2Cimages%2Creviews%2Ccredits&include_image_language=en%2Cnull&language=en-US`, options)
+            .then(response => response.json())
+            .then(response => {
+
+                const cast = response.credits.cast;
+
+                const reviews = response.reviews.results;
+
+                const backdrops = response.images.backdrops;
+                const posters = response.images.posters;
+
+                const videos = response.videos.results;
+                const trailers = videos.filter(vid => vid.type == "Trailer");
+                const otherVideos = videos.filter(vid => vid.type !== "Trailer");
+
+                const movieTitle = document.querySelector('#title');
+                const movieGenres = document.querySelector('#genres');
+                const moviePoster = document.querySelector('#movie-poster');
+                const movieSynopsis = document.querySelector('#synopsis');
+                const movieCast = document.querySelector('#cast');
+
+                movieTitle.innerHTML = response.title;
+                for (let x = 0; x < response.genres.length; x++) {
+                    x !== response.genres.length - 1 ?
+                        movieGenres.innerHTML += `${response.genres[x].name}, ` :
+                        movieGenres.innerHTML += response.genres[x].name;
+                };
+
+                moviePoster.innerHTML = `
+                    <img class="img-fluid rounded" src="https://image.tmdb.org/t/p/w342${response.poster_path}">
+                `;
+
+                movieSynopsis.innerHTML = response.overview;
+
+                console.log(response);
+            })
+            .catch(err => console.error(err));
+
+    </script>
 </body>
 
 </html>
