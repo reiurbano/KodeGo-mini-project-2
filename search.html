@@ -59,7 +59,7 @@
             <!-- Sort & Filter Feature -->
             <div class="row my-4" id="searchContainer">
                 <div class="d-flex justify-content-around">
-                    <p><span id="totalResultCount"></span> total result(s) for '<span id="searchQ"></span>'</p>
+                    <p id="browseTextResult"><span id="totalResultCount"></span> total result(s) for '<span id="searchQ"></span>'</p>
                     <span>
                         <button class="btn bg-e7" data-bs-toggle="collapse" data-bs-target="#collapseSort"><i class="fa-solid fa-sort"></i></span> Sort</button>
                         <button class="btn bg-e7" data-bs-toggle="collapse" data-bs-target="#collapseFilter"><i class="fa-solid fa-filter"></i></span> Filter</button>
@@ -74,12 +74,11 @@
                             <div class="">
                                 <span>
                                     Sort By: 
-                                    <button class="btn bg-transparent text-white ">Popularity</button>
-                                    <button class="btn bg-transparent text-white ">Ratings</button>
-                                    <button class="btn bg-transparent text-white text-decoration-underline">A-Z</button>
-                                    <button class="btn bg-transparent text-white ">Z-A</button>
-                                    <button class="btn bg-transparent text-white ">Newest-Oldest</button>
-                                    <button class="btn bg-transparent text-white ">Oldest-Newest</button>
+                                    <button class="btn bg-transparent text-white ">Popularity <i class="fa-solid fa-arrow-down-wide-short" id="popularityIcon"></i></button>
+                                    <button class="btn bg-transparent text-white ">Revenue <i class="fa-solid fa-arrow-down-wide-short" id="revenueIcon"></i></button>
+                                    <button class="btn bg-transparent text-white ">Release Date <i class="fa-solid fa-arrow-down-9-1" id="dateIcon"></i></button>
+                                    <button class="btn bg-transparent text-white ">Average Vote <i class="fa-solid fa-arrow-down-wide-short" id="averageVoteIcon"></i></button>
+                                    <button class="btn bg-transparent text-white ">Vote Count <i class="fa-solid fa-arrow-down-wide-short" id="voteCountIcon"></i></button>
                                 </span>
                             </div>
                         </div>
@@ -87,7 +86,7 @@
                     
                     <div class="">
                         <div class="collapse multi-collapse" id="collapseFilter">
-                            <div class="">
+                            <form class="">
                                 <span class="">
                                     Filter By: 
                                     <button class=" btn dropdown-toggle bg-transparent text-white" id="dropdownGenreBtn" data-bs-toggle="dropdown">Genre</button>
@@ -140,9 +139,9 @@
                                     </ul>
                                     <input class="form-check-input" type="checkbox" value="option1" id="adultCheck">
                                     <label class="form-check-label text-white" for="adultCheck">Adult/R-18</label>
-                                    <button class="btn mx-2 p-1 bg-e7 rounded" id="filterApplyBtn">Apply</button>
+                                    <button type="submit" class="btn mx-2 p-1 bg-e7 rounded" id="filterApplyBtn">Apply</button>
                                 </span>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -176,18 +175,23 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <!-- General Script -->
     <script>
-        const searchParams = new URLSearchParams(window.location.search);
-        const query = searchParams.get('search-query');
+        const params = new URLSearchParams(window.location.search);
+        const query = params.get('search-query');
+        const browse = params.get('browse');
+        const list = params.get('list');
         
+        const resultBox = document.querySelector("#resultBox");
         const searchval = document.getElementById('searchQ');
         searchval.innerHTML = query;
 
+        const browseid = ["upcoming", "popular", "now_playing", "top_rated"];
         let cpage;
 
         // Filters
         let Fadult = false;
         const genres = [];
         const year = [];
+        // Sort
 
         const options = {
             method: 'GET',
@@ -195,14 +199,14 @@
                 accept: 'application/json',
                 Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMzJjNGZlZWViNzFhY2FiMDc4M2QyYTVhNzNjZGQ3NiIsInN1YiI6IjY0NjFmZDc2YTY3MjU0MDE2NGRlYzc3YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.BV3-59m-NcEVwdz_snr_om5eyrwF2zgIdmkHo-Wd7Ls'
             }
-            };
+        };
 
         const fetchSearchData =()=>{
             fetch(`https://api.themoviedb.org/3/search/multi?query=${query}&include_adult=${Fadult}&language=en-US&page=1`, options)
             .then(response => response.json())
             .then(response => {
-                const results = response.results
-                const resultBox = document.querySelector("#resultBox");
+                const results = response.results;
+                
 
                 document.querySelector("#totalResultCount").innerHTML = `${response.total_results}`;
                 
@@ -214,8 +218,10 @@
 
                         resultBox.innerHTML += `
                             <div class="col m-3" >
-                                <img class="sha rounded" src=${imgUrl} width="220"px height="330"px alt="${result.title}">
-                                <p class="my-2">${result.title}</p>
+                                <a class="link-underline link-underline-opacity-0 text-white" href="./movie.html?id=${result.id}">
+                                    <img class="sha rounded" src=${imgUrl} width="220"px height="330"px alt="${result.title}">
+                                    <p class="my-2">${result.title}</p>
+                                </a>
                             </div>
                         `;
                     })
@@ -274,8 +280,116 @@
                 
             })
             .catch(err => console.error(`Fetch Data: ${err}`));
-        }
+        };
 
+        const fetchBrowseData = ()=>{
+            if(browseid.includes(browse)){
+                document.querySelector("#browseTextResult").innerHTML = `<h3 class="text-capitalize">${browse} Movies</h3>`;
+
+                fetch(`https://api.themoviedb.org/3/movie/${browse}`, options)
+                .then(response => response.json())
+                .then(response => {
+                    const results = response.results;
+
+                    if(browse=='upcoming'||browse=='now_playing'){
+                        const date = response.dates
+                        document.querySelector("#browseTextResult").innerHTML +=`<small>results from ${response.dates.minimum} to ${response.dates.maximum}</small>`;
+                    }
+                    
+                    // display results
+                    results.forEach((result)=>{
+
+                    const imgUrl = result.poster_path ? `https://www.themoviedb.org/t/p/w220_and_h330_face${result.poster_path}`:`https://picturesofmaidenhead.files.wordpress.com/2019/01/image-not-found.jpg?w=1620`;
+
+                    resultBox.innerHTML += `
+                        <div class="col m-3" >
+                            <a class="link-underline link-underline-opacity-0 text-white" href="./movie.html?id=${result.id}">
+                                <img class="sha rounded" src=${imgUrl} width="220"px height="330"px alt="${result.title}">
+                                <p class="my-2">${result.title}</p>
+                            </a>
+                        </div>
+                    `;
+                    });
+
+                    // display pagination
+                    if(response.total_pages>1){
+                        const tPaginationUl = document.querySelector("#tPagination-ul");
+                        const bPaginationUl = document.querySelector("#bPagination-ul");
+                        cpage=response.page;
+
+                        tPaginationUl.innerHTML += `
+                            <li class="p-2 mx-1 rounded-start-1"><button class="bg-transparent border-0 text-decoration-none text-e7"  id="tpageidprev"><</button></li>
+                        `;
+                        bPaginationUl.innerHTML += `
+                            <li class="p-2 mx-1 rounded-start-1"><button class="bg-transparent border-0 text-decoration-none text-e7" id="bpageidprev"><</button></li>
+                        `;
+
+                        for(let x=1;x<=response.total_pages;x++){
+                            
+                            if(x==response.page){
+
+                                tPaginationUl.innerHTML += `
+                                    <li class="p-2 mx-1 bg-e7 rounded-5" ><button onClick="handlePage(${x})"class="bg-transparent border-0 text-decoration-none text-dark" id="tpageid${x}">${x}</button></li>
+                                `;
+                                bPaginationUl.innerHTML += `
+                                    <li class="p-2 mx-1 bg-e7 rounded-5"><button onClick="handlePage(${x})"class="bg-transparent border-0 text-decoration-none text-dark" id="bpageid${x}">${x}</button></li>
+                                `;
+                            }else{
+                                tPaginationUl.innerHTML += `
+                                    <li class="p-2 mx-1"><button onClick="handlePage(${x})"class="bg-transparent border-0 text-decoration-none text-e7" id="tpageid${x}">${x}</button></li>
+                                `;
+                                bPaginationUl.innerHTML += `
+                                    <li class="p-2 mx-1"><button onClick="handlePage(${x})"class="bg-transparent border-0 text-decoration-none text-e7" id="bpageid${x}">${x}</button></li>
+                                `;
+                            }
+
+                        }
+                        tPaginationUl.innerHTML += `
+                            <li class="p-2 mx-1 rounded-start-1"><button class="bg-transparent border-0 text-decoration-none text-e7"  id="tpageidnext">></button></li>
+                        `;
+                        bPaginationUl.innerHTML += `
+                            <li class="p-2 mx-1 rounded-start-1"><button class="bg-transparent border-0 text-decoration-none text-e7" id="bpageidnext">></button></li>
+                        `;
+                    }else{     
+                        const tPagination = document.querySelector("#tPagination");
+                        const bPagination = document.querySelector("#bPagination");
+                        tPagination.style.display = "none";        
+                        bPagination.style.display = "none";           
+                    }
+
+                })
+                .catch(err => console.error(err));
+            }else{
+                resultBox.innerHTML=`<h1>Invalid Parameter</h1>`;
+            }
+        };
+
+        const fetchListData = ()=>{
+            document.querySelector("#browseTextResult").innerHTML = `<h3>All Movie Lists</h3>`;
+
+            fetch('https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc', options)
+            .then(response => response.json())
+            .then(response => {
+                const results = response.results;
+
+                
+                results.forEach((result)=>{
+                    
+                    const imgUrl = result.poster_path ? `https://www.themoviedb.org/t/p/w220_and_h330_face${result.poster_path}`:`https://picturesofmaidenhead.files.wordpress.com/2019/01/image-not-found.jpg?w=1620`;
+
+                    resultBox.innerHTML += `
+                        <div class="col m-3" >
+                            <a class="link-underline link-underline-opacity-0 text-white" href="./movie.html?id=${result.id}">
+                                <img class="sha rounded" src=${imgUrl} width="220"px height="330"px alt="${result.title}">
+                                <p class="my-2">${result.title}</p>
+                            </a>
+                        </div>
+                    `;
+                });
+
+            })
+            .catch(err => console.error(err));
+        };
         
         const fetchGenreData = ()=>{
             fetch('https://api.themoviedb.org/3/genre/movie/list?language=en', options)
@@ -321,8 +435,10 @@
 
                     resultBox.innerHTML += `
                         <div class="col m-3" >
-                            <img class="sha rounded" src=${imgUrl} width="220"px height="330"px alt="${result.title}">
-                            <p class="my-2">${result.title}</p>
+                            <a class="link-underline link-underline-opacity-0 text-white" href="./movie.html?id=${result.id}">
+                                <img class="sha rounded" src=${imgUrl} width="220"px height="330"px alt="${result.title}">
+                                <p class="my-2">${result.title}</p>
+                            </a>
                         </div>
                     `;
                     })
@@ -351,14 +467,29 @@
             })
             .catch(err => console.error(err));
         };
-        // Apply Filter Changes
-        document.querySelector("#filterApplyBtn").addEventListener(`click`,()=>{
-            
-            console.log(genres);
-            
-        });
 
-        fetchSearchData();
+        const handleSort = ()=> {
+
+        };
+
+        const handleFilter=()=>{
+            
+        }
+
+        if(params&&params.size===1){
+            if(params.has(`browse`)){
+                fetchBrowseData();
+            }else if(params.has(`search-query`)){
+                fetchSearchData();
+            }else if(params.has(`list`)){
+                fetchListData();
+            }
+        }else{
+            resultBox.innerHTML=`<h1>Invalid URL / Page Not Found</h1>`;
+        }
+        
+        
+
         fetchGenreData();
         
     </script>
