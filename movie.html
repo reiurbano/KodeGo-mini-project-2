@@ -93,7 +93,6 @@
         #star-main {
             background-color: #E7C160;
             height: 2.5rem;
-            width: 33%;
         }
 
         .bar-container {
@@ -103,14 +102,53 @@
             width: 90%;
         }
 
-        #bar-0 {
+        .bar {
             background-color: #E7C160;
             border-radius: 1rem;
             height: 0.8rem;
-            width: 33%;
         }
 
-        #review-num {
+        #bar-0 {
+            width: 33%
+        }
+
+        #bar-1 {
+            width: 33%
+        }
+
+        #bar-2 {
+            width: 33%
+        }
+
+        #bar-3 {
+            width: 33%
+        }
+
+        #bar-4 {
+            width: 33%
+        }
+
+        #bar-5 {
+            width: 33%
+        }
+
+        #bar-6 {
+            width: 33%
+        }
+
+        #bar-7 {
+            width: 33%
+        }
+
+        #bar-8 {
+            width: 33%
+        }
+
+        #bar-9 {
+            width: 33%
+        }
+
+        #ratings-count {
             font-size: 1.25rem;
         }
 
@@ -119,7 +157,6 @@
                 width: 70%;
             }
         }
-
     </style>
 </head>
 
@@ -173,28 +210,7 @@
             </div>
         </div>
         <div class="d-flex bg-darkgray align-items-start py-5 px-3">
-            <div class="tab-content ms-5" id="v-tabContent">
-                <div class="tab-pane fade show active" id="v-trailers" role="tabpanel" aria-labelledby="v-trailer-tab"
-                    tabindex="0">
-                </div>
-                <div class="tab-pane fade" id="v-otherVideos" role="tabpanel" aria-labelledby="v-videos-tab"
-                    tabindex="0">
-                </div>
-                <div class="tab-pane fade" id="v-backdrops" role="tabpanel" aria-labelledby="v-backdrops-tab"
-                    tabindex="0"></div>
-                <div class="tab-pane fade" id="v-posters" role="tabpanel" aria-labelledby="v-posters-tab" tabindex="0">
-                </div>
-            </div>
-            <div class="nav flex-column me-5" id="v-tab" role="tablist" aria-orientation="vertical">
-                <button class="nav-link active" id="v-trailer-tab" data-bs-toggle="tab" data-bs-target="#v-trailer"
-                    type="button" role="tab" aria-controls="v-trailer" aria-selected="true">Trailer</button>
-                <button class="nav-link" id="v-videos-tab" data-bs-toggle="tab" data-bs-target="#v-videos" type="button"
-                    role="tab" aria-controls="v-videos" aria-selected="false">Videos</button>
-                <button class="nav-link" id="v-backdrops-tab" data-bs-toggle="tab" data-bs-target="#v-backdrops"
-                    type="button" role="tab" aria-controls="v-backdrops" aria-selected="false">Backdrops</button>
-                <button class="nav-link" id="v-posters-tab" data-bs-toggle="tab" data-bs-target="#v-posters"
-                    type="button" role="tab" aria-controls="v-posters" aria-selected="false">Posters</button>
-            </div>
+
         </div>
         <div class="bg-yellow px-5 py-3">
             <h4 class="my-auto">Ratings & Reviews <i class="fa fa-arrow-right"></i></h4>
@@ -211,8 +227,10 @@
             <div class="row justify-content-center px-3" id="ratings">
                 <div class="col-lg-4 text-center" id="rating-main">
                     <div class="d-flex justify-content-center align-items-center">
-                        <h1 class="pe-2">4.1</h1>
-                        <div id="review-num">- 543 Reviews</div>
+                        <h1 id="ratings-avg" class="pe-2"></h1>
+                        <div id="ratings-count">
+                            - <span id="ratings-num"></span> Ratings
+                        </div>
                     </div>
                     <div class="star-container mb-3 mx-auto">
                         <div id="star-main"></div>
@@ -223,31 +241,31 @@
                         <div class="d-flex">
                             <h5 class="m-auto">10</h5>
                             <div class="m-auto bar-container">
-                                <div id="bar-0"></div>
+                                <div class="bar" id="bar-9"></div>
                             </div>
                         </div>
                         <div class="d-flex">
                             <h5 class="m-auto">9</h5>
                             <div class="m-auto bar-container">
-                                <div id="bar-0"></div>
+                                <div class="bar" id="bar-8"></div>
                             </div>
                         </div>
                         <div class="d-flex">
                             <h5 class="m-auto">8</h5>
                             <div class="m-auto bar-container">
-                                <div id="bar-0"></div>
+                                <div class="bar" id="bar-7"></div>
                             </div>
                         </div>
                         <div class="d-flex">
                             <h5 class="m-auto">7</h5>
                             <div class="m-auto bar-container">
-                                <div id="bar-0"></div>
+                                <div class="bar" id="bar-6"></div>
                             </div>
                         </div>
                         <div class="d-flex">
                             <h5 class="m-auto">6</h5>
                             <div class="m-auto bar-container">
-                                <div id="bar-0"></div>
+                                <div class="bar" id="bar-5"></div>
                             </div>
                         </div>
                     </div>
@@ -255,37 +273,37 @@
                         <div class="d-flex">
                             <h5 class="m-auto">5</h5>
                             <div class="m-auto bar-container">
-                                <div id="bar-0"></div>
+                                <div class="bar" id="bar-4"></div>
                             </div>
                         </div>
                         <div class="d-flex">
                             <h5 class="m-auto">4</h5>
                             <div class="m-auto bar-container">
-                                <div id="bar-0"></div>
+                                <div class="bar" id="bar-3"></div>
                             </div>
                         </div>
                         <div class="d-flex">
                             <h5 class="m-auto">3</h5>
                             <div class="m-auto bar-container">
-                                <div id="bar-0"></div>
+                                <div class="bar" id="bar-2"></div>
                             </div>
                         </div>
                         <div class="d-flex">
                             <h5 class="m-auto">2</h5>
                             <div class="m-auto bar-container">
-                                <div id="bar-0"></div>
+                                <div class="bar" id="bar-1"></div>
                             </div>
                         </div>
                         <div class="d-flex">
                             <h5 class="m-auto">1</h5>
                             <div class="m-auto bar-container">
-                                <div id="bar-0"></div>
+                                <div class="bar" id="bar-0"></div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-12" id="reviews">
-                    
+                <div class="col-lg-12">
+
                 </div>
             </div>
         </div>
@@ -299,6 +317,27 @@
         // const movieId = urlParams.get('id');
         const movieId = '603692'
 
+        function ratingsBreakdown(count, average) {
+            const ratingsTotal = Math.round(count * average);
+            let rating = ratingsTotal;
+
+            for (let y = 9; y >= 0; y--) {
+                const movieRating = document.querySelector(`#bar-${y}`);
+                const max = (rating * 0.5);
+                const min = (rating * 0.1);
+                let random, width;
+
+                if (y !== 0) {
+                    random = Math.floor((Math.random() * (max - min)) + min);
+                    width = 100 * (random / ratingsTotal);
+                } else {
+                    width = 100 * (rating / ratingsTotal);
+                }
+
+                rating -= random;
+                movieRating.style.width = `${width.toFixed(3)}%`;
+            }
+        }
 
         const options = {
             method: 'GET',
@@ -329,6 +368,21 @@
                 const movieSynopsis = document.querySelector('#synopsis');
                 const movieCast = document.querySelector('#cast');
 
+                // Ratings
+                const ratingsCount = response.vote_count;
+                const ratingsAverage = response.vote_average;
+
+                // Ratings Breakdown
+                ratingsBreakdown(ratingsCount, ratingsAverage);
+
+                // Ratings Main
+                const ratingsAvg = document.querySelector('#ratings-avg');
+                const ratingsNum = document.querySelector('#ratings-num');
+                const starMain = document.querySelector('#star-main');
+                starMain.style.width = `${ratingsAverage * 10}%`;
+                ratingsAvg.innerHTML = ratingsAverage.toFixed(1);
+                ratingsNum.innerHTML = ratingsCount;
+
                 movieTitle.innerHTML = response.title;
                 for (let x = 0; x < response.genres.length; x++) {
                     x !== response.genres.length - 1 ?
@@ -343,6 +397,7 @@
                 movieSynopsis.innerHTML = response.overview;
 
                 console.log(response);
+
             })
             .catch(err => console.error(err));
 
