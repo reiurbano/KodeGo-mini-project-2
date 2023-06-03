@@ -108,48 +108,53 @@
             height: 0.8rem;
         }
 
-        #bar-0 {
-            width: 33%
-        }
-
-        #bar-1 {
-            width: 33%
-        }
-
-        #bar-2 {
-            width: 33%
-        }
-
-        #bar-3 {
-            width: 33%
-        }
-
-        #bar-4 {
-            width: 33%
-        }
-
-        #bar-5 {
-            width: 33%
-        }
-
-        #bar-6 {
-            width: 33%
-        }
-
-        #bar-7 {
-            width: 33%
-        }
-
-        #bar-8 {
-            width: 33%
-        }
-
-        #bar-9 {
-            width: 33%
-        }
-
         #ratings-count {
             font-size: 1.25rem;
+        }
+
+        .reveiwer-container {
+            clip-path: url(#myClip);
+            background-color: #393939;
+            height: 1.25rem;
+            width: 100%;
+        }
+
+        .reveiwer-rating {
+            background-color: #E7C160;
+            height: 1.25rem;
+            width: 50%;
+        }
+
+        #reveiws {
+            overflow-x: scroll;
+        }
+
+        div> ::-webkit-scrollbar {
+            width: 0;
+        }
+
+        .reveiws {
+            overflow-y: hidden;
+            margin-left: 1rem;
+            margin-right: 1rem;
+            height: 32rem;
+        }
+
+        .avatar {
+            clip-path: circle();
+            max-height: 4.5rem;
+        }
+
+        .review-content {
+            overflow-wrap: break-word;
+        }
+
+        #star-0 {
+            width: 0%;
+        }
+
+        #star-0 {
+            width: 0%;
         }
 
         @media screen and (min-width: 576px) and (max-width: 992px) {
@@ -205,7 +210,9 @@
                 <hr>
                 <div>
                     <h6>Cast</h6>
-                    <div id="cast"></div>
+                    <div id="cast">
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -224,8 +231,8 @@
                     </clipPath>
                 </defs>
             </svg>
-            <div class="row justify-content-center px-3" id="ratings">
-                <div class="col-lg-4 text-center" id="rating-main">
+            <div class="row justify-content-center px-3 mt-3">
+                <div class="col-lg-4 text-center">
                     <div class="d-flex justify-content-center align-items-center">
                         <h1 id="ratings-avg" class="pe-2"></h1>
                         <div id="ratings-count">
@@ -302,8 +309,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-12">
-
+                <div class="d-flex col-lg-12 flex-nowrap my-5" id="reveiws">
                 </div>
             </div>
         </div>
@@ -317,6 +323,7 @@
         // const movieId = urlParams.get('id');
         const movieId = '603692'
 
+        // Ratings Breakdown
         function ratingsBreakdown(count, average) {
             const ratingsTotal = Math.round(count * average);
             let rating = ratingsTotal;
@@ -339,6 +346,37 @@
             }
         }
 
+        function addReviews(item, index) {
+            const reviewArea = document.querySelector('#reveiws');
+            const avatar = item.author_details.avatar_path;
+            const reviewRating = item.author_details.rating;
+            if (avatar !== null) {
+                result = (avatar.slice(1, 6) !== 'https') ? 
+                    `https://image.tmdb.org/t/p/w92/${avatar}` : 
+                    avatar.slice(1);
+            } else {result = ''}
+            reviewArea.innerHTML += `
+                <div class="reveiws col-3 p-3 bg-white rounded">
+                    <div class="d-flex">
+                        <div>
+                            <img class="avatar img-fluid" src="${result}">
+                        </div>
+                        <div class="flex-fill ${avatar !== null ? 'ms-2':'me-5'} mt-1">
+                            <h5>${item.author}</h5>
+                            <div class="reveiwer-container">
+                                <div class="reveiwer-rating" id="reveiwer-rating-${index}"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-content mx-3 mt-3">
+                        ${item.content}
+                    </div>
+                </div>
+            `;
+            const reviewScore = document.querySelector(`#reveiwer-rating-${index}`);
+            reviewScore.style.width = `${reviewRating}0%`;
+        }
+
         const options = {
             method: 'GET',
             headers: {
@@ -353,7 +391,7 @@
 
                 const cast = response.credits.cast;
 
-                const reviews = response.reviews.results;
+
 
                 const backdrops = response.images.backdrops;
                 const posters = response.images.posters;
@@ -362,11 +400,27 @@
                 const trailers = videos.filter(vid => vid.type == "Trailer");
                 const otherVideos = videos.filter(vid => vid.type !== "Trailer");
 
+                // Movie Poster
+                const moviePoster = document.querySelector('#movie-poster');
+                moviePoster.innerHTML = `
+                    <img class="img-fluid rounded" src="https://image.tmdb.org/t/p/w342${response.poster_path}">
+                `;
+
+                // Movie Details
                 const movieTitle = document.querySelector('#title');
                 const movieGenres = document.querySelector('#genres');
-                const moviePoster = document.querySelector('#movie-poster');
                 const movieSynopsis = document.querySelector('#synopsis');
                 const movieCast = document.querySelector('#cast');
+
+                movieTitle.innerHTML = response.title;
+
+                for (let x = 0; x < response.genres.length; x++) {
+                    x !== response.genres.length - 1 ?
+                        movieGenres.innerHTML += `${response.genres[x].name}, ` :
+                        movieGenres.innerHTML += response.genres[x].name;
+                };
+
+                movieSynopsis.innerHTML = response.overview;
 
                 // Ratings
                 const ratingsCount = response.vote_count;
@@ -383,18 +437,9 @@
                 ratingsAvg.innerHTML = ratingsAverage.toFixed(1);
                 ratingsNum.innerHTML = ratingsCount;
 
-                movieTitle.innerHTML = response.title;
-                for (let x = 0; x < response.genres.length; x++) {
-                    x !== response.genres.length - 1 ?
-                        movieGenres.innerHTML += `${response.genres[x].name}, ` :
-                        movieGenres.innerHTML += response.genres[x].name;
-                };
-
-                moviePoster.innerHTML = `
-                    <img class="img-fluid rounded" src="https://image.tmdb.org/t/p/w342${response.poster_path}">
-                `;
-
-                movieSynopsis.innerHTML = response.overview;
+                // Reviews
+                const reviews = response.reviews.results;
+                reviews.forEach(addReviews);
 
                 console.log(response);
 
