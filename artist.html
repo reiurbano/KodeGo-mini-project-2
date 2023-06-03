@@ -7,6 +7,9 @@
     <title>Artist Details</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <style>
+        body {
+            background-color: #E7C160;
+        }
         .artist-details {
             display: flex;
             flex-direction: column;
@@ -46,10 +49,13 @@
             background-color: #000;
             color: #fff;
         }
-        social-media-logos {
-        width: 30px;
-        height: 30px;
-    }
+
+        .social-media-logos{
+            width: 40px;
+            margin: 5px;
+            
+        }
+        
     </style>
 </head>
 
@@ -68,7 +74,7 @@
                 <div class="col-md-9">
                     <div id="artistInfo"></div>
                     <div class="row">
-                        <div class="col-md-10 m-4">
+                        <div class="col-md-10 mt-4 mx-4">
                             <h6>Personal Information</h6>
                             <div class="row">
                                 <div class="col-md-12 mt-4 mx-4">
@@ -86,12 +92,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-10 m-4 bg-light" id="socialmedia"></div>
+                        <div class="col-md-10" id="socialmedia"></div>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12 bg-light">
+                <div class="col-md-12">
                     <div id="biography">
                         <h4>Biography</h4>
                     </div>
@@ -124,6 +130,12 @@
                 const artistName = data.name;
                 const artistImage = `https://image.tmdb.org/t/p/w200${data.profile_path}`;
                 const artistBiography = data.biography;
+                const maxLength =300;
+                let truncatedBiography = artistBiography.substr(0,maxLength);
+
+                if (artistBiography.length > maxLength){
+                    truncatedBiography += '   ...see more';
+                }
 
                 const imageElement = document.createElement('img');
                 imageElement.src = artistImage;
@@ -134,7 +146,20 @@
                 nameElement.textContent = artistName;
 
                 const biographyElement = document.createElement('p');
-                biographyElement.textContent = artistBiography;
+                biographyElement.innerHTML = `<span id="truncatedBiography">${truncatedBiography}</span>`;
+                biographyElement.classList.add('truncated-biography');
+
+                const toggleBiography =() => {
+                    const truncatedBiographyElement = document.getElementById('truncatedBiography');
+                    if (truncatedBiographyElement.textContent === truncatedBiography){
+                        truncatedBiographyElement.textContent = artistBiography;
+                    } else {
+                        truncatedBiographyElement.textContent = truncatedBiography;
+                    }
+                };
+                biographyElement.addEventListener('click', toggleBiography);
+
+                
 
                 photoContainer.appendChild(imageElement);
                 artistInfoContainer.appendChild(nameElement);
@@ -198,6 +223,7 @@
             const logoImg = document.createElement('img');
             logoImg.src = `social-media-logos/${logo}.png`; // Replace with the actual path to your social media logos
             logoImg.alt = text;
+            logoImg.classList.add('social-media-logos');
 
             link.appendChild(logoImg);
 
