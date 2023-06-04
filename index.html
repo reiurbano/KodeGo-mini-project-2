@@ -70,12 +70,13 @@
             
             <div class="d-flex">
                 <div class="input-group justify-content-center">
-                    <div class="col-md-6 input-group-text form rounded-pill qbox">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                        <input type="text" class="form-control-plaintext ps-3" id="searchInput" placeholder="Search Here...">
-                        <button class="btn" id="searchBtn"><i class="fa-solid fa-arrow-right"></i></button>
-                        
-                    </div>
+                    <form action="search.html"  method="get" class="col-md-6">
+                        <div class="input-group-text form rounded-pill qbox">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" class="form-control-plaintext ps-3 search" id="searchInput" name="search-query" placeholder="Search Here...">
+                            <button class="btn" id="searchBtn"><i class="fa-solid fa-arrow-right"></i></button> 
+                        </div>
+                </form>
                 </div>
             </div>
             
@@ -112,28 +113,28 @@
             <div class="mb-4 " id="upcoming-section">
                 <div class="row d-flex flex-wrap">
                     <h3 class="col">Upcoming</h3>
-                    <button class="btn  btn-more col-1 rounded-pill btn-sm" onclick="window.location.href='./upcoming';">Show More</button>
+                    <button class="btn  btn-more col-1 rounded-pill btn-sm" onclick="window.location.href='./search.html?browse=upcoming';">Show More</button>
                 </div>
                 <div class="width mx-5 d-flex justify-content-between overflow-auto" id="upcoming-sectionbox"></div>
             </div>
             <div class="mb-4" id="popular-section">
                 <div class="row d-flex flex-wrap">
                     <h3 class="col">Popular</h3>
-                    <button class="btn  btn-more col-1 rounded-pill btn-sm" onclick="window.location.href='./popular';">Show More</button>
+                    <button class="btn  btn-more col-1 rounded-pill btn-sm" onclick="window.location.href='./search.html?browse=popular';">Show More</button>
                 </div>
                 <div class="width mx-5 d-flex justify-content-between overflow-auto" id="popular-sectionbox"></div>
             </div>
             <div class="mb-4" id="now_playing-section">
                 <div class="row d-flex flex-wrap">
                     <h3 class="col">New Releases</h3>
-                    <button class="btn  btn-more col-1 rounded-pill btn-sm" onclick="window.location.href='./now_playing';">Show More</button>
+                    <button class="btn  btn-more col-1 rounded-pill btn-sm" onclick="window.location.href='./search.html?browse=now_playing';">Show More</button>
                 </div>
                 <div class="width mx-5 d-flex justify-content-between overflow-auto" id="now_playing-sectionbox"></div>
             </div>
             <div class="mb-4" id="top_rated-section">
                 <div class="row d-flex flex-wrap">
                     <h3 class="col">Top Rated</h3>
-                    <button class="btn  btn-more col-1 rounded-pill btn-sm" onclick="window.location.href='./top_rated';">Show More</button>
+                    <button class="btn  btn-more col-1 rounded-pill btn-sm" onclick="window.location.href='./search.html?browse=top_rated';">Show More</button>
                 </div>
                 <div class="width mx-5 d-flex justify-content-between overflow-auto" id="top_rated-sectionbox"></div>
             </div>
@@ -163,13 +164,13 @@
                 }
             };
         
-            document.querySelector("#searchBtn").addEventListener('click',()=>{
-                const searchInputValue = document.querySelector('#searchInput').value;
-                location.href = `./search/${searchInputValue}`;
+            // document.querySelector("#searchBtn").addEventListener('click',()=>{
+            //     const searchInputValue = document.querySelector('#searchInput').value;
+            //     location.href = `./search/${searchInputValue}`;
 
-            });
+            // });
 
-            document.querySelector("#randomBtn").addEventListener('click',()=>location.href = `./movie/${randomNumber}`);
+            document.querySelector("#randomBtn").addEventListener('click',()=>location.href = `./movie.html?id=${randomNumber}`);
 
             
             // display
@@ -180,11 +181,13 @@
 
                         const results = response.results
                         const upcoming = document.querySelector(`#${browseitem}-sectionbox`);
-
+                        console.log(results);
                         results.forEach((result) => {
                             upcoming.innerHTML += `
-                            <img  class="rounded sha s m-2" src="	https://www.themoviedb.org/t/p/w220_and_h330_face${result.poster_path}" alt="${result.title}">
-                        `;
+                            <a href="./movie.html?id=${result.id}">
+                                <img  class="rounded sha s m-2" src="	https://www.themoviedb.org/t/p/w220_and_h330_face${result.poster_path}" alt="${result.title}">
+                            </a>
+                            `;
                         })
                     })
                     .catch(err => console.error(err));
