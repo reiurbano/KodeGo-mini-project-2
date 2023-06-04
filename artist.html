@@ -92,19 +92,19 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-10" id="socialmedia"></div>
+                        <div class="col-md-10 m-4" id="socialmedia"></div>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12 mt-5 mb-5">
                     <div id="biography">
                         <h4>Biography</h4>
                     </div>
                 </div>
             </div>
             <h4>Movies</h4>
-            <div class="movie-list bg-light" id="moviesContainer"></div>
+            <div class="movie-list" id="moviesContainer"></div>
         </div>
     </div>
 
@@ -176,34 +176,46 @@
                 fetch(externalIdsUrl)
                     .then(response => response.json())
                     .then(externalIdsData => {
-                        socialMediaContainer.innerHTML = ''; // Clear previous content
+                        socialMediaContainer.innerHTML = ''; 
 
-                        // Check if social media accounts exist
-                        if (externalIdsData.imdb_id) {
+                        if (externalIdsData.facebook_id) {
                             const imdbLink = createSocialMediaLink(
-                                'https://www.imdb.com/name/',
-                                'IMDb',
-                                'imdb'
+                                `https://www.facebook .com/${externalIdsData.facebook_id}`,
+                                'Facebook',
+                                'facebook',
+                                'facebookLink'
                             );
-                            socialMediaContainer.appendChild(imdbLink);
+                            socialMediaContainer.appendChild(facebookLink);
                         }
 
                         if (externalIdsData.instagram_id) {
                             const instagramLink = createSocialMediaLink(
-                                'https://www.instagram.com/',
+                                `https://www.instagram.com/${externalIdsData.instagram_id}`,
                                 'Instagram',
-                                'instagram'
+                                'instagram',
+                                'instagramLink'
                             );
                             socialMediaContainer.appendChild(instagramLink);
                         }
 
                         if (externalIdsData.twitter_id) {
                             const twitterLink = createSocialMediaLink(
-                                'https://twitter.com/',
+                                `https://twitter.com/${externalIdsData.twitter_id}`,
                                 'Twitter',
-                                'twitter'
+                                'twitter',
+                                'twitterLink'
                             );
                             socialMediaContainer.appendChild(twitterLink);
+                        }
+
+                        const instagramLinkElement = document.getElementById('instagramLink');
+                        if (instagramLinkElement && !externalIdsData.instagram_id){
+                            instagramLinkElement.style.display = 'none';
+                        }
+
+                        const twitterLinkElement = document.getElementById('twitterLink');
+                        if (twitterLinkElement && !externalIdsData.twitter_id){
+                            twitterLinkElement.style.display = 'none';
                         }
                     })
                     .catch(error => {
@@ -214,7 +226,7 @@
                 console.error('Error:', error);
             });
 
-        function createSocialMediaLink(url, text, logo) {
+        function createSocialMediaLink(url, text, logo, id) {
             const link = document.createElement('a');
             link.href = url;
             link.target = '_blank';
@@ -225,8 +237,11 @@
             logoImg.alt = text;
             logoImg.classList.add('social-media-logos');
 
-            link.appendChild(logoImg);
+            if (id) {
+                link.id = id;
+            }
 
+            link.appendChild(logoImg);
             return link;
         }
 
