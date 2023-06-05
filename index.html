@@ -63,6 +63,37 @@
     </style>
 </head>
 <body>
+    <header>
+        <nav class="navbar navbar-expand-lg ms-1" data-bs-theme="dark">
+            <div class="container-fluid">
+                <!-- <a class="navbar-brand" href="index.html"><h1 class="text-e7 fw-bolder">MOBEES</h1></a> -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item px-lg-3">
+                            <a class="nav-link active" href="./index.html">Home</a>
+                        </li>
+                        <li class="nav-item px-lg-3">
+                            <a class="nav-link active" href="./search.html?list">Movie List</a>
+                        </li>
+                        <li class="nav-item dropdown px-lg-3">
+                            <a class="nav-link active dropdown-toggle" href="" role="button" data-bs-toggle="dropdown">Categories</a>
+                              <ul class="dropdown-menu" id="categoryItems">
+                                
+                              </ul>
+                        </li>
+                        <li class="nav-item px-lg-3">
+                            <a class="nav-link active" href="./calendar.html">Calendar</a>
+                        </li>
+                    </ul>
+                    
+                    
+                </div>
+            </div>
+        </nav>
+    </header>
     <main>
         <!-- Hero Section-->
         <section class="col-md-12 py-4 d-flex flex-column" id="hero">
@@ -192,6 +223,28 @@
                     })
                     .catch(err => console.error(err));
             });
+            // get genres
+            const fetchGenreData = ()=>{
+            fetch('https://api.themoviedb.org/3/genre/movie/list', options)
+            .then(response => response.json())
+            .then(response => {
+                response=response.genres;
+                
+                // display genre list for filter feature
+                response.forEach((result)=>{
+                    //display for navbar category
+                    document.querySelector("#categoryItems").innerHTML += `
+                    <li>
+                        <a class="dropdown-item" href="./search.html?list=${result.id}">${result.name}</a>
+                    </li>
+                    `;
+                });
+                
+            })
+            .catch(err => console.error(err));
+        }
+
+        fetchGenreData();
 
     </script>
 </body>
