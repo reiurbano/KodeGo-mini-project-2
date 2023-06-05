@@ -42,6 +42,9 @@
     </style>
 </head>
 <body>
+    <header>
+
+    </header>
     <main>
         <!-- Search bar -->
         <div class="container-fluid mt-5 pt-5">          
@@ -72,13 +75,13 @@
                     <div class="">
                         <div class="collapse multi-collapse" id="collapseSort">
                             <div class="">
-                                <span>
+                                <span id="sortBtns">
                                     Sort By: 
-                                    <button class="btn bg-transparent text-white ">Popularity <i class="fa-solid fa-arrow-down-wide-short" id="popularityIcon"></i></button>
-                                    <button class="btn bg-transparent text-white ">Revenue <i class="fa-solid fa-arrow-down-wide-short" id="revenueIcon"></i></button>
-                                    <button class="btn bg-transparent text-white ">Release Date <i class="fa-solid fa-arrow-down-9-1" id="dateIcon"></i></button>
-                                    <button class="btn bg-transparent text-white ">Average Vote <i class="fa-solid fa-arrow-down-wide-short" id="averageVoteIcon"></i></button>
-                                    <button class="btn bg-transparent text-white ">Vote Count <i class="fa-solid fa-arrow-down-wide-short" id="voteCountIcon"></i></button>
+                                    <button class="btn bg-transparent text-white text-decoration-underline"id="popularity">Popularity <i class="fa-solid fa-arrow-down-wide-short" ></i></button>
+                                    <button class="btn bg-transparent text-white "id="revenue">Revenue <i class="fa-solid fa-arrow-down-wide-short" ></i></button>
+                                    <button class="btn bg-transparent text-white " id="date">Release Date <i class="fa-solid fa-arrow-down-9-1" ></i></button>
+                                    <button class="btn bg-transparent text-white "id="averageVoteIcon">Average Vote <i class="fa-solid fa-arrow-down-wide-short" ></i></button>
+                                    <button class="btn bg-transparent text-white "id="votecount">Vote Count <i class="fa-solid fa-arrow-down-wide-short" ></i></button>
                                 </span>
                             </div>
                         </div>
@@ -160,6 +163,7 @@
         const genres = [];
         const selectedYear = [];
         // Sort
+        const sortList = ['popularity.asc','popularity.desc','revenue.asc','revenue.desc','primary_release_date.asc','primary_release_date.desc','vote_average.asc','vote_average.desc','vote_count.asc','vote_count.desc'];
         let selectedSort='popularity.desc';
 
         const options = {
@@ -443,15 +447,20 @@
             .catch(err => console.error(err));
         };
 
-        const handleSort = ()=> {
-
-        };
-
         const handleFilter=()=>{
 
             const genreItems = document.querySelector("#genreItems");
-            const genreCheckbox = genreItems.querySelectorAll(".form-check-input")
+            const genreCheckbox = genreItems.querySelectorAll(".form-check-input");
             const selectedGenres = [];
+
+            const startDate = document.querySelector("#startDate");
+            const endDate = document.querySelector("#endDate");
+            const selectedStartDate = startDate.value;
+            const selectedEndDate = endDate.value;
+
+            const adultCheck = document.querySelector("#adultCheck");
+            const include_adult = adultCheck.checked? Fadult=true: false;
+            
 
             genreCheckbox.forEach((item) => {
                 if(item.checked){
@@ -459,7 +468,7 @@
                 }
             })
 
-            fetch(`https://api.themoviedb.org/3/discover/movie?sort_by=${selectedSort}&with_genres=${encodeURI(selectedGenres.join(','))}`, options)
+            fetch(`https://api.themoviedb.org/3/discover/movie?sort_by=${selectedSort}&with_genres=${encodeURI(selectedGenres.join(','))}&primary_release_date.gte=${selectedStartDate}&primary_release_date.lte=${selectedEndDate}&include_adult=${Fadult}`, options)
             .then(response => response.json())
             .then(response => {
                 cpage=response.page
@@ -501,9 +510,9 @@
             resultBox.innerHTML=`<h1>Invalid URL / Page Not Found</h1>`;
         }
         
-        
 
         fetchGenreData();
+        handleSort();
         
     </script>
     
