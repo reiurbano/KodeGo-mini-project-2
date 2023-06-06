@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artist Details</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #E7C160;
+        }
+        .artist-details {
+            display: flex;
+            flex-direction: column;
+            margin-top: 50px;
+        }
+
+        .artist-image {
+            width: 250px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 9px;
+            margin-bottom: 20px;
+        }
+
+        .movie-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .movie-card {
+            width: 200px;
+            margin: 10px;
+            text-align: center;
+        }
+
+        .movie-image {
+            width: 150px;
+            height: 200px;
+            object-fit: cover;
+            margin-bottom: 10px;
+            border-radius: 9px;
+        }
+
+        nav{
+            background-color: #393939;
+        }
+
+        .social-media-logos{
+            width: 40px;
+            margin: 5px;
+            
+        }
+        
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg ms-1" data-bs-theme="dark">
+            <div class="container-fluid">
+                <!-- <a class="navbar-brand" href="index.html"><h1 class="text-e7 fw-bolder">MOBEES</h1></a> -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item px-lg-3">
+                            <a class="nav-link active" href="./index.html">Home</a>
+                        </li>
+                        <li class="nav-item px-lg-3">
+                            <a class="nav-link active" href="./search.html?list">Movie List</a>
+                        </li>
+                        <li class="nav-item px-lg-3">
+                            <a class="nav-link active" href="./peoplepage.html">People</a>
+                        </li>
+                        <li class="nav-item dropdown px-lg-3">
+                            <a class="nav-link active dropdown-toggle" href="" role="button" data-bs-toggle="dropdown">Categories</a>
+                              <ul class="dropdown-menu" id="categoryItems">
+
+                              </ul>
+                        </li>
+                        <li class="nav-item px-lg-3">
+                            <a class="nav-link active" href="./calendar.html">Calendar</a>
+                        </li>
+                    </ul>
+
+
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <div class="artist-details">
+            <div class="row">
+                <div class="col-md-3">
+                    <div id="photo"></div>
+                </div>
+                <div class="col-md-9">
+                    <div id="artistInfo"></div>
+                    <div class="row">
+                        <div class="col-md-10 mt-4 mx-4">
+                            <h6>Personal Information</h6>
+                            <div class="row">
+                                <div class="col-md-12 mt-4 mx-4">
+                                    <h6>Occupation:<span id="occupation"></span></h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 mt-3 mx-4">
+                                    <h6>Birthday:<span id="bday"></span></h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 mt-3 mx-4">
+                                    <h6>Birthday place:<span id="bplace"></span></h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-10 m-4" id="socialmedia"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 mt-5 mb-5">
+                    <div id="biography">
+                        <h4>Biography</h4>
+                    </div>
+                </div>
+            </div>
+            <h4>Movies</h4>
+            <div class="movie-list" id="moviesContainer"></div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const artistId = urlParams.get('id');
+        const artistInfoUrl = urlParams.get('url');
+        const movieCreditsUrl = `https://api.themoviedb.org/3/person/${artistId}/movie_credits?api_key=aadadbbda0dacb0d2cb893bbad0a7d9d`;
+        const externalIdsUrl = `https://api.themoviedb.org/3/person/${artistId}/external_ids?api_key=aadadbbda0dacb0d2cb893bbad0a7d9d`;
+
+        const photoContainer = document.getElementById('photo');
+        const artistInfoContainer = document.getElementById('artistInfo');
+        const biographyContainer = document.getElementById('biography');
+        const moviesContainer = document.getElementById('moviesContainer');
+        const socialMediaContainer = document.getElementById('socialmedia');
+
+        fetch(artistInfoUrl)
+            .then(response => response.json())
+            .then(data => {
+                const artistName = data.name;
+                const artistImage = `https://image.tmdb.org/t/p/w200${data.profile_path}`;
+                const artistBiography = data.biography;
+                const maxLength =300;
+                let truncatedBiography = artistBiography.substr(0,maxLength);
+
+                if (artistBiography.length > maxLength){
+                    truncatedBiography += '   ...see more';
+                }
+
+                const imageElement = document.createElement('img');
+                imageElement.src = artistImage;
+                imageElement.alt = artistName;
+                imageElement.classList.add('artist-image');
+
+                const nameElement = document.createElement('h2');
+                nameElement.textContent = artistName;
+
+                const biographyElement = document.createElement('p');
+                biographyElement.innerHTML = `<span id="truncatedBiography">${truncatedBiography}</span>`;
+                biographyElement.classList.add('truncated-biography');
+
+                const toggleBiography =() => {
+                    const truncatedBiographyElement = document.getElementById('truncatedBiography');
+                    if (truncatedBiographyElement.textContent === truncatedBiography){
+                        truncatedBiographyElement.textContent = artistBiography;
+                    } else {
+                        truncatedBiographyElement.textContent = truncatedBiography;
+                    }
+                };
+                biographyElement.addEventListener('click', toggleBiography);
+
+                
+
+                photoContainer.appendChild(imageElement);
+                artistInfoContainer.appendChild(nameElement);
+                biographyContainer.appendChild(biographyElement);
+
+                const occupationElement = document.getElementById('occupation');
+                const birthdayElement = document.getElementById('bday');
+                const birthplaceElement = document.getElementById('bplace');
+
+                occupationElement.textContent = data.known_for_department;
+                birthdayElement.textContent = data.birthday;
+                birthplaceElement.textContent = data.place_of_birth;
+
+                fetch(externalIdsUrl)
+                    .then(response => response.json())
+                    .then(externalIdsData => {
+                        socialMediaContainer.innerHTML = ''; 
+
+                        if (externalIdsData.facebook_id) {
+                            const imdbLink = createSocialMediaLink(
+                                `https://www.facebook .com/${externalIdsData.facebook_id}`,
+                                'Facebook',
+                                'facebook',
+                                'facebookLink'
+                            );
+                            socialMediaContainer.appendChild(facebookLink);
+                        }
+
+                        if (externalIdsData.instagram_id) {
+                            const instagramLink = createSocialMediaLink(
+                                `https://www.instagram.com/${externalIdsData.instagram_id}`,
+                                'Instagram',
+                                'instagram',
+                                'instagramLink'
+                            );
+                            socialMediaContainer.appendChild(instagramLink);
+                        }
+
+                        if (externalIdsData.twitter_id) {
+                            const twitterLink = createSocialMediaLink(
+                                `https://twitter.com/${externalIdsData.twitter_id}`,
+                                'Twitter',
+                                'twitter',
+                                'twitterLink'
+                            );
+                            socialMediaContainer.appendChild(twitterLink);
+                        }
+
+                        const instagramLinkElement = document.getElementById('instagramLink');
+                        if (instagramLinkElement && !externalIdsData.instagram_id){
+                            instagramLinkElement.style.display = 'none';
+                        }
+
+                        const twitterLinkElement = document.getElementById('twitterLink');
+                        if (twitterLinkElement && !externalIdsData.twitter_id){
+                            twitterLinkElement.style.display = 'none';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+
+        function createSocialMediaLink(url, text, logo, id) {
+            const link = document.createElement('a');
+            link.href = url;
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+
+            const logoImg = document.createElement('img');
+            logoImg.src = `social-media-logos/${logo}.png`; // Replace with the actual path to your social media logos
+            logoImg.alt = text;
+            logoImg.classList.add('social-media-logos');
+
+            if (id) {
+                link.id = id;
+            }
+
+            link.appendChild(logoImg);
+            return link;
+        }
+
+        fetch(movieCreditsUrl)
+            .then(response => response.json())
+            .then(creditsData => {
+                const movieCredits = creditsData.cast;
+                const numberOfMoviesToShow = 5;
+
+                moviesContainer.innerHTML = ''; // Clear moviesContainer before adding movies
+
+                for (let i = 0; i < numberOfMoviesToShow && i < movieCredits.length; i++) {
+                    const movie = movieCredits[i];
+
+                    const movieCard = document.createElement('div');
+                    movieCard.classList.add('movie-card');
+
+                    const movieImage = document.createElement('img');
+                    movieImage.src = `https://image.tmdb.org/t/p/w200${movie.poster_path}`;
+                    movieImage.alt = movie.title;
+                    movieImage.classList.add('movie-image');
+
+                    const movieTitle = document.createElement('h6');
+                    movieTitle.textContent = movie.title;
+
+                    movieCard.appendChild(movieImage);
+                    movieCard.appendChild(movieTitle);
+
+                    movieCard.addEventListener('click', () => {
+                        const movieId = movie.id;
+                        const movieInfoUrl = `https://api.themoviedb.org/3/movie/${movieId}?api_key=aadadbbda0dacb0d2cb893bbad0a7d9d`;
+                        window.location.href = `movie.html?id=${movieId}&url=${movieInfoUrl}`;
+                    });
+
+                    moviesContainer.appendChild(movieCard);
+                }
+
+                if (movieCredits.length > numberOfMoviesToShow) {
+                    const truncatedMoviesCount = movieCredits.length - numberOfMoviesToShow;
+                    const seeMoreLink = document.createElement('a');
+                    seeMoreLink.textContent = `See More (${truncatedMoviesCount})`;
+                    seeMoreLink.href = '#';
+                    seeMoreLink.addEventListener('click', event => {
+                        event.preventDefault();
+                        showAllMovies(movieCredits);
+                    });
+
+                    moviesContainer.appendChild(seeMoreLink);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+
+        function showAllMovies(movieCredits) {
+            moviesContainer.innerHTML = ''; // Clear moviesContainer
+
+            movieCredits.forEach(movie => {
+                const movieCard = document.createElement('div');
+                movieCard.classList.add('movie-card');
+
+                const movieImage = document.createElement('img');
+                movieImage.src = `https://image.tmdb.org/t/p/w200${movie.poster_path}`;
+                movieImage.alt = movie.title;
+                movieImage.classList.add('movie-image');
+
+                const movieTitle = document.createElement('h6');
+                movieTitle.textContent = movie.title;
+
+                movieCard.appendChild(movieImage);
+                movieCard.appendChild(movieTitle);
+
+                movieCard.addEventListener('click', () => {
+                    const movieId = movie.id;
+                    const movieInfoUrl = `https://api.themoviedb.org/3/movie/${movieId}?api_key=aadadbbda0dacb0d2cb893bbad0a7d9d`;
+                    window.location.href = `movie.html?id=${movieId}&url=${movieInfoUrl}`;
+                });
+
+                moviesContainer.appendChild(movieCard);
+            });
+        }
+    </script>
+</body>
+
+</html>
