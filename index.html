@@ -140,7 +140,7 @@
         </section>
         
         <!-- Browse Section -->
-        <section class="py-4 mx-4" id="browse">
+        <section class="py-4 mx-5" id="browse">
             <div class="mx-5 my-5 d-flex" id="heroTrailer">
                 <div class="video">
                     <iframe class="sha rounded" src="https://www.youtube.com/embed/yFrxzaBLDQM?autoplay=1&mute=1&loop=1&playlist=Tnb9dUA9pIo" width="760" height="425" title="A YouTube video" frameborder="0" allowfullscreen></iframe>                </div>
@@ -163,33 +163,41 @@
                     <button class="btn btn-more" onclick="window.location.href='movie.html?id=569094'">Click Here To View More Details</button>
                 </div>
             </div>
-            <div class="mb-4 " id="upcoming-section">
+            <div class="mb-4 position-relative" id="upcoming-section">
                 <div class="row d-flex flex-wrap">
                     <h3 class="col">Upcoming</h3>
                     <button class="btn  btn-more col-1 rounded-pill btn-sm" onclick="window.location.href='./search.html?browse=upcoming';">Show More</button>
                 </div>
                 <div class="width mx-5 d-flex justify-content-between overflow-auto" id="upcoming-sectionbox"></div>
+                <button onclick="scrollDisplay(this, 'prev')" class="btn position-absolute top-50 start-0 translate-middle"><i class="fa-solid fa-circle-chevron-left fa-4x"></i></button>
+                <button onclick="scrollDisplay(this, 'next')" class="btn position-absolute top-50 start-100 translate-middle"><i class="fa-solid fa-circle-chevron-right fa-4x"></i></button> 
             </div>
-            <div class="mb-4" id="popular-section">
+            <div class="mb-4 position-relative" id="popular-section">
                 <div class="row d-flex flex-wrap">
                     <h3 class="col">Popular</h3>
                     <button class="btn  btn-more col-1 rounded-pill btn-sm" onclick="window.location.href='./search.html?browse=popular';">Show More</button>
                 </div>
                 <div class="width mx-5 d-flex justify-content-between overflow-auto" id="popular-sectionbox"></div>
+                <button onclick="scrollDisplay(this, 'prev')"  class="btn position-absolute top-50 start-0 translate-middle"><i class="fa-solid fa-circle-chevron-left fa-4x"></i></button>
+                <button onclick="scrollDisplay(this, 'next')"  class="btn position-absolute top-50 start-100 translate-middle"><i class="fa-solid fa-circle-chevron-right fa-4x"></i></button> 
             </div>
-            <div class="mb-4" id="now_playing-section">
+            <div class="mb-4 position-relative" id="now_playing-section">
                 <div class="row d-flex flex-wrap">
                     <h3 class="col">New Releases</h3>
                     <button class="btn  btn-more col-1 rounded-pill btn-sm" onclick="window.location.href='./search.html?browse=now_playing';">Show More</button>
                 </div>
                 <div class="width mx-5 d-flex justify-content-between overflow-auto" id="now_playing-sectionbox"></div>
+                <button onclick="scrollDisplay(this, 'prev')" class="btn position-absolute top-50 start-0 translate-middle"><i class="fa-solid fa-circle-chevron-left fa-4x"></i></button>
+                <button onclick="scrollDisplay(this, 'next')" class="btn position-absolute top-50 start-100 translate-middle"><i class="fa-solid fa-circle-chevron-right fa-4x"></i></button> 
             </div>
-            <div class="mb-4" id="top_rated-section">
+            <div class="mb-4 position-relative" id="top_rated-section">
                 <div class="row d-flex flex-wrap">
                     <h3 class="col">Top Rated</h3>
                     <button class="btn  btn-more col-1 rounded-pill btn-sm" onclick="window.location.href='./search.html?browse=top_rated';">Show More</button>
                 </div>
                 <div class="width mx-5 d-flex justify-content-between overflow-auto" id="top_rated-sectionbox"></div>
+                <button onclick="scrollDisplay(this, 'prev')" class="btn position-absolute top-50 start-0 translate-middle"><i class="fa-solid fa-circle-chevron-left fa-4x"></i></button>
+                <button onclick="scrollDisplay(this, 'next')" class="btn position-absolute top-50 start-100 translate-middle"><i class="fa-solid fa-circle-chevron-right fa-4x"></i></button> 
             </div>
         </section>
 
@@ -266,6 +274,18 @@
             .catch(err => console.error(err));
         }
 
+        const scrollDisplay = (button, direction) => {
+            const container = button.previousElementSibling;
+            const container2 = container.previousElementSibling;
+            const scrollAmount = container.offsetWidth;
+            const scrollAmount2 = container2.offsetWidth;
+            
+            if (direction === 'next') {
+                container2.scrollBy({ left: scrollAmount2, behavior: 'smooth' });
+            } else if (direction === 'prev') {
+                container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+            }
+        }
         fetchGenreData();
 
     </script>
