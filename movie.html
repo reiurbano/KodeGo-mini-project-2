@@ -22,6 +22,12 @@
             overflow-x: hidden;
         }
 
+        a,
+        a.visited {
+            text-decoration: none;
+            color: #393939;
+        }
+
         div> ::-webkit-scrollbar {
             width: 0;
         }
@@ -46,17 +52,20 @@
 
         /* Movie Details */
 
+        #poster {
+            box-shadow: 0rem 0.25rem 0.5rem -0.125rem #393939;
+        }
+
         #cast {
             overflow-x: scroll;
         }
 
         .cast {
             background-color: #FFFFFF;
-            overflow-y: hidden;
             position: relative;
+            box-shadow: 0rem 0.25rem 0.5rem -0.125rem #393939;
             border-radius: 1.5rem 1.5rem 0rem 0rem;
-            min-width: 13.75rem;
-            min-height: 20.625rem;
+            min-width: 11.5625rem;
             margin-right: 1rem;
             margin-left: 1rem;
         }
@@ -66,8 +75,118 @@
             background-repeat: no-repeat;
             background-size: cover;
             border-radius: 1.5rem 1.5rem 0rem 0rem;
-            height: 17.1875rem;
+            height: 13.5625rem;
         }
+
+        /* Multimedia */
+
+        #media-flex {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			align-items: center;
+			margin: auto;
+			background-color: #FFFFFF;
+			box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+			overflow: hidden;
+			flex-direction: column;
+			position: relative;
+            width: 100%;
+			min-height: 400px;
+			height: 110vh;
+			max-width: 1000px;
+		}
+
+        #left-zone {
+            background-color: #E7C160;
+            display: flex;
+            flex: 0 0 auto;
+			height: 100%;
+			width: 100%;
+            max-width: 12rem;
+		}
+
+		#left-zone .media-list {
+			display: flex;
+			list-style: none;
+			align-content: stretch;
+			flex-direction: column;
+			flex: 1 1 auto;
+			margin: auto;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		.media-tab input {
+			display: none;
+		}
+
+		label {
+			display: block;
+			opacity: 0.5;
+			height: 50px;
+			text-align: center;
+			line-height: 50px;
+			position: relative;
+		}
+
+		label:hover {
+			opacity: 0.75;
+			cursor: pointer;
+		}
+
+		.media-content {
+			position: absolute;
+			right: 0;
+			bottom: 0;
+			opacity: 0;
+			transform: translateY(100%);
+			height: 50%;
+			width: 100%;
+			transition: 0.5s ease-out;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-direction: column;
+			pointer-events: none;
+		}
+
+		.media-content p {
+			max-width: 50%;
+			text-align: center;
+		}
+
+		#right-zone {
+            flex: 1 0 auto;
+            height: 50%;
+			width: 100%;
+		}
+
+		input:checked~.media-content {
+			transform: translateY(0%);
+			-webkit-transition: -webkit-transform 1s;
+			transition: -webkit-transform 1s;
+			-o-transition: transform 1s;
+			transition: transform 1s;
+			transition: transform 1s, -webkit-transform 1s;
+			opacity: 1;
+		}
+
+		input:checked~label {
+			opacity: 1;
+            font-weight: bold;
+			animation: all 1s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+		}
+
+		input:checked~label.media-label {
+			border-right: solid 4px #5d5d5d;
+		}
+
+		.media-label:hover {
+			font-size: 1.2rem;
+            background-image: linear-gradient(to right, #FFFFFF, #E7C160);
+			transition: font-size 0.5s;
+		}
 
         /* Movie Reviews */
 
@@ -79,7 +198,7 @@
             background-color: #393939;
             clip-path: url(#starClip);
             height: 2.5rem;
-            width: 100%;
+            width: 25rem;
         }
 
         #star-main {
@@ -107,6 +226,8 @@
         .reveiws {
             background-color: #FFFFFF;
             overflow-y: hidden;
+            position: relative;
+            box-shadow: 0rem 0.25rem 0.5rem -0.125rem #393939;
             height: 30.9375rem;
             width: 20.625rem;
             margin-right: 1rem;
@@ -122,7 +243,7 @@
             background-color: #393939;
             clip-path: url(#starClip);
             height: 1.25rem;
-            width: 100%;
+            width: 12.5rem;
         }
 
         .reveiwer-rating {
@@ -135,68 +256,110 @@
         }
 
         /* Media Queries */
-
-        @media screen and (min-width: 576px) and (max-width: 992px) {
+        @media screen and (min-width: 992px) and (max-width: 1200px) {
             #star-container {
-                width: 70%;
+                height: 2rem;
+                width: 20rem;
             }
         }
+
+        @media (min-width: 480px) {
+			#media-flex {
+				-webkit-box-orient: horizontal;
+				-webkit-box-direction: normal;
+				-ms-flex-direction: row;
+				flex-direction: row;
+				min-height: auto;
+				height: 400px;
+				/* position: absolute; */
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+			}
+
+			#left-zone .media-list {
+				border-right: 2px solid #cccccc;
+			}
+
+			.media-content {
+				width: 65%;
+				height: 100%;
+				pointer-events: auto;
+				-webkit-transform: translateY(-100%);
+				-ms-transform: translateY(-100%);
+				transform: translateY(-100%);
+			}
+
+			#left-zone {
+				width: 35%;
+			}
+
+			#right-zone {
+				height: 100%;
+				width: 65%;
+			}
+		}
     </style>
 </head>
 
 <body>
+    <!-- Navbar -->
     <main>
-        <!-- <div>
-            <ul class="nav justify-content-center" id="nav-bar">
-                <li class="nav-item">
-                    <a class="nav-link top-nav-links py-3 px-5" href="index.html">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link top-nav-links py-3 px-5" href="#">Categories</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link top-nav-links py-3 px-5" href="#">People</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link top-nav-links py-3 px-5" href="#">Calendar</a>
-                </li>
-            </ul>
-            <div class="row bg-yellow align-items-center px-5 py-2" id="search-bar">
-                <div class="col-md-2 mx-2">
-                    <h1 class="text-center my-auto">MOBEES</h1>
-                </div>
-                <div class="col-md mx-2 input-group">
-                    <span class="input-group-text rounded-start-pill">
-                        <i class="fa fa-search"></i>
-                    </span>
-                    <input class="form-control rounded-end-pill" type="text">
-                </div>
-            </div>
-        </div> -->
         <!-- Movie Details -->
         <section class="bg-lightgray row justify-content-center p-3">
-            <div class="col-md-4 text-center mb-3" id="movie-poster">
+            <div class="col-lg-5 text-center mb-3" id="movie-poster">
             </div>
-            <div class="col-md-8">
+            <div class="col-lg-7 d-flex flex-column justify-content-evenly">
                 <div>
-                    <h3 id="title"></h3>
+                    <h3 class="fw-bold" id="title"></h3>
                     <h6 id="genres"></h6>
                 </div>
-                <hr>
                 <div>
-                    <h6>Synopsis</h6>
-                    <p id="synopsis"></p>
+                    <hr>
+                    <h6 class="fw-bold">Synopsis</h6>
                 </div>
-                <hr>
+                <p id="synopsis"></p>
                 <div>
-                    <h6>Cast</h6>
-                    <div class="d-flex" id="cast"></div>
+                    <hr>
+                    <h6 class="fw-bold">Cast</h6>
                 </div>
+                <div class="d-flex" id="cast"></div>
             </div>
         </section>
         <!-- Multimedia -->
-        <section class="bg-darkgray align-items-start py-5 px-3">
-
+        <section class="bg-darkgray py-5 px-3">
+            <div class="rounded" id="media-flex">
+                <div id="left-zone">
+                    <ul class="media-list">
+                        <li class="media-tab">
+                            <input type="radio" id="radio-media-0" name="media-group" checked="checked" />
+                            <label class="media-label" id="media-label-0" for="radio-media-0">Trailer</label>
+                            <div class="media-content" id="media-content-0">
+                            </div>
+                        </li>
+                        <li class="media-tab">
+                            <input type="radio" id="radio-media-1" name="media-group"/>
+                            <label class="media-label" id="media-label-1" for="radio-media-1">Videos</label>
+                            <div class="media-content" id="media-content-1">
+                            </div>
+                        </li>
+                        <li class="media-tab">
+                            <input type="radio" id="radio-media-2" name="media-group"/>
+                            <label class="media-label" id="media-label-2" for="radio-media-2">Backdrops</label>
+                            <div class="media-content" id="media-content-2">
+                            </div>
+                        </li>
+                        <li class="media-tab">
+                            <input type="radio" id="radio-media-3" name="media-group"/>
+                            <label class="media-label" id="media-label-3" for="radio-media-3">Posters</label>
+                            <div class="media-content" id="media-content-3">
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div id="right-zone"></div>
+            </div>
         </section>
         <!-- Review Area -->
         <div class="bg-yellow px-5 py-3">
@@ -226,70 +389,8 @@
                     </div>
                 </div>
                 <div class="row col-lg-8">
-                    <div class="col-sm-6">
-                        <div class="d-flex">
-                            <h5 class="m-auto">10</h5>
-                            <div class="bar-container m-auto">
-                                <div class="bar w-0" id="bar-9"></div>
-                            </div>
-                        </div>
-                        <div class="d-flex">
-                            <h5 class="m-auto">9</h5>
-                            <div class="bar-container m-auto">
-                                <div class="bar w-0" id="bar-8"></div>
-                            </div>
-                        </div>
-                        <div class="d-flex">
-                            <h5 class="m-auto">8</h5>
-                            <div class="bar-container m-auto">
-                                <div class="bar w-0" id="bar-7"></div>
-                            </div>
-                        </div>
-                        <div class="d-flex">
-                            <h5 class="m-auto">7</h5>
-                            <div class="bar-container m-auto">
-                                <div class="bar w-0" id="bar-6"></div>
-                            </div>
-                        </div>
-                        <div class="d-flex">
-                            <h5 class="m-auto">6</h5>
-                            <div class="bar-container m-auto">
-                                <div class="bar w-0" id="bar-5"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="d-flex">
-                            <h5 class="m-auto">5</h5>
-                            <div class="bar-container m-auto">
-                                <div class="bar w-0" id="bar-4"></div>
-                            </div>
-                        </div>
-                        <div class="d-flex">
-                            <h5 class="m-auto">4</h5>
-                            <div class="bar-container m-auto">
-                                <div class="bar w-0" id="bar-3"></div>
-                            </div>
-                        </div>
-                        <div class="d-flex">
-                            <h5 class="m-auto">3</h5>
-                            <div class="bar-container m-auto">
-                                <div class="bar w-0" id="bar-2"></div>
-                            </div>
-                        </div>
-                        <div class="d-flex">
-                            <h5 class="m-auto">2</h5>
-                            <div class="bar-container m-auto">
-                                <div class="bar w-0" id="bar-1"></div>
-                            </div>
-                        </div>
-                        <div class="d-flex">
-                            <h5 class="m-auto">1</h5>
-                            <div class="bar-container m-auto">
-                                <div class="bar w-0" id="bar-0"></div>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="col-sm-6" id="ratings-1"></div>
+                    <div class="col-sm-6" id="ratings-2"></div>
                 </div>
                 <div class="col-lg-12 d-flex my-5" id="reveiws">
                 </div>
@@ -304,26 +405,67 @@
         const urlParams = new URLSearchParams(window.location.search);
         const movieId = urlParams.get('id');
 
+        // Poster Display
+
+        // Ratings Display
+        function displayRatings(i) {
+            for (let x = 10; x > 0; x--) {
+                (x > 5) ? i = 1 : i = 2;
+                document.querySelector(`#ratings-${i}`).innerHTML += `
+                    <div class="d-flex">
+                        <h5 class="m-auto">${x}</h5>
+                        <div class="bar-container m-auto">
+                            <div class="bar w-0" id="bar-${x - 1}"></div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        displayRatings(0);
+
         // Ratings Breakdown
-        function ratingsBreakdown(count, average) {
-            const ratingsTotal = Math.round(count * average);
-            let rating = ratingsTotal;
+        function ratingsBreakdown(count, avg, initial) {
+            const arr = [];
+            let votes = count;
+            let total = Math.round(count * avg);
 
-            for (let y = 9; y >= 0; y--) {
-                const movieRating = document.querySelector(`#bar-${y}`);
-                let random, width, res;
+            initial.forEach((num) => {
+                arr.push(num);
+                total -= num;
+                votes--;
+            })
 
-                if (y !== 0) {
-                    random = Math.random() * rating;
-                    res = Math.round(random / (y + 1)) * (y + 1);
-                    width = 100 * (res / ratingsTotal);
-                } else {
-                    width = 100 * (rating / ratingsTotal);
+            for (let y = 0; y < count; y++) {
+                let x = Math.floor((Math.random() * 10) + 1);
+                for (let z = 10; z > 0; z--) {
+                    if ((total / x) < votes && x > 0) {
+                        x--;
+                    } else if ((total % x) !== 0 && x < 10) {
+                        x++;
+                    }
                 }
+                votes--;
+                total -= x;
+                arr.push(x);
+            }
 
-                rating -= res;
+            for (let i = 9; i >= 0; i--) {
+                const movieRating = document.querySelector(`#bar-${i}`);
+                let counter = 0;
+                arr.forEach((num) => {
+                    if (num == (i + 1)) {
+                        counter++;
+                    }
+                });
+                width = 100 * (counter / count);
                 movieRating.style.width = `${width.toFixed(3)}%`;
             }
+        }
+
+        // Get Ratings
+        function getRatings(item) {
+            return item.author_details.rating;
         }
 
         // Cast Display
@@ -333,10 +475,10 @@
                 <div class="cast">
                     <div class="cast-img" style="background-image:url('https://image.tmdb.org/t/p/w185${item.profile_path}')">
                     </div>
-                    <div>
-                        <a href="#" class="stretched-link">
-                            <h5>${item.name}</h5>
-                            <p>${item.character}</p>
+                    <div class="cast-role mt-3 mb-1">
+                        <a href="#" class="stretched-link text-center">
+                            <h6 class="fw-bold">${item.name}</h6>
+                            <p><small>${item.character}</small></p>
                         </a>
                     </div>
                 </div>
@@ -375,23 +517,7 @@
             reviewScore.style.width = `${reviewRating}0%`;
         }
 
-        // Test
-        /* 
-        # generate a random array of 98 numbers
-        numbers = [random.random() for _ in range(98)]
-        print(numbers) 
-        # [0.2378205280188267, 0.08942239291741982, ...]
-        print(sum(numbers))
-        # 48.8051742287
-
-        # normalise the array to sum to 1
-        normalised = [r / sum(numbers) for r in numbers]
-        print(normalised) 
-        # [0.004872854810521523, 0.0018322318141581963, ...]
-        print(sum(normalised)) 
-        # 1.0 
-        */
-
+        // API
         const options = {
             method: 'GET',
             headers: {
@@ -407,7 +533,7 @@
                 // Movie Poster
                 const moviePoster = document.querySelector('#movie-poster');
                 moviePoster.innerHTML = `
-                    <img class="img-fluid rounded" src="https://image.tmdb.org/t/p/w342${response.poster_path}">
+                    <img class="img-fluid rounded" id="poster" src="https://image.tmdb.org/t/p/w500${response.poster_path}">
                 `;
 
                 // Movie Details
@@ -439,11 +565,13 @@
                 const otherVideos = videos.filter(vid => vid.type !== "Trailer");
 
                 // Ratings
+                const reviews = response.reviews.results;
                 const ratingsCount = response.vote_count;
                 const ratingsAverage = response.vote_average;
 
                 // Ratings Breakdown
-                ratingsBreakdown(ratingsCount, ratingsAverage);
+                const reviewRatings = reviews.map(getRatings);
+                ratingsBreakdown(ratingsCount, ratingsAverage, reviewRatings);
 
                 // Ratings Main
                 const ratingsAvg = document.querySelector('#ratings-avg');
@@ -454,7 +582,6 @@
                 ratingsNum.innerHTML = ratingsCount;
 
                 // Reviews
-                const reviews = response.reviews.results;
                 reviews.forEach(addReviews);
 
                 console.log(response);
