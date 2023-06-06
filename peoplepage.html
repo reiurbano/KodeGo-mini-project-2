@@ -7,6 +7,15 @@
     <title>Artists</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+        * {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .artist{
+            margin-left: 65px;
+        }
         .artist-card {
             width: 200px;
             margin: 17px;
@@ -28,11 +37,18 @@
         }
 
         .searchbox {
-            margin-left: 750px;
+            margin-left: 590px;
         }
 
         body {
             background-color: #E7C160;
+            
+        }
+        .text-e7{
+            color: #E7C160;
+        }
+        .navbar-nav .nav-link {
+            color: white;
         }
     </style>
 </head>
@@ -41,7 +57,7 @@
     <header>
         <nav class="navbar navbar-expand-lg ms-1" data-bs-theme="dark">
             <div class="container-fluid">
-                <!-- <a class="navbar-brand" href="index.html"><h1 class="text-e7 fw-bolder">MOBEES</h1></a> -->
+                <a class="navbar-brand" href="index.html"><h1 class="text-e7 fw-bolder">MOBEES</h1></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -59,15 +75,15 @@
                         <li class="nav-item dropdown px-lg-3">
                             <a class="nav-link active dropdown-toggle" href="" role="button" data-bs-toggle="dropdown">Categories</a>
                               <ul class="dropdown-menu" id="categoryItems">
-
+                                
                               </ul>
                         </li>
                         <li class="nav-item px-lg-3">
                             <a class="nav-link active" href="./calendar.html">Calendar</a>
                         </li>
                     </ul>
-
-
+                    
+                    
                 </div>
             </div>
         </nav>
@@ -77,15 +93,15 @@
         <div class="row">
             <div class="col d-block">
                 <form class="form-inline" id="searchForm">
-                    <h4 class="title"> Artists</h4>
+                    <h4 class="artist fw-bold"> Artists</h4>
                     <div class="form-group mb-2 searchbox">
-                        <input type="text" class="form-control" id="searchBox" placeholder="Search by artist name">
+                        <input type="text" class="form-control mt-2" id="searchBox" placeholder="Search by artist name">
                     </div>
-                    <button type="submit" class="btn btn-primary ml-2">Search</button>
+                    <button type="submit" class="btn btn-light ml-2">Search</button>
                 </form>
             </div>
         </div>
-        <div class="row mt-3 m-5 " id="artistsContainer"></div>
+        <div class="row mt-3 m-5" id="artistsContainer"></div>
         <div class="row justify-content-center mt-4">
             <button class="btn btn-secondary mx-2" id="prevButton" disabled>Previous</button>
             <button class="btn btn-secondary mx-2" id="nextButton" disabled>Next</button>
