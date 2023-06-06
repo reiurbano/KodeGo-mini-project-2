@@ -103,6 +103,12 @@
         #occupation, #bday, #bplace {
              margin-left: 10px;
         }
+        .biography-card, .movies-card {
+            padding: 40px;
+            background-color: #E7C160;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+           
+        }
        
         
         
@@ -180,14 +186,13 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-11 mt-5 mb-5">
-                    <div id="biography">
-                        <h4>Biography</h4>
-                    </div>
+                <div class="card biography-card col-md-11 mt-5 mb-5">
+                    <h4 class="mb-3">Biography</h4>
+                    <div id="biography"></div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-11 mt-5 mb-5">
+                <div class="card movies-card col-md-11 mt-5 mb-5">
                     <h4>Movies</h4>
                     <div class="movie-list" id="moviesContainer"></div>
                 </div>
