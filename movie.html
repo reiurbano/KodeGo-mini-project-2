@@ -448,13 +448,16 @@
 
         // Cast Display
         function addCast(item) {
+            const apiKey = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMzJjNGZlZWViNzFhY2FiMDc4M2QyYTVhNzNjZGQ3NiIsInN1YiI6IjY0NjFmZDc2YTY3MjU0MDE2NGRlYzc3YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.BV3-59m-NcEVwdz_snr_om5eyrwF2zgIdmkHo-Wd7Ls';
             const castArea = document.querySelector('#cast');
+            const artistId = item.id;
+            const artistInfoUrl = `https://api.themoviedb.org/3/person/${artistId}?api_key=${apiKey}`;
             castArea.innerHTML += `
                 <div class="cast">
                     <div class="cast-img" style="background-image:url('https://image.tmdb.org/t/p/w185${item.profile_path}')">
                     </div>
                     <div class="cast-role mt-3 mb-1">
-                        <a href="#" class="stretched-link text-center">
+                        <a href="artist.html?id=${artistId}&url=${artistInfoUrl}" class="stretched-link text-center">
                             <h6 class="fw-bold">${item.name}</h6>
                             <p><small>${item.character}</small></p>
                         </a>
@@ -680,6 +683,24 @@
             })
             .catch(err => console.error(err));
 
+        // Get Genres
+        const fetchGenreData = () => {
+            fetch('https://api.themoviedb.org/3/genre/movie/list', options)
+                .then(response => response.json())
+                .then(response => {
+                    response = response.genres;
+                    response.forEach((result) => {
+                        //dNavbar Category Display
+                        document.querySelector("#categoryItems").innerHTML += `
+                            <li>
+                                <a class="dropdown-item" href="./search.html?list=${result.id}">${result.name}</a>
+                            </li>
+                        `;
+                    });
+                })
+        }
+
+        fetchGenreData();
     </script>
 </body>
 
