@@ -19,12 +19,13 @@
             color: #E7C160;
         }
         body {
-            background-color: #E7C160;
+            background-color: #626262;
+            /* background-color: #E7C160; */
         }
         .artist-details {
             display: flex;
             flex-direction: column;
-            margin-top: 50px;
+            margin-top: 40px;
         }
 
         .artist-image {
@@ -34,20 +35,18 @@
             border-radius: 9px;
         }
         .card-photo {
-            width: 300px;
+            width: 280px;
             margin-top: 20px;
             border-radius: 10px;
-            background-color: #E7C160;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease;
+
         }
         .artist-card {
             margin-top: 20px;
-            margin-left: 10px;
             background-color: #E7C160;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease;
-           
+            transition: transform 0.3s ease; 
+    
         }
 
         .movie-list {
@@ -57,18 +56,19 @@
             padding: 10px;
             margin-bottom: 20px;
             scrollbar-width: thin;
-            scrollbar-color: #393939 #E7C160;
+            scrollbar-color: #E7C160;
             font-size: 12px;
         }
         .movie-list::-webkit-scrollbar{
             width: 8px;
         }
         .movie-list::-webkit-scrollbar-track{
-            background: #e2cf9e;
+            background: #E7C160;
+            border-radius: 10px;
         }
         .movie-list::-webkit-scrollbar-thumb{
             background: #393939;
-            border-radius: 4px;
+            border-radius: 10px;
         }
 
         .movie-card {
@@ -84,7 +84,7 @@
             border-radius: 9px;
         }
 
-        nav{
+        header{
             background-color: #393939;
         }
         .navbar-nav .nav-link {
@@ -96,20 +96,33 @@
             margin: 5px;
             
         }
-        .personal-info-box{
-            margin-left: 30px;
-            margin-top: 60px;
-        }
         #occupation, #bday, #bplace {
              margin-left: 10px;
         }
         .biography-card, .movies-card {
             padding: 40px;
-            background-color: #E7C160;
+            background-color: #D9D9D9;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
            
         }
-       
+        .movies-card {
+            padding: 40px;
+            /* background-color: #E7C160;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); */
+            color: white;
+            background-color: rgb(27, 25, 25);
+           
+        }
+        .main-container {
+            padding: 40px;
+            /* background-color: #393939; */
+           background-image:  linear-gradient(#E7C160, #393939);
+        }
+       .photo-info-container  {
+            background-color: #E7C160;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            border-radius: 9px;
+       }
         
         
         
@@ -151,50 +164,52 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container main-container mt-5">
         <div class="artist-details">
-            <div class="container bg-primary"></div>
-            <div class="row mb-5">
-                <div class="col-md-3">
-                    <div class="card-photo">
-                        <div id="photo"></div>
+            <div class="container"></div>
+            <div class="row">
+                
+                    <div class="col-md-3 col-sm-12 ml-2 mb-5 ">
+                        <div class="card-photo">
+                            <div id="photo"></div>
+                        </div>
                     </div>
-                </div>
-                <div class="card artist-card col-md-8">
-                <div class=" personal-info-box">
-                    <div class="row">
-                        <div class="col-md-10 col-sm-12 mt-4 mx-5">
+                    <div class="card artist-card col-md-9 mr-3 mb-5 d-flex justify-content-center"> 
+                        <div class=" personal-info-box d-flex justify-content-center">
+                            <div class="row">
+                                <div class="col-md-9 col-sm-12 mt-4 mx-5">
                             <div id="artistInfo" class="fw-bold"></div>
                             <div class="row">
                                 <div class="col-md-12 mt-4 mx-4">
-                                    <h6>Occupation:<span id="occupation"></span></h6>
+                                    <h6><span class="fw-bold">Occupation:</span><span id="occupation"></span></h6>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12 mt-3 mx-4">
-                                    <h6>Birthday:<span id="bday"></span></h6>
+                                    <h6><span class="fw-bold">Birthday:</span><span id="bday"></span></h6>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12 mt-3 mx-4">
-                                    <h6>Birthday place:<span id="bplace"></span></h6>
+                                    <h6><span class="fw-bold">Birthday place:</span><span id="bplace"></span></h6>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-10 col-sm-12 m-4" id="socialmedia"></div>
                     </div>
                     </div>
+                
                 </div>
                 </div>
             </div>
             <div class="row">
-                <div class="card biography-card col-md-11 mt-5 mb-5">
+                <div class="card biography-card col-md-12 mt-5 mb-5">
                     <h4 class="mb-3">Biography</h4>
                     <div id="biography"></div>
                 </div>
             </div>
             <div class="row">
-                <div class="card movies-card col-md-11 mt-5 mb-5">
+                <div class="card movies-card col-md-12 mt-5 mb-5">
                     <h4>Movies</h4>
                     <div class="movie-list" id="moviesContainer"></div>
                 </div>
@@ -275,16 +290,6 @@
                     .then(response => response.json())
                     .then(externalIdsData => {
                         socialMediaContainer.innerHTML = ''; 
-
-                        if (externalIdsData.facebook_id) {
-                            const imdbLink = createSocialMediaLink(
-                                `https://www.facebook .com/${externalIdsData.facebook_id}`,
-                                'Facebook',
-                                'facebook',
-                                'facebookLink'
-                            );
-                            socialMediaContainer.appendChild(facebookLink);
-                        }
 
                         if (externalIdsData.instagram_id) {
                             const instagramLink = createSocialMediaLink(
