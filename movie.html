@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movies</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
@@ -80,113 +81,41 @@
 
         /* Multimedia */
 
-        #media-flex {
-			display: flex;
-			flex-wrap: wrap;
-			justify-content: center;
-			align-items: center;
-			margin: auto;
-			background-color: #FFFFFF;
-			box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-			overflow: hidden;
-			flex-direction: column;
-			position: relative;
-            width: 100%;
-			min-height: 400px;
-			height: 110vh;
-			max-width: 1000px;
-		}
-
-        #left-zone {
+        #media-select {
             background-color: #E7C160;
-            display: flex;
-            flex: 0 0 auto;
-			height: 100%;
-			width: 100%;
-            max-width: 12rem;
-		}
+            border-radius: 1rem 0 0 1rem;
+            padding-right: 0;
+        }
 
-		#left-zone .media-list {
-			display: flex;
-			list-style: none;
-			align-content: stretch;
-			flex-direction: column;
-			flex: 1 1 auto;
-			margin: auto;
-			padding: 0;
-			box-sizing: border-box;
-		}
+        #media-pane {
+            background-color: #FFFFFF;
+            border-radius: 0 1rem 1rem 0;
+            overflow-x: scroll;
+            padding-top: 1.25rem;
+        }
 
-		.media-tab input {
-			display: none;
-		}
-
-		label {
-			display: block;
-			opacity: 0.5;
-			height: 50px;
-			text-align: center;
-			line-height: 50px;
-			position: relative;
-		}
-
-		label:hover {
-			opacity: 0.75;
-			cursor: pointer;
-		}
-
-		.media-content {
-			position: absolute;
-			right: 0;
-			bottom: 0;
-			opacity: 0;
-			transform: translateY(100%);
-			height: 50%;
-			width: 100%;
-			transition: 0.5s ease-out;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			flex-direction: column;
-			pointer-events: none;
-		}
-
-		.media-content p {
-			max-width: 50%;
-			text-align: center;
-		}
-
-		#right-zone {
-            flex: 1 0 auto;
-            height: 50%;
-			width: 100%;
-		}
-
-		input:checked~.media-content {
-			transform: translateY(0%);
-			-webkit-transition: -webkit-transform 1s;
-			transition: -webkit-transform 1s;
-			-o-transition: transform 1s;
-			transition: transform 1s;
-			transition: transform 1s, -webkit-transform 1s;
-			opacity: 1;
-		}
-
-		input:checked~label {
-			opacity: 1;
+        .media-tab:hover {
+            background-image: linear-gradient(to right, #E7C160, #fbf6e7);
+            border-right: solid #393939;
+            cursor: pointer;
             font-weight: bold;
-			animation: all 1s cubic-bezier(0.455, 0.03, 0.515, 0.955);
-		}
+            font-size: 1.25rem;
+            transition: font-size 0.5s;
+        }
 
-		input:checked~label.media-label {
-			border-right: solid 4px #5d5d5d;
-		}
+        .media-content {
+            display: none;
+        }
 
-		.media-label:hover {
-			font-size: 1.2rem;
-            background-image: linear-gradient(to right, #FFFFFF, #E7C160);
-			transition: font-size 0.5s;
-		}
+        .checked {
+            display: block;
+        }
+
+        .checked-tab {
+            background-image: linear-gradient(to right, #E7C160, #fbf6e7);
+            border-right: solid #393939;
+            font-weight: bold;
+        }
 
         /* Movie Reviews */
 
@@ -225,9 +154,9 @@
 
         .reveiws {
             background-color: #FFFFFF;
+            box-shadow: 0rem 0.25rem 0.5rem -0.125rem #393939;
             overflow-y: hidden;
             position: relative;
-            box-shadow: 0rem 0.25rem 0.5rem -0.125rem #393939;
             height: 30.9375rem;
             width: 20.625rem;
             margin-right: 1rem;
@@ -255,6 +184,42 @@
             overflow-wrap: break-word;
         }
 
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #FFFFFF;
+            margin: 5% auto;
+            border: 0.1rem solid #5d5d5d;
+            height: 80%;
+            width: 80%;
+        }
+
+        .close {
+            color: #393939;
+            float: right;
+            font-size: 1.75rem;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
         /* Media Queries */
         @media screen and (min-width: 992px) and (max-width: 1200px) {
             #star-container {
@@ -263,43 +228,25 @@
             }
         }
 
-        @media (min-width: 480px) {
-			#media-flex {
-				-webkit-box-orient: horizontal;
-				-webkit-box-direction: normal;
-				-ms-flex-direction: row;
-				flex-direction: row;
-				min-height: auto;
-				height: 400px;
-				/* position: absolute; */
-				top: 0;
-				bottom: 0;
-				left: 0;
-				right: 0;
-			}
+        @media screen and (max-width: 576px) {
+            #media-select {
+                border-radius: 1rem 1rem 0 0;
+                padding-bottom: 0;
+                padding-top: 1rem;
+                padding-left: 0;
+            }
 
-			#left-zone .media-list {
-				border-right: 2px solid #cccccc;
-			}
+            #media-pane {
+                border-radius: 0 0 1rem 1rem;
+            }
 
-			.media-content {
-				width: 65%;
-				height: 100%;
-				pointer-events: auto;
-				-webkit-transform: translateY(-100%);
-				-ms-transform: translateY(-100%);
-				transform: translateY(-100%);
-			}
-
-			#left-zone {
-				width: 35%;
-			}
-
-			#right-zone {
-				height: 100%;
-				width: 65%;
-			}
-		}
+            .media-tab:hover,
+            .checked-tab {
+                background-image: linear-gradient(#E7C160, #fbf6e7);
+                border-bottom: solid #393939;
+                border-right: none;
+            }
+        }
     </style>
 </head>
 
@@ -329,38 +276,29 @@
         </section>
         <!-- Multimedia -->
         <section class="bg-darkgray py-5 px-3">
-            <div class="rounded" id="media-flex">
-                <div id="left-zone">
-                    <ul class="media-list">
-                        <li class="media-tab">
-                            <input type="radio" id="radio-media-0" name="media-group" checked="checked" />
-                            <label class="media-label" id="media-label-0" for="radio-media-0">Trailer</label>
-                            <div class="media-content" id="media-content-0">
-                            </div>
-                        </li>
-                        <li class="media-tab">
-                            <input type="radio" id="radio-media-1" name="media-group"/>
-                            <label class="media-label" id="media-label-1" for="radio-media-1">Videos</label>
-                            <div class="media-content" id="media-content-1">
-                            </div>
-                        </li>
-                        <li class="media-tab">
-                            <input type="radio" id="radio-media-2" name="media-group"/>
-                            <label class="media-label" id="media-label-2" for="radio-media-2">Backdrops</label>
-                            <div class="media-content" id="media-content-2">
-                            </div>
-                        </li>
-                        <li class="media-tab">
-                            <input type="radio" id="radio-media-3" name="media-group"/>
-                            <label class="media-label" id="media-label-3" for="radio-media-3">Posters</label>
-                            <div class="media-content" id="media-content-3">
-                            </div>
-                        </li>
-                    </ul>
+            <div class="row col-11 mx-auto">
+                <div class="col-sm-3 d-flex flex-column justify-content-center" id="media-select">
+                    <div class="text-center py-2 media-tab checked-tab" id="media-tab-1">Trailer</div>
+                    <div class="text-center py-2 media-tab" id="media-tab-2">Videos</div>
+                    <div class="text-center py-2 media-tab" id="media-tab-3">Backdrops</div>
+                    <div class="text-center py-2 media-tab" id="media-tab-4">Posters</div>
                 </div>
-                <div id="right-zone"></div>
+                <div class="col-sm" id="media-pane">
+                    <div class="media-content text-center checked" id="media-content-1"></div>
+                    <div class="media-content" id="media-content-2"></div>
+                    <div class="media-content" id="media-content-3"></div>
+                    <div class="media-content" id="media-content-4"></div>
+                </div>
             </div>
         </section>
+        <div id="modals">
+            <div class="modal" id="video-modal">
+                <div class="modal-content ratio ratio-16x9">
+                    <span class="close">&times;</span>
+                    <iframe id="modal-video"></iframe>
+                </div>
+            </div>
+        </div>
         <!-- Review Area -->
         <div class="bg-yellow px-5 py-3">
             <h4 class="my-auto">Ratings & Reviews
@@ -405,7 +343,73 @@
         const urlParams = new URLSearchParams(window.location.search);
         const movieId = urlParams.get('id');
 
-        // Poster Display
+        // Video Modal
+
+        function videoModal(key) {
+            const modal = document.querySelector('#video-modal');
+            const video = document.querySelector('#modal-video');
+            video.setAttribute('src', `https://www.youtube.com/embed/${key}`);
+            const close = document.querySelectorAll('.close');
+            close.forEach((item) => {
+                item.addEventListener("click", () => {
+                    modal.style.display = "none";
+                })
+            })
+            window.onclick = function (event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+            modal.style.display = "block";
+        }
+
+        // Movie Poster
+        function getPoster(poster) {
+            const moviePoster = document.querySelector('#movie-poster');
+            if (poster.poster_path !== null) {
+                moviePoster.innerHTML = `
+                    <img class="img-fluid rounded" id="poster" src="https://image.tmdb.org/t/p/w500${poster.poster_path}">
+                `;
+            } else { moviePoster.innerHTML = '<div>Image not found</div>' }
+        }
+
+        // Display Media
+
+        function toggleDisplay() {
+            const mediaAllContent = document.querySelectorAll('.media-content');
+            const mediaAllTabs = document.querySelectorAll('.media-tab');
+            for (let x = 1; x <= 4; x++) {
+                const mediaTab = document.querySelector(`#media-tab-${x}`);
+                const mediaContent = document.querySelector(`#media-content-${x}`);
+                mediaTab.addEventListener("click", () => {
+                    mediaAllContent.forEach((item) => {
+                        item.classList.remove('checked');
+                    })
+                    mediaAllTabs.forEach((item) => {
+                        item.classList.remove('checked-tab');
+                    })
+                    mediaContent.classList.add('checked');
+                    mediaTab.classList.add('checked-tab');
+                })
+            }
+        }
+
+        toggleDisplay();
+
+        // Trailer Display
+        function movieTrailer(item) {
+            const trailerArea = document.querySelector('#media-content-1');
+            const trailer = item.find((ele) => {
+                return ele.type == 'Trailer';
+            })
+            if (trailer !== undefined) {
+                trailerArea.innerHTML = `
+                    <img class="img-fluid rounded" id="trailer" src="https://img.youtube.com/vi/${trailer.key}/0.jpg">
+                `;
+            }
+            const trailerImg = document.querySelector('#trailer');
+            trailerImg.addEventListener("click", function() { videoModal(trailer.key); });
+        }
 
         // Ratings Display
         function displayRatings(i) {
@@ -530,13 +534,9 @@
             .then(response => response.json())
             .then(response => {
 
-                // Movie Poster
-                const moviePoster = document.querySelector('#movie-poster');
-                moviePoster.innerHTML = `
-                    <img class="img-fluid rounded" id="poster" src="https://image.tmdb.org/t/p/w500${response.poster_path}">
-                `;
-
                 // Movie Details
+                getPoster(response);
+
                 const movieTitle = document.querySelector('#title');
                 const movieGenres = document.querySelector('#genres');
                 const movieSynopsis = document.querySelector('#synopsis');
@@ -563,6 +563,8 @@
                 const videos = response.videos.results;
                 const trailers = videos.filter(vid => vid.type == "Trailer");
                 const otherVideos = videos.filter(vid => vid.type !== "Trailer");
+
+                movieTrailer(trailers);
 
                 // Ratings
                 const reviews = response.reviews.results;
