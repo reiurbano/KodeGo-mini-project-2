@@ -5,22 +5,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Artists</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+        * {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .artist{
+            margin-left: 65px;
+        }
         .artist-card {
             width: 200px;
             margin: 17px;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+        .artist-card:hover {
+            transform: translateY(-5px);
         }
 
         .artist-card img {
-            width: 150px;
-            height: 200px;
+            width: 100%;
+            height: 80%;
             object-fit: cover;
             margin: 0px;
             margin-bottom: 10px;
             border-radius: 9px;
+            margin-top: 10px;
         }
 
         nav{
@@ -30,9 +46,19 @@
         .searchbox {
             margin-left: 750px;
         }
+        .search-button{
+            margin-left: 5px;
+        }
 
         body {
             background-color: #E7C160;
+            
+        }
+        .text-e7{
+            color: #E7C160;
+        }
+        .navbar-nav .nav-link {
+            color: white;
         }
     </style>
 </head>
@@ -41,7 +67,7 @@
     <header>
         <nav class="navbar navbar-expand-lg ms-1" data-bs-theme="dark">
             <div class="container-fluid">
-                <!-- <a class="navbar-brand" href="index.html"><h1 class="text-e7 fw-bolder">MOBEES</h1></a> -->
+                <a class="navbar-brand" href="index.html"><h1 class="text-e7 fw-bolder">MOBEES</h1></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -59,15 +85,15 @@
                         <li class="nav-item dropdown px-lg-3">
                             <a class="nav-link active dropdown-toggle" href="" role="button" data-bs-toggle="dropdown">Categories</a>
                               <ul class="dropdown-menu" id="categoryItems">
-
+                                
                               </ul>
                         </li>
                         <li class="nav-item px-lg-3">
                             <a class="nav-link active" href="./calendar.html">Calendar</a>
                         </li>
                     </ul>
-
-
+                    
+                    
                 </div>
             </div>
         </nav>
@@ -77,138 +103,141 @@
         <div class="row">
             <div class="col d-block">
                 <form class="form-inline" id="searchForm">
-                    <h4 class="title"> Artists</h4>
-                    <div class="form-group mb-2 searchbox">
-                        <input type="text" class="form-control" id="searchBox" placeholder="Search by artist name">
+                    <div class="d-flex align-items-center">
+                        <h4 class="artist fw-bold">Artists</h4>
+                        <div class="form-group mb-2 searchbox">
+                            <input type="text" class="form-control mt-2" id="searchBox" placeholder="Search by artist name">
+                        </div>
+                        <button type="submit" class="btn btn-light search-button">Search</button>
                     </div>
-                    <button type="submit" class="btn btn-primary ml-2">Search</button>
                 </form>
             </div>
         </div>
-        <div class="row mt-3 m-5 " id="artistsContainer"></div>
+        <div class="row mt-3 m-5" id="artistsContainer"></div>
         <div class="row justify-content-center mt-4">
-            <button class="btn btn-secondary mx-2" id="prevButton" disabled>Previous</button>
-            <button class="btn btn-secondary mx-2" id="nextButton" disabled>Next</button>
+            <div class="d-flex justify-content-center">
+                <button class="btn btn-secondary mx-2" id="prevButton" disabled>Previous</button>
+                <button class="btn btn-secondary mx-2" id="nextButton" disabled>Next</button>
+            </div>
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-<script>
-    const apiKey = 'aadadbbda0dacb0d2cb893bbad0a7d9d';
-    const apiUrl = 'https://api.themoviedb.org/3/person/popular?api_key=' + apiKey;
-    const artistsContainer = document.getElementById('artistsContainer');
-    const searchForm = document.getElementById('searchForm');
-    const searchBox = document.getElementById('searchBox');
-    const prevButton = document.getElementById('prevButton');
-    const nextButton = document.getElementById('nextButton');
-    let currentPage = 1;
-    let currentQuery = '';
-    let allArtists = [];
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const apiKey = 'aadadbbda0dacb0d2cb893bbad0a7d9d';
+        const apiUrl = 'https://api.themoviedb.org/3/person/popular?api_key=' + apiKey;
+        const artistsContainer = document.getElementById('artistsContainer');
+        const searchForm = document.getElementById('searchForm');
+        const searchBox = document.getElementById('searchBox');
+        const prevButton = document.getElementById('prevButton');
+        const nextButton = document.getElementById('nextButton');
+        let currentPage = 1;
+        let currentQuery = '';
+        let allArtists = [];
 
-    function filterArtists(query) {
-        if (query === '') {
-            return allArtists;
-        } else {
-            return allArtists.filter(artist => artist.name.toLowerCase().includes(query.toLowerCase()));
-        }
-    }
-
-    function displayArtists(artists) {
-        artistsContainer.innerHTML = '';
-
-        if (artists.length === 0) {
-            const artistNotFoundMessage = document.createElement('p');
-            artistNotFoundMessage.textContent = 'Artist not found.';
-            artistsContainer.appendChild(artistNotFoundMessage);
-        } else {
-            let row = document.createElement('div');
-            row.classList.add('row');
-
-            artists.forEach((artist, index) => {
-                const artistCard = document.createElement('div');
-                artistCard.classList.add('col-md-2', 'artist-card');
-
-                const profileImage = document.createElement('img');
-                profileImage.src = `https://image.tmdb.org/t/p/w200${artist.profile_path}`;
-                profileImage.alt = artist.name;
-
-                const artistName = document.createElement('p');
-                artistName.textContent = artist.name;
-                artistName.classList.add('artist-name');
-
-                artistCard.appendChild(profileImage);
-                artistCard.appendChild(artistName);
-
-                artistCard.addEventListener('click', () => {
-                    const artistId = artist.id;
-                    const artistInfoUrl = `https://api.themoviedb.org/3/person/${artistId}?api_key=${apiKey}`;
-                    window.location.href = `artist.html?id=${artistId}&url=${artistInfoUrl}`;
-                });
-
-                row.appendChild(artistCard);
-
-                if ((index + 1) % 5 === 0) {
-                    artistsContainer.appendChild(row);
-                    row = document.createElement('div');
-                    row.classList.add('row');
-                }
-            });
-
-            if (row.childNodes.length > 0) {
-                artistsContainer.appendChild(row);
+        function filterArtists(query) {
+            if (query === '') {
+                return allArtists;
+            } else {
+                return allArtists.filter(artist => artist.name.toLowerCase().includes(query.toLowerCase()));
             }
         }
-    }
 
-    function fetchArtists(page = 1, query = '') {
-        let url = `${apiUrl}&page=${page}`;
+        function displayArtists(artists) {
+            artistsContainer.innerHTML = '';
 
-        fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                const artists = data.results;
-                allArtists = artists;
+            if (artists.length === 0) {
+                const artistNotFoundMessage = document.createElement('p');
+                artistNotFoundMessage.textContent = 'Artist not found.';
+                artistsContainer.appendChild(artistNotFoundMessage);
+            } else {
+                let row = document.createElement('div');
+                row.classList.add('row');
 
-                const filteredArtists = filterArtists(query);
-                displayArtists(filteredArtists);
+                artists.forEach((artist, index) => {
+                    const artistCard = document.createElement('div');
+                    artistCard.classList.add('col-md-2', 'artist-card');
 
-                prevButton.disabled = data.page === 1;
-                nextButton.disabled = data.page === data.total_pages;
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    }
+                    const profileImage = document.createElement('img');
+                    profileImage.src = `https://image.tmdb.org/t/p/w200${artist.profile_path}`;
+                    profileImage.alt = artist.name;
 
-    searchForm.addEventListener('submit', (event) => {
-        event.preventDefault();
-        const query = searchBox.value.trim();
-        currentQuery = query;
-        currentPage = 1;
-        fetchArtists(currentPage, currentQuery);
-    });
+                    const artistName = document.createElement('p');
+                    artistName.textContent = artist.name;
+                    artistName.classList.add('artist-name');
 
-    prevButton.addEventListener('click', () => {
-        currentPage--;
-        fetchArtists(currentPage, currentQuery);
-    });
+                    artistCard.appendChild(profileImage);
+                    artistCard.appendChild(artistName);
 
-    nextButton.addEventListener('click', () => {
-        currentPage++;
-        fetchArtists(currentPage, currentQuery);
-    });
+                    artistCard.addEventListener('click', () => {
+                        const artistId = artist.id;
+                        const artistInfoUrl = `https://api.themoviedb.org/3/person/${artistId}?api_key=${apiKey}`;
+                        window.location.href = `artist.html?id=${artistId}&url=${artistInfoUrl}`;
+                    });
 
-    searchBox.addEventListener('input', () => {
-        const query = searchBox.value.trim();
-        currentQuery = query;
-        currentPage = 1;
-        fetchArtists(currentPage, currentQuery);
-    });
+                    row.appendChild(artistCard);
 
-    fetchArtists();
-</script>
+                    if ((index + 1) % 5 === 0) {
+                        artistsContainer.appendChild(row);
+                        row = document.createElement('div');
+                        row.classList.add('row');
+                    }
+                });
+
+                if (row.childNodes.length > 0) {
+                    artistsContainer.appendChild(row);
+                }
+            }
+        }
+
+        function fetchArtists(page = 1, query = '') {
+            let url = `${apiUrl}&page=${page}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    const artists = data.results;
+                    allArtists = artists;
+
+                    const filteredArtists = filterArtists(query);
+                    displayArtists(filteredArtists);
+
+                    prevButton.disabled = data.page === 1;
+                    nextButton.disabled = data.page === data.total_pages;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        searchForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const query = searchBox.value.trim();
+            currentQuery = query;
+            currentPage = 1;
+            fetchArtists(currentPage, currentQuery);
+        });
+
+        prevButton.addEventListener('click', () => {
+            currentPage--;
+            fetchArtists(currentPage, currentQuery);
+        });
+
+        nextButton.addEventListener('click', () => {
+            currentPage++;
+            fetchArtists(currentPage, currentQuery);
+        });
+
+        searchBox.addEventListener('input', () => {
+            const query = searchBox.value.trim();
+            currentQuery = query;
+            currentPage = 1;
+            fetchArtists(currentPage, currentQuery);
+        });
+
+        fetchArtists();
+    </script>
 
 </body>
 
