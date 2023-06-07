@@ -55,6 +55,25 @@
             background-color: #5d5d5d;
         }
 
+        /* Search Bar */
+
+        #search-bar {
+            background-color: #E7C160;
+        }
+
+        .input-group-text {
+            background-color: #393939;
+        }
+
+        .input-group-text> i {
+            color: #FFFFFF;
+        }
+
+        #search-btn {
+            background-color: #393939;
+            color: #FFFFFF;
+        }
+
         /* Movie Details */
 
         #poster {
@@ -98,6 +117,10 @@
             padding-top: 1.25rem;
         }
 
+        .media-tab {
+            font-size: 1.25rem;
+        }
+
         .media-tab:hover {
             background-image: linear-gradient(to right, #E7C160, #fbf6e7);
             border-right: solid #393939;
@@ -123,7 +146,10 @@
             font-weight: bold;
         }
 
-        .vid {
+        .vid,
+        .trailers,
+        .bd,
+        .ps {
             margin-right: 1rem;
         }
 
@@ -245,7 +271,7 @@
             }
         }
 
-        .close {
+        .close, .close-2 {
             position: absolute;
             top: 1rem;
             right: 2rem;
@@ -256,7 +282,9 @@
         }
 
         .close:hover,
-        .close:focus {
+        .close:focus,
+        .close-2:hover,
+        .close-2:focus {
             color: #5d5d5d;
             text-decoration: none;
             cursor: pointer;
@@ -322,13 +350,25 @@
                             <a class="nav-link active" href="./calendar.html">Calendar</a>
                         </li>
                     </ul>
-
-
                 </div>
             </div>
         </nav>
     </header>
     <main>
+        <!-- Search Bar -->
+        <div class="row align-items-center px-5 py-2" id="search-bar">
+            <div class="col-md-2 mx-2">
+                <h1 class="text-center my-auto fw-bold">MOBEES</h1>
+            </div>
+            <form class="col-md mx-2" action="search.html" method="get">
+                <div class="input-group">
+                    <button class="btn rounded-start-pill" type="button" id="search-btn">
+                        <i class="fa fa-search"></i>
+                    </button>
+                    <input class="form-control rounded-end-pill" type="text" name="search-query" placeholder="Search Bar">
+                </div>
+            </form>
+        </div>
         <!-- Movie Details -->
         <section class="bg-lightgray row justify-content-center p-3">
             <div class="col-lg-5 text-center mb-3" id="movie-poster">
@@ -354,10 +394,10 @@
         <section class="bg-darkgray py-5 px-3">
             <div class="row col-11 mx-auto">
                 <div class="col-sm-3 d-flex flex-column justify-content-center" id="media-select">
-                    <div class="text-center py-2 media-tab checked-tab" id="media-tab-1">Trailer</div>
-                    <div class="text-center py-2 media-tab" id="media-tab-2">Videos</div>
-                    <div class="text-center py-2 media-tab" id="media-tab-3">Backdrops</div>
-                    <div class="text-center py-2 media-tab" id="media-tab-4">Posters</div>
+                    <div class="text-center py-3 media-tab checked-tab" id="media-tab-1">Trailer</div>
+                    <div class="text-center py-3 media-tab" id="media-tab-2">Videos</div>
+                    <div class="text-center py-3 media-tab" id="media-tab-3">Backdrops</div>
+                    <div class="text-center py-3 media-tab" id="media-tab-4">Posters</div>
                 </div>
                 <div class="col-sm" id="media-pane">
                     <div class="media-content text-center checked" id="media-content-1"></div>
@@ -372,6 +412,12 @@
                 <span class="close">&times;</span>
                 <div class="modal-content ratio ratio-16x9">
                     <iframe class="object-fit-contain" id="modal-video" allowfullscreen></iframe>
+                </div>
+            </div>
+            <div class="modal" id="carousel-modal">
+                <span class="close-2">&times;</span>
+                <div class="modal-content ratio ratio-16x9">
+                    <img class="object-fit-contain" id="modal-img">
                 </div>
             </div>
         </div>
@@ -426,6 +472,27 @@
             video.setAttribute('src', `https://www.youtube.com/embed/${key}`);
             const close = document.querySelector(".close");
             close.onclick = function () {
+                video.muted = true;
+                modal.style.display = "none";
+                video.setAttribute('src', '');
+            }
+            window.onclick = function (event) {
+                if (event.target == modal) {
+                    video.muted = true;
+                    modal.style.display = "none";
+                    video.setAttribute('src', '');
+                }
+            }
+            modal.style.display = "block";
+        }
+
+        // Img Modal
+        function imgModal(path) {
+            const modal = document.querySelector('#carousel-modal');
+            const img = document.querySelector('#modal-img');
+            img.setAttribute('src', `https://image.tmdb.org/t/p/original${path}`)
+            const close = document.querySelector(".close-2");
+            close.onclick = function () {
                 modal.style.display = "none";
             }
             window.onclick = function (event) {
@@ -448,7 +515,7 @@
 
         // Cast Display
         function addCast(item) {
-            const apiKey = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMzJjNGZlZWViNzFhY2FiMDc4M2QyYTVhNzNjZGQ3NiIsInN1YiI6IjY0NjFmZDc2YTY3MjU0MDE2NGRlYzc3YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.BV3-59m-NcEVwdz_snr_om5eyrwF2zgIdmkHo-Wd7Ls';
+            const apiKey = 'aadadbbda0dacb0d2cb893bbad0a7d9d';
             const castArea = document.querySelector('#cast');
             const artistId = item.id;
             const artistInfoUrl = `https://api.themoviedb.org/3/person/${artistId}?api_key=${apiKey}`;
@@ -516,6 +583,38 @@
                 const vidImg = document.querySelectorAll(`.vid`);
                 vidImg.forEach((n, index) => {
                     n.addEventListener("click", function () { videoModal(item[index].key); });
+                })
+            }
+        }
+
+        // Backdrops Display
+        function movieBackdrops(item) {
+            const backdropArea = document.querySelector('#media-content-3');
+            if (item !== undefined) {
+                item.forEach((v) => {
+                    backdropArea.innerHTML += `
+                        <img class="img-fluid rounded bd" src="https://image.tmdb.org/t/p/original${v.file_path}">
+                    `;
+                })
+                const bdImg = document.querySelectorAll('.bd');
+                bdImg.forEach((b, index) => {
+                    b.addEventListener("click", function () { imgModal(item[index].file_path); });
+                })
+            }
+        }
+
+        // Posters Display
+        function moviePosters(item) {
+            const posterArea = document.querySelector('#media-content-4');
+            if (item !== undefined) {
+                item.forEach((z) => {
+                    posterArea.innerHTML += `
+                        <img class="img-fluid rounded ps" src="https://image.tmdb.org/t/p/w500${z.file_path}">
+                    `;
+                })
+                const psImg = document.querySelectorAll('.ps');
+                psImg.forEach((k, index) => {
+                    k.addEventListener("click", function () { imgModal(item[index].file_path); });
                 })
             }
         }
@@ -657,7 +756,10 @@
                 movieVideos(otherVideos);
 
                 const backdrops = response.images.backdrops;
+                movieBackdrops(backdrops);
+
                 const posters = response.images.posters;
+                moviePosters(posters);
 
                 // Ratings
                 const reviews = response.reviews.results;
