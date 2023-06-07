@@ -37,6 +37,8 @@
             height: 100%;
             object-fit: cover;
             border-radius: 9px;
+            display: flex;
+            flex-direction: row;
         }
 
         .card-photo {
@@ -141,6 +143,23 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
             border-radius: 9px;
         }
+
+        @media (min-width: 768px) and (max-width: 991.98px) {
+            .row {
+                flex-direction: row;
+            }
+
+            .card-photo {
+                width: 250px;
+                margin-right: 50px;
+
+            }
+
+            .artist-card {
+                width: calc(85% - 200px);
+                margin-left: 110px;
+            }
+        }
     </style>
 </head>
 
@@ -177,7 +196,7 @@
                             <a class="nav-link active" href="./calendar.html">Calendar</a>
                         </li>
                         <li class="nav-item px-lg-3">
-                            <a class="nav-link active" href="./about.html">About Us</a>
+                            <a class="nav-link active" href="./about.html">About </a>
                         </li>
                     </ul>
 
@@ -188,7 +207,6 @@
     </header>
     <div class="container main-container mt-5">
         <div class="artist-details">
-            <div class="container "></div>
             <div class="row ">
                 <div class="col-sm-12 col-md-3 mb-5 flex-row">
                     <div class="card-photo flex-row">
