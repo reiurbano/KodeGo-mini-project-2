@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movies</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+        * {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        main {
+            overflow-x: hidden;
+        }
+
+        a,
+        a.visited {
+            text-decoration: none;
+            color: #393939;
+        }
+
+        header {
+            background-color: #393939;
+        }
+
+        div> ::-webkit-scrollbar {
+            width: 0;
+        }
+
+        /* Background Colors */
+
+        .bg-yellow {
+            background-color: #E7C160;
+        }
+
+        .bg-lightgray {
+            background-color: #E1E1E1;
+        }
+
+        .bg-darkgray {
+            background-color: #393939;
+        }
+
+        .bg-middlegray {
+            background-color: #5d5d5d;
+        }
+
+        /* Movie Details */
+
+        #poster {
+            box-shadow: 0rem 0.25rem 0.5rem -0.125rem #393939;
+        }
+
+        #cast {
+            overflow-x: scroll;
+        }
+
+        .cast {
+            background-color: #FFFFFF;
+            position: relative;
+            box-shadow: 0rem 0.25rem 0.5rem -0.125rem #393939;
+            border-radius: 1.5rem 1.5rem 0rem 0rem;
+            min-width: 11.5625rem;
+            margin-right: 1rem;
+            margin-left: 1rem;
+        }
+
+        .cast-img {
+            background-color: #5d5d5d;
+            background-repeat: no-repeat;
+            background-size: cover;
+            border-radius: 1.5rem 1.5rem 0rem 0rem;
+            height: 13.5625rem;
+        }
+
+        /* Multimedia */
+
+        #media-select {
+            background-color: #E7C160;
+            border-radius: 1rem 0 0 1rem;
+            padding-right: 0;
+        }
+
+        #media-pane {
+            background-color: #FFFFFF;
+            border-radius: 0 1rem 1rem 0;
+            overflow-x: scroll;
+            padding-top: 1.25rem;
+        }
+
+        .media-tab:hover {
+            background-image: linear-gradient(to right, #E7C160, #fbf6e7);
+            border-right: solid #393939;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.25rem;
+            transition: font-size 0.5s;
+        }
+
+        .media-content {
+            display: none;
+            overflow-x: scroll;
+        }
+
+        .checked {
+            display: flex;
+            flex-wrap: nowrap;
+        }
+
+        .checked-tab {
+            background-image: linear-gradient(to right, #E7C160, #fbf6e7);
+            border-right: solid #393939;
+            font-weight: bold;
+        }
+
+        .vid {
+            margin-right: 1rem;
+        }
+
+        /* Movie Reviews */
+
+        #ratings-count {
+            font-size: 1.25rem;
+        }
+
+        #star-container {
+            background-color: #393939;
+            clip-path: url(#starClip);
+            height: 2.5rem;
+            width: 25rem;
+        }
+
+        #star-main {
+            background-color: #E7C160;
+            height: 2.5rem;
+        }
+
+        .bar-container {
+            background-color: #FFFFFF;
+            border-radius: 1rem;
+            height: 0.8rem;
+            width: 90%;
+        }
+
+        .bar {
+            background-color: #E7C160;
+            border-radius: 1rem;
+            height: 0.8rem;
+        }
+
+        #reveiws {
+            overflow-x: scroll;
+        }
+
+        .reveiws {
+            background-color: #FFFFFF;
+            box-shadow: 0rem 0.25rem 0.5rem -0.125rem #393939;
+            overflow-y: hidden;
+            position: relative;
+            height: 30.9375rem;
+            width: 20.625rem;
+            margin-right: 1rem;
+            margin-left: 1rem;
+        }
+
+        .avatar {
+            clip-path: circle();
+            max-height: 4.5rem;
+        }
+
+        .reveiwer-container {
+            background-color: #393939;
+            clip-path: url(#starClip);
+            height: 1.25rem;
+            width: 12.5rem;
+        }
+
+        .reveiwer-rating {
+            background-color: #E7C160;
+            height: 1.25rem;
+        }
+
+        .review-content {
+            overflow-wrap: break-word;
+        }
+
+        /* Modal */
+        .vid,
+        .trailers {
+            cursor: pointer;
+            transition: 0.45s;
+        }
+
+        .vid:hover,
+        .trailers:hover {
+            opacity: 0.75;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            padding-top: 5rem;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: #FFFFFF;
+            margin: auto;
+            border: 0.1rem solid #5d5d5d;
+            height: 80%;
+            width: 80%;
+        }
+
+        .modal-content {
+            animation-name: zoom;
+            animation-duration: 1.755s;
+        }
+
+        @keyframes zoom {
+            from {
+                transform: translateY(-150%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0%);
+                opacity: 1;
+            }
+        }
+
+        .close {
+            position: absolute;
+            top: 1rem;
+            right: 2rem;
+            color: #FFFFFF;
+            font-size: 2.5rem;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #5d5d5d;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Media Queries */
+        @media screen and (min-width: 992px) and (max-width: 1200px) {
+            #star-container {
+                height: 2rem;
+                width: 20rem;
+            }
+        }
+
+        @media screen and (max-width: 576px) {
+            #media-select {
+                border-radius: 1rem 1rem 0 0;
+                padding-bottom: 0;
+                padding-top: 1rem;
+                padding-left: 0;
+            }
+
+            #media-pane {
+                border-radius: 0 0 1rem 1rem;
+            }
+
+            .media-tab:hover,
+            .checked-tab {
+                background-image: linear-gradient(#E7C160, #fbf6e7);
+                border-bottom: solid #393939;
+                border-right: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <header>
+        <nav class="navbar navbar-expand-lg ms-1" data-bs-theme="dark">
+            <div class="container-fluid">
+                <!-- <a class="navbar-brand" href="index.html"><h1 class="text-e7 fw-bolder">MOBEES</h1></a> -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapsibleNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item px-lg-3">
+                            <a class="nav-link active" href="./index.html">Home</a>
+                        </li>
+                        <li class="nav-item px-lg-3">
+                            <a class="nav-link active" href="./search.html?list">Movie List</a>
+                        </li>
+                        <li class="nav-item dropdown px-lg-3">
+                            <a class="nav-link active dropdown-toggle" href="" role="button"
+                                data-bs-toggle="dropdown">Categories</a>
+                            <ul class="dropdown-menu" id="categoryItems"></ul>
+                        </li>
+                        <li class="nav-item px-lg-3">
+                            <a class="nav-link active" href="./peoplepage.html">People</a>
+                        </li>
+                        <li class="nav-item px-lg-3">
+                            <a class="nav-link active" href="./calendar.html">Calendar</a>
+                        </li>
+                    </ul>
+
+
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <!-- Movie Details -->
+        <section class="bg-lightgray row justify-content-center p-3">
+            <div class="col-lg-5 text-center mb-3" id="movie-poster">
+            </div>
+            <div class="col-lg-7 d-flex flex-column justify-content-evenly">
+                <div>
+                    <h3 class="fw-bold" id="title"></h3>
+                    <h6 id="genres"></h6>
+                </div>
+                <div>
+                    <hr>
+                    <h6 class="fw-bold">Synopsis</h6>
+                </div>
+                <p id="synopsis"></p>
+                <div>
+                    <hr>
+                    <h6 class="fw-bold">Cast</h6>
+                </div>
+                <div class="d-flex" id="cast"></div>
+            </div>
+        </section>
+        <!-- Multimedia -->
+        <section class="bg-darkgray py-5 px-3">
+            <div class="row col-11 mx-auto">
+                <div class="col-sm-3 d-flex flex-column justify-content-center" id="media-select">
+                    <div class="text-center py-2 media-tab checked-tab" id="media-tab-1">Trailer</div>
+                    <div class="text-center py-2 media-tab" id="media-tab-2">Videos</div>
+                    <div class="text-center py-2 media-tab" id="media-tab-3">Backdrops</div>
+                    <div class="text-center py-2 media-tab" id="media-tab-4">Posters</div>
+                </div>
+                <div class="col-sm" id="media-pane">
+                    <div class="media-content text-center checked" id="media-content-1"></div>
+                    <div class="media-content" id="media-content-2"></div>
+                    <div class="media-content" id="media-content-3"></div>
+                    <div class="media-content" id="media-content-4"></div>
+                </div>
+            </div>
+        </section>
+        <div id="modals">
+            <div class="modal" id="video-modal">
+                <span class="close">&times;</span>
+                <div class="modal-content ratio ratio-16x9">
+                    <iframe class="object-fit-contain" id="modal-video" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+        <!-- Review Area -->
+        <div class="bg-yellow px-5 py-3">
+            <h4 class="my-auto">Ratings & Reviews
+                <i class="fa fa-arrow-right"></i>
+            </h4>
+        </div>
+        <section class="bg-lightgray">
+            <svg width="0" height="0">
+                <defs>
+                    <clipPath id="starClip" clipPathUnits="objectBoundingBox">
+                        <path
+                            d="M0.05,0 L0.062,0.382 H0.098 L0.068,0.618 L0.08,1 L0.05,0.764 L0.021,1 L0.032,0.618 L0.002,0.382 H0.039 L0.05,0 M0.151,0 L0.162,0.382 H0.199 L0.169,0.618 L0.18,1 L0.151,0.764 L0.121,1 L0.132,0.618 L0.103,0.382 H0.139 L0.151,0 M0.251,0 L0.263,0.382 H0.299 L0.269,0.618 L0.281,1 L0.251,0.764 L0.222,1 L0.233,0.618 L0.203,0.382 H0.24 L0.251,0 M0.352,0 L0.363,0.382 H0.4 L0.37,0.618 L0.381,1 L0.352,0.764 L0.322,1 L0.333,0.618 L0.304,0.382 H0.34 L0.352,0 M0.452,0 L0.463,0.382 H0.5 L0.47,0.618 L0.482,1 L0.452,0.764 L0.423,1 L0.434,0.618 L0.404,0.382 H0.441 L0.452,0 M0.553,0 L0.564,0.382 H0.6 L0.571,0.618 L0.582,1 L0.553,0.764 L0.523,1 L0.534,0.618 L0.505,0.382 H0.541 L0.553,0 M0.653,0 L0.664,0.382 H0.701 L0.671,0.618 L0.683,1 L0.653,0.764 L0.624,1 L0.635,0.618 L0.605,0.382 H0.642 L0.653,0 M0.754,0 L0.765,0.382 H0.801 L0.772,0.618 L0.783,1 L0.754,0.764 L0.724,1 L0.735,0.618 L0.706,0.382 H0.742 L0.754,0 M0.854,0 L0.865,0.382 H0.902 L0.872,0.618 L0.884,1 L0.854,0.764 L0.825,1 L0.836,0.618 L0.806,0.382 H0.843 L0.854,0 M0.955,0 L0.966,0.382 H1 L0.973,0.618 L0.984,1 L0.955,0.764 L0.925,1 L0.936,0.618 L0.907,0.382 H0.943 L0.955,0" />
+                    </clipPath>
+                </defs>
+            </svg>
+            <div class="row justify-content-around px-3 mt-3">
+                <div class="col-lg-4 text-center">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <h1 id="ratings-avg" class="pe-2"></h1>
+                        <div id="ratings-count">
+                            - <span id="ratings-num"></span> Ratings
+                        </div>
+                    </div>
+                    <div class="mx-auto mb-3" id="star-container">
+                        <div id="star-main"></div>
+                    </div>
+                </div>
+                <div class="row col-lg-8">
+                    <div class="col-sm-6" id="ratings-1"></div>
+                    <div class="col-sm-6" id="ratings-2"></div>
+                </div>
+                <div class="col-lg-12 d-flex my-5" id="reveiws">
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+    <script>
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const movieId = urlParams.get('id');
+
+        // Video Modal
+        function videoModal(key) {
+            const modal = document.querySelector('#video-modal');
+            const video = document.querySelector('#modal-video');
+            video.setAttribute('src', `https://www.youtube.com/embed/${key}`);
+            const close = document.querySelector(".close");
+            close.onclick = function () {
+                modal.style.display = "none";
+            }
+            window.onclick = function (event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+            modal.style.display = "block";
+        }
+
+        // Movie Poster
+        function getPoster(poster) {
+            const moviePoster = document.querySelector('#movie-poster');
+            if (poster.poster_path !== null) {
+                moviePoster.innerHTML = `
+                    <img class="img-fluid rounded" id="poster" src="https://image.tmdb.org/t/p/w500${poster.poster_path}">
+                `;
+            } else { moviePoster.innerHTML = '<div>Image not found</div>' }
+        }
+
+        // Cast Display
+        function addCast(item) {
+            const apiKey = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMzJjNGZlZWViNzFhY2FiMDc4M2QyYTVhNzNjZGQ3NiIsInN1YiI6IjY0NjFmZDc2YTY3MjU0MDE2NGRlYzc3YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.BV3-59m-NcEVwdz_snr_om5eyrwF2zgIdmkHo-Wd7Ls';
+            const castArea = document.querySelector('#cast');
+            const artistId = item.id;
+            const artistInfoUrl = `https://api.themoviedb.org/3/person/${artistId}?api_key=${apiKey}`;
+            castArea.innerHTML += `
+                <div class="cast">
+                    <div class="cast-img" style="background-image:url('https://image.tmdb.org/t/p/w185${item.profile_path}')">
+                    </div>
+                    <div class="cast-role mt-3 mb-1">
+                        <a href="artist.html?id=${artistId}&url=${artistInfoUrl}" class="stretched-link text-center">
+                            <h6 class="fw-bold">${item.name}</h6>
+                            <p><small>${item.character}</small></p>
+                        </a>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Display Media
+        function toggleDisplay() {
+            const mediaAllContent = document.querySelectorAll('.media-content');
+            const mediaAllTabs = document.querySelectorAll('.media-tab');
+            for (let x = 1; x <= 4; x++) {
+                const mediaTab = document.querySelector(`#media-tab-${x}`);
+                const mediaContent = document.querySelector(`#media-content-${x}`);
+                mediaTab.addEventListener("click", () => {
+                    mediaAllContent.forEach((item) => {
+                        item.classList.remove('checked');
+                    })
+                    mediaAllTabs.forEach((item) => {
+                        item.classList.remove('checked-tab');
+                    })
+                    mediaContent.classList.add('checked');
+                    mediaTab.classList.add('checked-tab');
+                })
+            }
+        }
+
+        toggleDisplay();
+
+        // Trailers Display
+        function movieTrailer(item) {
+            const trailerArea = document.querySelector('#media-content-1');
+            if (item !== undefined) {
+                item.forEach((ele) => {
+                    trailerArea.innerHTML += `
+                        <img class="img-fluid rounded trailers" src="https://img.youtube.com/vi/${ele.key}/0.jpg">
+                    `;
+                })
+                const trailerImg = document.querySelectorAll('.trailers');
+                trailerImg.forEach((m, index) => {
+                    m.addEventListener("click", function () { videoModal(item[index].key); });
+                })
+            }
+        }
+
+        // Videos Display
+        function movieVideos(item) {
+            const videoArea = document.querySelector('#media-content-2');
+            if (item !== undefined) {
+                item.forEach((ele) => {
+                    videoArea.innerHTML += `
+                        <img class="img-fluid rounded vid" src="https://img.youtube.com/vi/${ele.key}/0.jpg">
+                    `;
+                })
+                const vidImg = document.querySelectorAll(`.vid`);
+                vidImg.forEach((n, index) => {
+                    n.addEventListener("click", function () { videoModal(item[index].key); });
+                })
+            }
+        }
+
+        // Get Ratings
+        function getRatings(item) {
+            return item.author_details.rating;
+        }
+
+        // Ratings Display
+        function displayRatings(i) {
+            for (let x = 10; x > 0; x--) {
+                (x > 5) ? i = 1 : i = 2;
+                document.querySelector(`#ratings-${i}`).innerHTML += `
+                    <div class="d-flex">
+                        <h5 class="m-auto">${x}</h5>
+                        <div class="bar-container m-auto">
+                            <div class="bar w-0" id="bar-${x - 1}"></div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        displayRatings(0);
+
+        // Ratings Breakdown
+        function ratingsBreakdown(count, avg, initial) {
+            const arr = [];
+            let votes = count;
+            let total = Math.round(count * avg);
+
+            initial.forEach((num) => {
+                arr.push(num);
+                total -= num;
+                votes--;
+            })
+
+            for (let y = 0; y < count; y++) {
+                let x = Math.floor((Math.random() * 10) + 1);
+                for (let z = 10; z > 0; z--) {
+                    if ((total / x) < votes && x > 0) {
+                        x--;
+                    } else if ((total % x) !== 0 && x < 10) {
+                        x++;
+                    }
+                }
+                votes--;
+                total -= x;
+                arr.push(x);
+            }
+
+            for (let i = 9; i >= 0; i--) {
+                const movieRating = document.querySelector(`#bar-${i}`);
+                let counter = 0;
+                arr.forEach((num) => {
+                    if (num == (i + 1)) {
+                        counter++;
+                    }
+                });
+                width = 100 * (counter / count);
+                movieRating.style.width = `${width.toFixed(3)}%`;
+            }
+        }
+
+        // Reviews Display
+        function addReviews(item, index) {
+            const reviewArea = document.querySelector('#reveiws');
+            const avatar = item.author_details.avatar_path;
+            const reviewRating = item.author_details.rating;
+            if (avatar !== null) {
+                result = (avatar.slice(1, 6) !== 'https') ?
+                    `https://image.tmdb.org/t/p/w92/${avatar}` :
+                    avatar.slice(1);
+            } else { result = '' }
+            reviewArea.innerHTML += `
+                <div class="reveiws col-3 p-3 rounded">
+                    <div class="d-flex">
+                        <div>
+                            <img class="avatar img-fluid" src="${result}">
+                        </div>
+                        <div class="flex-fill ${avatar !== null ? 'ms-2' : 'me-5'} mt-1">
+                            <h5>${item.author}</h5>
+                            <div class="reveiwer-container">
+                                <div class="reveiwer-rating" id="reveiwer-rating-${index}"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-content mx-3 mt-3">
+                        ${item.content}
+                    </div>
+                </div>
+            `;
+            const reviewScore = document.querySelector(`#reveiwer-rating-${index}`);
+            reviewScore.style.width = `${reviewRating}0%`;
+        }
+
+        // API
+        const options = {
+            method: 'GET',
+            headers: {
+                accept: 'application/json',
+                Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMzJjNGZlZWViNzFhY2FiMDc4M2QyYTVhNzNjZGQ3NiIsInN1YiI6IjY0NjFmZDc2YTY3MjU0MDE2NGRlYzc3YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.BV3-59m-NcEVwdz_snr_om5eyrwF2zgIdmkHo-Wd7Ls'
+            }
+        };
+
+        fetch(`https://api.themoviedb.org/3/movie/${movieId}?append_to_response=videos%2Cimages%2Creviews%2Ccredits&include_image_language=en%2Cnull&language=en-US`, options)
+            .then(response => response.json())
+            .then(response => {
+
+                // Movie Details
+                getPoster(response);
+
+                const movieTitle = document.querySelector('#title');
+                const movieGenres = document.querySelector('#genres');
+                const movieSynopsis = document.querySelector('#synopsis');
+
+                movieTitle.innerHTML = response.title;
+
+                for (let x = 0; x < response.genres.length; x++) {
+                    x !== response.genres.length - 1 ?
+                        movieGenres.innerHTML += `${response.genres[x].name}, ` :
+                        movieGenres.innerHTML += response.genres[x].name;
+                };
+
+                movieSynopsis.innerHTML = response.overview;
+
+                // Cast
+                const cast = response.credits.cast;
+                cast.forEach(addCast);
+
+                // Multimedia
+                const videos = response.videos.results;
+
+                const trailers = videos.filter(vid => vid.type == "Trailer");
+                movieTrailer(trailers);
+
+                const otherVideos = videos.filter(vid => vid.type !== "Trailer");
+                movieVideos(otherVideos);
+
+                const backdrops = response.images.backdrops;
+                const posters = response.images.posters;
+
+                // Ratings
+                const reviews = response.reviews.results;
+                const ratingsCount = response.vote_count;
+                const ratingsAverage = response.vote_average;
+
+                // Ratings Breakdown
+                const reviewRatings = reviews.map(getRatings);
+                ratingsBreakdown(ratingsCount, ratingsAverage, reviewRatings);
+
+                // Ratings Main
+                const ratingsAvg = document.querySelector('#ratings-avg');
+                const ratingsNum = document.querySelector('#ratings-num');
+                const starMain = document.querySelector('#star-main');
+                starMain.style.width = `${ratingsAverage * 10}%`;
+                ratingsAvg.innerHTML = ratingsAverage.toFixed(1);
+                ratingsNum.innerHTML = ratingsCount;
+
+                // Reviews
+                reviews.forEach(addReviews);
+
+                console.log(response);
+            })
+            .catch(err => console.error(err));
+
+        // Get Genres
+        const fetchGenreData = () => {
+            fetch('https://api.themoviedb.org/3/genre/movie/list', options)
+                .then(response => response.json())
+                .then(response => {
+                    response = response.genres;
+                    response.forEach((result) => {
+                        //dNavbar Category Display
+                        document.querySelector("#categoryItems").innerHTML += `
+                            <li>
+                                <a class="dropdown-item" href="./search.html?list=${result.id}">${result.name}</a>
+                            </li>
+                        `;
+                    });
+                })
+        }
+
+        fetchGenreData();
+    </script>
+</body>
+
+</html>
