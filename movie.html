@@ -29,11 +29,15 @@
             color: #393939;
         }
 
+        header {
+            background-color: #393939;
+        }
+
         div> ::-webkit-scrollbar {
             width: 0;
         }
 
-        /* Background Color */
+        /* Background Colors */
 
         .bg-yellow {
             background-color: #E7C160;
@@ -105,16 +109,22 @@
 
         .media-content {
             display: none;
+            overflow-x: scroll;
         }
 
         .checked {
-            display: block;
+            display: flex;
+            flex-wrap: nowrap;
         }
 
         .checked-tab {
             background-image: linear-gradient(to right, #E7C160, #fbf6e7);
             border-right: solid #393939;
             font-weight: bold;
+        }
+
+        .vid {
+            margin-right: 1rem;
         }
 
         /* Movie Reviews */
@@ -185,30 +195,69 @@
         }
 
         /* Modal */
+        .vid,
+        .trailers {
+            cursor: pointer;
+            transition: 0.45s;
+        }
+
+        .vid:hover,
+        .trailers:hover {
+            opacity: 0.75;
+        }
+
         .modal {
             display: none;
             position: fixed;
             z-index: 1;
+            padding-top: 5rem;
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden;
+            overflow: auto;
             background-color: rgb(0, 0, 0);
-            background-color: rgba(0, 0, 0, 0.4);
+            background-color: rgba(0, 0, 0, 0.5);
         }
 
         .modal-content {
             background-color: #FFFFFF;
-            margin: 5% auto;
+            margin: auto;
             border: 0.1rem solid #5d5d5d;
             height: 80%;
             width: 80%;
         }
 
+        .modal-content {
+            animation-name: zoom;
+            animation-duration: 1.755s;
+        }
+
+        @keyframes zoom {
+            from {
+                transform: translateY(-150%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0%);
+                opacity: 1;
+            }
+        }
+
+        .close {
+            position: absolute;
+            top: 1rem;
+            right: 2rem;
+            color: #FFFFFF;
+            font-size: 2.5rem;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
         .close:hover,
         .close:focus {
-            color: black;
+            color: #5d5d5d;
             text-decoration: none;
             cursor: pointer;
         }
@@ -245,6 +294,40 @@
 
 <body>
     <!-- Navbar -->
+    <header>
+        <nav class="navbar navbar-expand-lg ms-1" data-bs-theme="dark">
+            <div class="container-fluid">
+                <!-- <a class="navbar-brand" href="index.html"><h1 class="text-e7 fw-bolder">MOBEES</h1></a> -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapsibleNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item px-lg-3">
+                            <a class="nav-link active" href="./index.html">Home</a>
+                        </li>
+                        <li class="nav-item px-lg-3">
+                            <a class="nav-link active" href="./search.html?list">Movie List</a>
+                        </li>
+                        <li class="nav-item dropdown px-lg-3">
+                            <a class="nav-link active dropdown-toggle" href="" role="button"
+                                data-bs-toggle="dropdown">Categories</a>
+                            <ul class="dropdown-menu" id="categoryItems"></ul>
+                        </li>
+                        <li class="nav-item px-lg-3">
+                            <a class="nav-link active" href="./peoplepage.html">People</a>
+                        </li>
+                        <li class="nav-item px-lg-3">
+                            <a class="nav-link active" href="./calendar.html">Calendar</a>
+                        </li>
+                    </ul>
+
+
+                </div>
+            </div>
+        </nav>
+    </header>
     <main>
         <!-- Movie Details -->
         <section class="bg-lightgray row justify-content-center p-3">
@@ -286,8 +369,9 @@
         </section>
         <div id="modals">
             <div class="modal" id="video-modal">
+                <span class="close">&times;</span>
                 <div class="modal-content ratio ratio-16x9">
-                    <iframe class="object-fit-contain" id="modal-video"></iframe>
+                    <iframe class="object-fit-contain" id="modal-video" allowfullscreen></iframe>
                 </div>
             </div>
         </div>
@@ -340,6 +424,10 @@
             const modal = document.querySelector('#video-modal');
             const video = document.querySelector('#modal-video');
             video.setAttribute('src', `https://www.youtube.com/embed/${key}`);
+            const close = document.querySelector(".close");
+            close.onclick = function () {
+                modal.style.display = "none";
+            }
             window.onclick = function (event) {
                 if (event.target == modal) {
                     modal.style.display = "none";
@@ -356,6 +444,23 @@
                     <img class="img-fluid rounded" id="poster" src="https://image.tmdb.org/t/p/w500${poster.poster_path}">
                 `;
             } else { moviePoster.innerHTML = '<div>Image not found</div>' }
+        }
+
+        // Cast Display
+        function addCast(item) {
+            const castArea = document.querySelector('#cast');
+            castArea.innerHTML += `
+                <div class="cast">
+                    <div class="cast-img" style="background-image:url('https://image.tmdb.org/t/p/w185${item.profile_path}')">
+                    </div>
+                    <div class="cast-role mt-3 mb-1">
+                        <a href="#" class="stretched-link text-center">
+                            <h6 class="fw-bold">${item.name}</h6>
+                            <p><small>${item.character}</small></p>
+                        </a>
+                    </div>
+                </div>
+            `;
         }
 
         // Display Media
@@ -380,19 +485,41 @@
 
         toggleDisplay();
 
-        // Trailer Display
+        // Trailers Display
         function movieTrailer(item) {
             const trailerArea = document.querySelector('#media-content-1');
-            const trailer = item.find((ele) => {
-                return ele.type == 'Trailer';
-            })
-            if (trailer !== undefined) {
-                trailerArea.innerHTML = `
-                    <img class="img-fluid rounded" id="trailer" src="https://img.youtube.com/vi/${trailer.key}/0.jpg">
-                `;
+            if (item !== undefined) {
+                item.forEach((ele) => {
+                    trailerArea.innerHTML += `
+                        <img class="img-fluid rounded trailers" src="https://img.youtube.com/vi/${ele.key}/0.jpg">
+                    `;
+                })
+                const trailerImg = document.querySelectorAll('.trailers');
+                trailerImg.forEach((m, index) => {
+                    m.addEventListener("click", function () { videoModal(item[index].key); });
+                })
             }
-            const trailerImg = document.querySelector('#trailer');
-            trailerImg.addEventListener("click", function () { videoModal(trailer.key); });
+        }
+
+        // Videos Display
+        function movieVideos(item) {
+            const videoArea = document.querySelector('#media-content-2');
+            if (item !== undefined) {
+                item.forEach((ele) => {
+                    videoArea.innerHTML += `
+                        <img class="img-fluid rounded vid" src="https://img.youtube.com/vi/${ele.key}/0.jpg">
+                    `;
+                })
+                const vidImg = document.querySelectorAll(`.vid`);
+                vidImg.forEach((n, index) => {
+                    n.addEventListener("click", function () { videoModal(item[index].key); });
+                })
+            }
+        }
+
+        // Get Ratings
+        function getRatings(item) {
+            return item.author_details.rating;
         }
 
         // Ratings Display
@@ -449,28 +576,6 @@
                 width = 100 * (counter / count);
                 movieRating.style.width = `${width.toFixed(3)}%`;
             }
-        }
-
-        // Get Ratings
-        function getRatings(item) {
-            return item.author_details.rating;
-        }
-
-        // Cast Display
-        function addCast(item) {
-            const castArea = document.querySelector('#cast');
-            castArea.innerHTML += `
-                <div class="cast">
-                    <div class="cast-img" style="background-image:url('https://image.tmdb.org/t/p/w185${item.profile_path}')">
-                    </div>
-                    <div class="cast-role mt-3 mb-1">
-                        <a href="#" class="stretched-link text-center">
-                            <h6 class="fw-bold">${item.name}</h6>
-                            <p><small>${item.character}</small></p>
-                        </a>
-                    </div>
-                </div>
-            `;
         }
 
         // Reviews Display
@@ -540,15 +645,16 @@
                 cast.forEach(addCast);
 
                 // Multimedia
+                const videos = response.videos.results;
+
+                const trailers = videos.filter(vid => vid.type == "Trailer");
+                movieTrailer(trailers);
+
+                const otherVideos = videos.filter(vid => vid.type !== "Trailer");
+                movieVideos(otherVideos);
 
                 const backdrops = response.images.backdrops;
                 const posters = response.images.posters;
-
-                const videos = response.videos.results;
-                const trailers = videos.filter(vid => vid.type == "Trailer");
-                const otherVideos = videos.filter(vid => vid.type !== "Trailer");
-
-                movieTrailer(trailers);
 
                 // Ratings
                 const reviews = response.reviews.results;
