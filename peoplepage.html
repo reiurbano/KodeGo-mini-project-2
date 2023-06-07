@@ -256,8 +256,7 @@
             .then(response => response.json())
             .then(response => {
                 response=response.genres;
-                
-                // display genre list for filter feature
+            
                 response.forEach((result)=>{
                     //display for navbar category
                     document.querySelector("#categoryItems").innerHTML += `
@@ -269,7 +268,8 @@
                 
             })
             .catch(err => console.error(err));
-        } 
+        };
+        fetchGenreData();
     </script>
 
 </body>

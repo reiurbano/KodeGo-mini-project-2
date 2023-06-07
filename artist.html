@@ -234,6 +234,16 @@
         const moviesContainer = document.getElementById('moviesContainer');
         const socialMediaContainer = document.getElementById('socialmedia');
 
+        let genres =[];
+
+        const options = {
+            method: 'GET',
+            headers: {
+                accept: 'application/json',
+                Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMzJjNGZlZWViNzFhY2FiMDc4M2QyYTVhNzNjZGQ3NiIsInN1YiI6IjY0NjFmZDc2YTY3MjU0MDE2NGRlYzc3YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.BV3-59m-NcEVwdz_snr_om5eyrwF2zgIdmkHo-Wd7Ls'
+            }
+        };
+
         fetch(artistInfoUrl)
             .then(response => response.json())
             .then(data => {
@@ -377,14 +387,13 @@
             console.error('Error:', error);
         });
 
-        // get genres
-        const fetchGenreData = ()=>{
+       // get genres
+       const fetchGenreData = ()=>{
             fetch('https://api.themoviedb.org/3/genre/movie/list', options)
             .then(response => response.json())
             .then(response => {
                 response=response.genres;
-                
-                // display genre list for filter feature
+            
                 response.forEach((result)=>{
                     //display for navbar category
                     document.querySelector("#categoryItems").innerHTML += `
@@ -396,7 +405,8 @@
                 
             })
             .catch(err => console.error(err));
-        } 
+        };
+        fetchGenreData();
     </script>
 </body>
 
