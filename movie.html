@@ -206,13 +206,6 @@
             width: 80%;
         }
 
-        .close {
-            color: #393939;
-            float: right;
-            font-size: 1.75rem;
-            font-weight: bold;
-        }
-
         .close:hover,
         .close:focus {
             color: black;
@@ -294,8 +287,7 @@
         <div id="modals">
             <div class="modal" id="video-modal">
                 <div class="modal-content ratio ratio-16x9">
-                    <span class="close">&times;</span>
-                    <iframe id="modal-video"></iframe>
+                    <iframe class="object-fit-contain" id="modal-video"></iframe>
                 </div>
             </div>
         </div>
@@ -344,17 +336,10 @@
         const movieId = urlParams.get('id');
 
         // Video Modal
-
         function videoModal(key) {
             const modal = document.querySelector('#video-modal');
             const video = document.querySelector('#modal-video');
             video.setAttribute('src', `https://www.youtube.com/embed/${key}`);
-            const close = document.querySelectorAll('.close');
-            close.forEach((item) => {
-                item.addEventListener("click", () => {
-                    modal.style.display = "none";
-                })
-            })
             window.onclick = function (event) {
                 if (event.target == modal) {
                     modal.style.display = "none";
@@ -374,7 +359,6 @@
         }
 
         // Display Media
-
         function toggleDisplay() {
             const mediaAllContent = document.querySelectorAll('.media-content');
             const mediaAllTabs = document.querySelectorAll('.media-tab');
@@ -408,7 +392,7 @@
                 `;
             }
             const trailerImg = document.querySelector('#trailer');
-            trailerImg.addEventListener("click", function() { videoModal(trailer.key); });
+            trailerImg.addEventListener("click", function () { videoModal(trailer.key); });
         }
 
         // Ratings Display
