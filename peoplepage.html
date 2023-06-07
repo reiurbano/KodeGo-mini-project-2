@@ -123,7 +123,7 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
     <script>
         const apiKey = 'aadadbbda0dacb0d2cb893bbad0a7d9d';
         const apiUrl = 'https://api.themoviedb.org/3/person/popular?api_key=' + apiKey;
@@ -135,6 +135,9 @@
         let currentPage = 1;
         let currentQuery = '';
         let allArtists = [];
+
+        //for genre
+        let genres =[];
 
         const options = {
             method: 'GET',
@@ -256,17 +259,6 @@
                 
                 // display genre list for filter feature
                 response.forEach((result)=>{
-                    genres.push(result.id);
-                    document.querySelector("#genreItems").innerHTML += `
-                    <li>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value=${result.id} id="${result.name}">
-                            <label class="form-check-label" for="${result.name}">
-                                ${result.name}
-                             </label>
-                        </div>
-                    </li>
-                    `;
                     //display for navbar category
                     document.querySelector("#categoryItems").innerHTML += `
                     <li>
@@ -277,8 +269,7 @@
                 
             })
             .catch(err => console.error(err));
-        }
-
+        } 
     </script>
 
 </body>
