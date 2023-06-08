@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movies</title>
+    <title>MOBEES - Movies</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -191,6 +191,7 @@
 
         .reveiws {
             background-color: #FFFFFF;
+            cursor: pointer;
             box-shadow: 0rem 0.25rem 0.5rem -0.125rem #393939;
             overflow-y: hidden;
             position: relative;
@@ -221,11 +222,31 @@
             overflow-wrap: break-word;
         }
 
+        .active-review {
+            animation-name: scale;
+            animation-duration: 1.755s;
+            min-height: 30.9375rem;
+            height: auto;
+            width: 41.25rem;
+        }
+
+        @keyframes scale {
+            from {
+                height: 30.9375rem;
+                width: 20.625rem;
+            }
+
+            to {
+                height: auto;
+                width: 41.25rem;
+            }
+        }
+
         /* Modal */
         .vid,
         .trailers,
         .bd,
-        .ps  {
+        .ps {
             cursor: pointer;
             transition: 0.45s;
         }
@@ -233,7 +254,7 @@
         .vid:hover,
         .trailers:hover,
         .bd:hover,
-        .ps:hover  {
+        .ps:hover {
             opacity: 0.75;
         }
 
@@ -260,11 +281,11 @@
         }
 
         .modal-content {
-            animation-name: zoom;
+            animation-name: slide;
             animation-duration: 1.755s;
         }
 
-        @keyframes zoom {
+        @keyframes slide {
             from {
                 transform: translateY(-150%);
                 opacity: 0;
@@ -294,6 +315,27 @@
             color: #5d5d5d;
             text-decoration: none;
             cursor: pointer;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 0;
+            background-color: #393939;
+            color: #ffffff;
+            padding: 20px 0;
+            font-size: 12px;
+        }
+
+        footer h1 {
+            color:#E7C160;
+        }
+
+        footer p {
+            margin-bottom: 5px;
+        }
+
+        footer .nav-link {
+            font-size: 1rem;
         }
 
         /* Mouse Screen Scroll */
@@ -475,6 +517,32 @@
             </div>
         </section>
     </main>
+    <!-- footer here -->
+    <footer class="bg-dark text-white text-center py-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
+                    <a class="navbar-brand flex-fill-1" href="index.html">
+                        <h1 class="text-e7 fw-bolder">MOBEES</h1>
+                    </a>
+                    <div>
+                        <p>All rights reserved.</p>
+                        <p><small>Designed and developed by Group 6</small></p>
+                    </div>
+                </div>
+                <div class="col-md d-flex justify-content-evenly">
+                    <div class="d-flex flex-column justify-content-center align-items-center">
+                        <a class="nav-link f-nav active px-5 py-3" href="./index.html">Home</a>
+                        <a class="nav-link f-nav active px-5 py-3" href="./about.html">About</a>
+                    </div>
+                    <div class="d-flex flex-column justify-content-center align-items-center">
+                        <a class="nav-link f-nav active px-5 py-3" href="./search.html?list">Movie List</a>
+                        <a class="nav-link f-nav active px-5 py-3" href="./peoplepage.html">People</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
         crossorigin="anonymous"></script>
@@ -515,61 +583,61 @@
             })
         }
 
-            // Video Modal
-            function videoModal(key) {
-                const modal = document.querySelector('#video-modal');
-                const video = document.querySelector('#modal-video');
-                video.setAttribute('src', `https://www.youtube.com/embed/${key}`);
-                const close = document.querySelector(".close");
-                close.onclick = function () {
+        // Video Modal
+        function videoModal(key) {
+            const modal = document.querySelector('#video-modal');
+            const video = document.querySelector('#modal-video');
+            video.setAttribute('src', `https://www.youtube.com/embed/${key}`);
+            const close = document.querySelector(".close");
+            close.onclick = function () {
+                video.muted = true;
+                modal.style.display = "none";
+                video.setAttribute('src', '');
+            }
+            window.onclick = function (event) {
+                if (event.target == modal) {
                     video.muted = true;
                     modal.style.display = "none";
                     video.setAttribute('src', '');
                 }
-                window.onclick = function (event) {
-                    if (event.target == modal) {
-                        video.muted = true;
-                        modal.style.display = "none";
-                        video.setAttribute('src', '');
-                    }
-                }
-                modal.style.display = "block";
             }
+            modal.style.display = "block";
+        }
 
-            // Img Modal
-            function imgModal(path) {
-                const modal = document.querySelector('#carousel-modal');
-                const img = document.querySelector('#modal-img');
-                img.setAttribute('src', `https://image.tmdb.org/t/p/original${path}`)
-                const close = document.querySelector(".close-2");
-                close.onclick = function () {
+        // Img Modal
+        function imgModal(path) {
+            const modal = document.querySelector('#carousel-modal');
+            const img = document.querySelector('#modal-img');
+            img.setAttribute('src', `https://image.tmdb.org/t/p/original${path}`)
+            const close = document.querySelector(".close-2");
+            close.onclick = function () {
+                modal.style.display = "none";
+            }
+            window.onclick = function (event) {
+                if (event.target == modal) {
                     modal.style.display = "none";
                 }
-                window.onclick = function (event) {
-                    if (event.target == modal) {
-                        modal.style.display = "none";
-                    }
-                }
-                modal.style.display = "block";
             }
+            modal.style.display = "block";
+        }
 
-            // Movie Poster
-            function getPoster(poster) {
-                const moviePoster = document.querySelector('#movie-poster');
-                if (poster.poster_path !== null) {
-                    moviePoster.innerHTML = `
+        // Movie Poster
+        function getPoster(poster) {
+            const moviePoster = document.querySelector('#movie-poster');
+            if (poster.poster_path !== null) {
+                moviePoster.innerHTML = `
                     <img class="img-fluid rounded" id="poster" src="https://image.tmdb.org/t/p/w500${poster.poster_path}">
                 `;
-                } else { moviePoster.innerHTML = '<div>Image not found</div>' }
-            }
+            } else { moviePoster.innerHTML = '<div>Image not found</div>' }
+        }
 
-            // Cast Display
-            function addCast(item) {
-                const apiKey = 'aadadbbda0dacb0d2cb893bbad0a7d9d';
-                const castArea = document.querySelector('#cast');
-                const artistId = item.id;
-                const artistInfoUrl = `https://api.themoviedb.org/3/person/${artistId}?api_key=${apiKey}`;
-                castArea.innerHTML += `
+        // Cast Display
+        function addCast(item) {
+            const apiKey = 'aadadbbda0dacb0d2cb893bbad0a7d9d';
+            const castArea = document.querySelector('#cast');
+            const artistId = item.id;
+            const artistInfoUrl = `https://api.themoviedb.org/3/person/${artistId}?api_key=${apiKey}`;
+            castArea.innerHTML += `
                 <div class="cast">
                     <div class="cast-img" style="background-image:url('https://image.tmdb.org/t/p/w185${item.profile_path}')">
                     </div>
@@ -581,104 +649,104 @@
                     </div>
                 </div>
             `;
-            }
+        }
 
-            // Display Media
-            function toggleDisplay() {
-                const mediaAllContent = document.querySelectorAll('.media-content');
-                const mediaAllTabs = document.querySelectorAll('.media-tab');
-                for (let x = 1; x <= 4; x++) {
-                    const mediaTab = document.querySelector(`#media-tab-${x}`);
-                    const mediaContent = document.querySelector(`#media-content-${x}`);
-                    mediaTab.addEventListener("click", () => {
-                        mediaAllContent.forEach((item) => {
-                            item.classList.remove('checked');
-                        })
-                        mediaAllTabs.forEach((item) => {
-                            item.classList.remove('checked-tab');
-                        })
-                        mediaContent.classList.add('checked');
-                        mediaTab.classList.add('checked-tab');
+        // Display Media
+        function toggleDisplay() {
+            const mediaAllContent = document.querySelectorAll('.media-content');
+            const mediaAllTabs = document.querySelectorAll('.media-tab');
+            for (let x = 1; x <= 4; x++) {
+                const mediaTab = document.querySelector(`#media-tab-${x}`);
+                const mediaContent = document.querySelector(`#media-content-${x}`);
+                mediaTab.addEventListener("click", () => {
+                    mediaAllContent.forEach((item) => {
+                        item.classList.remove('checked');
                     })
-                }
+                    mediaAllTabs.forEach((item) => {
+                        item.classList.remove('checked-tab');
+                    })
+                    mediaContent.classList.add('checked');
+                    mediaTab.classList.add('checked-tab');
+                })
             }
+        }
 
-            toggleDisplay();
+        toggleDisplay();
 
-            // Trailers Display
-            function movieTrailer(item) {
-                const trailerArea = document.querySelector('#media-content-1');
-                if (item !== undefined) {
-                    item.forEach((ele) => {
-                        trailerArea.innerHTML += `
+        // Trailers Display
+        function movieTrailer(item) {
+            const trailerArea = document.querySelector('#media-content-1');
+            if (item !== undefined) {
+                item.forEach((ele) => {
+                    trailerArea.innerHTML += `
                         <img draggable="false" class="img-fluid rounded trailers" src="https://img.youtube.com/vi/${ele.key}/0.jpg">
                     `;
-                    })
-                    const trailerImg = document.querySelectorAll('.trailers');
-                    trailerImg.forEach((m, index) => {
-                        m.addEventListener("click", function () { videoModal(item[index].key); });
-                    })
-                }
+                })
+                const trailerImg = document.querySelectorAll('.trailers');
+                trailerImg.forEach((m, index) => {
+                    m.addEventListener("click", function () { videoModal(item[index].key); });
+                })
             }
+        }
 
-            // Videos Display
-            function movieVideos(item) {
-                const videoArea = document.querySelector('#media-content-2');
-                if (item !== undefined) {
-                    item.forEach((ele) => {
-                        videoArea.innerHTML += `
+        // Videos Display
+        function movieVideos(item) {
+            const videoArea = document.querySelector('#media-content-2');
+            if (item !== undefined) {
+                item.forEach((ele) => {
+                    videoArea.innerHTML += `
                         <img draggable="false" class="img-fluid rounded vid" src="https://img.youtube.com/vi/${ele.key}/0.jpg">
                     `;
-                    })
-                    const vidImg = document.querySelectorAll(`.vid`);
-                    vidImg.forEach((n, index) => {
-                        n.addEventListener("click", function () { videoModal(item[index].key); });
-                    })
-                }
+                })
+                const vidImg = document.querySelectorAll(`.vid`);
+                vidImg.forEach((n, index) => {
+                    n.addEventListener("click", function () { videoModal(item[index].key); });
+                })
             }
+        }
 
-            // Backdrops Display
-            function movieBackdrops(item) {
-                const backdropArea = document.querySelector('#media-content-3');
-                if (item !== undefined) {
-                    item.forEach((v) => {
-                        backdropArea.innerHTML += `
+        // Backdrops Display
+        function movieBackdrops(item) {
+            const backdropArea = document.querySelector('#media-content-3');
+            if (item !== undefined) {
+                item.forEach((v) => {
+                    backdropArea.innerHTML += `
                         <img draggable="false" class="img-fluid rounded bd" src="https://image.tmdb.org/t/p/original${v.file_path}">
                     `;
-                    })
-                    const bdImg = document.querySelectorAll('.bd');
-                    bdImg.forEach((b, index) => {
-                        b.addEventListener("click", function () { imgModal(item[index].file_path); });
-                    })
-                }
+                })
+                const bdImg = document.querySelectorAll('.bd');
+                bdImg.forEach((b, index) => {
+                    b.addEventListener("click", function () { imgModal(item[index].file_path); });
+                })
             }
+        }
 
-            // Posters Display
-            function moviePosters(item) {
-                const posterArea = document.querySelector('#media-content-4');
-                if (item !== undefined) {
-                    item.forEach((z) => {
-                        posterArea.innerHTML += `
+        // Posters Display
+        function moviePosters(item) {
+            const posterArea = document.querySelector('#media-content-4');
+            if (item !== undefined) {
+                item.forEach((z) => {
+                    posterArea.innerHTML += `
                         <img draggable="false" class="img-fluid rounded ps" src="https://image.tmdb.org/t/p/w500${z.file_path}">
                     `;
-                    })
-                    const psImg = document.querySelectorAll('.ps');
-                    psImg.forEach((k, index) => {
-                        k.addEventListener("click", function () { imgModal(item[index].file_path); });
-                    })
-                }
+                })
+                const psImg = document.querySelectorAll('.ps');
+                psImg.forEach((k, index) => {
+                    k.addEventListener("click", function () { imgModal(item[index].file_path); });
+                })
             }
+        }
 
-            // Get Ratings
-            function getRatings(item) {
-                return item.author_details.rating;
-            }
+        // Get Ratings
+        function getRatings(item) {
+            return item.author_details.rating;
+        }
 
-            // Ratings Display
-            function displayRatings(i) {
-                for (let x = 10; x > 0; x--) {
-                    (x > 5) ? i = 1 : i = 2;
-                    document.querySelector(`#ratings-${i}`).innerHTML += `
+        // Ratings Display
+        function displayRatings(i) {
+            for (let x = 10; x > 0; x--) {
+                (x > 5) ? i = 1 : i = 2;
+                document.querySelector(`#ratings-${i}`).innerHTML += `
                     <div class="d-flex">
                         <h5 class="m-auto">${x}</h5>
                         <div class="bar-container m-auto">
@@ -686,62 +754,69 @@
                         </div>
                     </div>
                 `;
-                }
             }
+        }
 
-            displayRatings(0);
+        displayRatings(0);
 
-            // Ratings Breakdown
-            function ratingsBreakdown(count, avg, initial) {
-                const arr = [];
-                let votes = count;
-                let total = Math.round(count * avg);
+        // Ratings Breakdown
+        function ratingsBreakdown(count, avg, initial) {
+            const arr = [];
+            let votes = count;
+            let total = Math.round(count * avg);
 
-                initial.forEach((num) => {
-                    arr.push(num);
-                    total -= num;
-                    votes--;
-                })
+            initial.forEach((num) => {
+                arr.push(num);
+                total -= num;
+                votes--;
+            })
 
-                for (let y = 0; y < count; y++) {
-                    let x = Math.floor((Math.random() * 10) + 1);
-                    for (let z = 10; z > 0; z--) {
-                        if ((total / x) < votes && x > 0) {
-                            x--;
-                        } else if ((total % x) !== 0 && x < 10) {
-                            x++;
-                        }
+            for (let y = 0; y < count; y++) {
+                let x = Math.floor((Math.random() * 10) + 1);
+                for (let z = 10; z > 0; z--) {
+                    if ((total / x) < votes && x > 0) {
+                        x--;
+                    } else if ((total % x) !== 0 && x < 10) {
+                        x++;
                     }
-                    votes--;
-                    total -= x;
-                    arr.push(x);
                 }
-
-                for (let i = 9; i >= 0; i--) {
-                    const movieRating = document.querySelector(`#bar-${i}`);
-                    let counter = 0;
-                    arr.forEach((num) => {
-                        if (num == (i + 1)) {
-                            counter++;
-                        }
-                    });
-                    width = 100 * (counter / count);
-                    movieRating.style.width = `${width.toFixed(3)}%`;
-                }
+                votes--;
+                total -= x;
+                arr.push(x);
             }
 
-            // Reviews Display
-            function addReviews(item, index) {
-                const reviewArea = document.querySelector('#reveiws');
-                const avatar = item.author_details.avatar_path;
-                const reviewRating = item.author_details.rating;
-                if (avatar !== null) {
-                    result = (avatar.slice(1, 6) !== 'https') ?
-                        `https://image.tmdb.org/t/p/w92/${avatar}` :
-                        avatar.slice(1);
-                } else { result = '' }
-                reviewArea.innerHTML += `
-                <div class="reveiws col-3 p-3 rounded">
+            for (let i = 9; i >= 0; i--) {
+                const movieRating = document.querySelector(`#bar-${i}`);
+                let counter = 0;
+                arr.forEach((num) => {
+                    if (num == (i + 1)) {
+                        counter++;
+                    }
+                });
+                width = 100 * (counter / count);
+                movieRating.style.width = `${width.toFixed(3)}%`;
+            }
+        }
+
+        function addEve(v, event) {
+            const ind = document.querySelector(`#rev-${v}`);
+            ind.addEventListener("click", () => {
+                ind.classList.toggle('active-review');
+            })
+        }
+
+        // Reviews Display
+        function addReviews(item, index) {
+            const reviewArea = document.querySelector('#reveiws');
+            const avatar = item.author_details.avatar_path;
+            const reviewRating = item.author_details.rating;
+            if (avatar !== null) {
+                result = (avatar.slice(1, 6) !== 'https') ?
+                    `https://image.tmdb.org/t/p/w92/${avatar}` :
+                    avatar.slice(1);
+            } else { result = '' }
+            reviewArea.innerHTML += `
+                <div class="reveiws align-self-start col-3 p-3 rounded" id="rev-${index}">
                     <div class="d-flex">
                         <div>
                             <img class="avatar img-fluid" src="${result}">
@@ -758,102 +833,112 @@
                     </div>
                 </div>
             `;
-                const reviewScore = document.querySelector(`#reveiwer-rating-${index}`);
-                reviewScore.style.width = `${reviewRating}0%`;
+            const reviewScore = document.querySelector(`#reveiwer-rating-${index}`);
+            reviewScore.style.width = `${reviewRating}0%`;
+            const revItem = document.querySelector(`#rev-${index}`);
+            revItem.addEventListener("click", addEve(index, event));
+        }
+
+        // const rvAll = document.querySelectorAll('.reveiws');
+        // rvAll.forEach((l, index) => {
+        //     const ind = document.querySelector(`#review-${index}`)
+        //     ind.addEventListener("click", () => {
+        //         ind.classList.toggle('active-review');
+        //     })
+        // })
+
+        // API
+        const options = {
+            method: 'GET',
+            headers: {
+                accept: 'application/json',
+                Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMzJjNGZlZWViNzFhY2FiMDc4M2QyYTVhNzNjZGQ3NiIsInN1YiI6IjY0NjFmZDc2YTY3MjU0MDE2NGRlYzc3YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.BV3-59m-NcEVwdz_snr_om5eyrwF2zgIdmkHo-Wd7Ls'
             }
+        };
 
-            // API
-            const options = {
-                method: 'GET',
-                headers: {
-                    accept: 'application/json',
-                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMzJjNGZlZWViNzFhY2FiMDc4M2QyYTVhNzNjZGQ3NiIsInN1YiI6IjY0NjFmZDc2YTY3MjU0MDE2NGRlYzc3YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.BV3-59m-NcEVwdz_snr_om5eyrwF2zgIdmkHo-Wd7Ls'
-                }
-            };
+        fetch(`https://api.themoviedb.org/3/movie/${movieId}?append_to_response=videos%2Cimages%2Creviews%2Ccredits&include_image_language=en%2Cnull&language=en-US`, options)
+            .then(response => response.json())
+            .then(response => {
 
-            fetch(`https://api.themoviedb.org/3/movie/${movieId}?append_to_response=videos%2Cimages%2Creviews%2Ccredits&include_image_language=en%2Cnull&language=en-US`, options)
+                // Movie Details
+                getPoster(response);
+
+                const movieTitle = document.querySelector('#title');
+                const movieGenres = document.querySelector('#genres');
+                const movieSynopsis = document.querySelector('#synopsis');
+
+                movieTitle.innerHTML = response.title;
+
+                for (let x = 0; x < response.genres.length; x++) {
+                    x !== response.genres.length - 1 ?
+                        movieGenres.innerHTML += `<a href="./search.html?list=${response.genres[x].id}">${response.genres[x].name}</a>, ` :
+                        movieGenres.innerHTML += `<a href="./search.html?list=${response.genres[x].id}">${response.genres[x].name}</a>`;
+                };
+
+                movieSynopsis.innerHTML = response.overview;
+
+                // Cast
+                const cast = response.credits.cast;
+                cast.forEach(addCast);
+
+                // Multimedia
+                const videos = response.videos.results;
+
+                const trailers = videos.filter(vid => vid.type == "Trailer");
+                movieTrailer(trailers);
+
+                const otherVideos = videos.filter(vid => vid.type !== "Trailer");
+                movieVideos(otherVideos);
+
+                const backdrops = response.images.backdrops;
+                movieBackdrops(backdrops);
+
+                const posters = response.images.posters;
+                moviePosters(posters);
+
+                // Ratings
+                const reviews = response.reviews.results;
+                const ratingsCount = response.vote_count;
+                const ratingsAverage = response.vote_average;
+
+                // Ratings Breakdown
+                const reviewRatings = reviews.map(getRatings);
+                ratingsBreakdown(ratingsCount, ratingsAverage, reviewRatings);
+
+                // Ratings Main
+                const ratingsAvg = document.querySelector('#ratings-avg');
+                const ratingsNum = document.querySelector('#ratings-num');
+                const starMain = document.querySelector('#star-main');
+                starMain.style.width = `${ratingsAverage * 10}%`;
+                ratingsAvg.innerHTML = ratingsAverage.toFixed(1);
+                ratingsNum.innerHTML = ratingsCount;
+
+                // Reviews
+                reviews.forEach(addReviews);
+
+                console.log(response);
+            })
+            .catch(err => console.error(err));
+
+        // Get Genres
+        const fetchGenreData = () => {
+            fetch('https://api.themoviedb.org/3/genre/movie/list', options)
                 .then(response => response.json())
                 .then(response => {
-
-                    // Movie Details
-                    getPoster(response);
-
-                    const movieTitle = document.querySelector('#title');
-                    const movieGenres = document.querySelector('#genres');
-                    const movieSynopsis = document.querySelector('#synopsis');
-
-                    movieTitle.innerHTML = response.title;
-
-                    for (let x = 0; x < response.genres.length; x++) {
-                        x !== response.genres.length - 1 ?
-                            movieGenres.innerHTML += `<a href="./search.html?list=${response.genres[x].id}">${response.genres[x].name}</a>, ` :
-                            movieGenres.innerHTML += `<a href="./search.html?list=${response.genres[x].id}">${response.genres[x].name}</a>`;
-                    };
-
-                    movieSynopsis.innerHTML = response.overview;
-
-                    // Cast
-                    const cast = response.credits.cast;
-                    cast.forEach(addCast);
-
-                    // Multimedia
-                    const videos = response.videos.results;
-
-                    const trailers = videos.filter(vid => vid.type == "Trailer");
-                    movieTrailer(trailers);
-
-                    const otherVideos = videos.filter(vid => vid.type !== "Trailer");
-                    movieVideos(otherVideos);
-
-                    const backdrops = response.images.backdrops;
-                    movieBackdrops(backdrops);
-
-                    const posters = response.images.posters;
-                    moviePosters(posters);
-
-                    // Ratings
-                    const reviews = response.reviews.results;
-                    const ratingsCount = response.vote_count;
-                    const ratingsAverage = response.vote_average;
-
-                    // Ratings Breakdown
-                    const reviewRatings = reviews.map(getRatings);
-                    ratingsBreakdown(ratingsCount, ratingsAverage, reviewRatings);
-
-                    // Ratings Main
-                    const ratingsAvg = document.querySelector('#ratings-avg');
-                    const ratingsNum = document.querySelector('#ratings-num');
-                    const starMain = document.querySelector('#star-main');
-                    starMain.style.width = `${ratingsAverage * 10}%`;
-                    ratingsAvg.innerHTML = ratingsAverage.toFixed(1);
-                    ratingsNum.innerHTML = ratingsCount;
-
-                    // Reviews
-                    reviews.forEach(addReviews);
-
-                    console.log(response);
-                })
-                .catch(err => console.error(err));
-
-            // Get Genres
-            const fetchGenreData = () => {
-                fetch('https://api.themoviedb.org/3/genre/movie/list', options)
-                    .then(response => response.json())
-                    .then(response => {
-                        response = response.genres;
-                        response.forEach((result) => {
-                            //dNavbar Category Display
-                            document.querySelector("#categoryItems").innerHTML += `
+                    response = response.genres;
+                    response.forEach((result) => {
+                        //dNavbar Category Display
+                        document.querySelector("#categoryItems").innerHTML += `
                             <li>
                                 <a class="dropdown-item" href="./search.html?list=${result.id}">${result.name}</a>
                             </li>
                         `;
-                        });
-                    })
-            }
+                    });
+                })
+        }
 
-            fetchGenreData();
-            scrollScreen();
+        fetchGenreData();
+        scrollScreen();
     </script>
 </body>
 
