@@ -428,8 +428,20 @@
 
             // });
 
-            document.querySelector("#randomBtn").addEventListener('click',()=>location.href = `./movie.html?id=${randomNumber}`);
-
+            document.querySelector("#randomBtn").addEventListener('click',generateRandom(randomNumber));
+            
+            const generateRandom = (x) => {
+                fetch(`https://api.themoviedb.org/3/movie/${x}?language=en-US`, options)
+                .then(response => response.json())
+                .then(response => {
+                    if(response.success){
+                        generateRandom(randomNumber);
+                    }else{
+                        location.href=`.'/movie.html?id=${x}`;
+                    }
+                })
+                .catch(err => console.error(err));
+            }
             
             // display
             browse.forEach((browseitem) => {
@@ -483,6 +495,7 @@
                 container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
             }
         }
+        
         fetchGenreData();
 
     </script>
