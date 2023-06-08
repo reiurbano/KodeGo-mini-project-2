@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+        * {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .text-e7 {
+            color: #E7C160;
+        }
+
+        body {
+            background-color: #e7c160;
+            /* background-color: #E7C160; */
+        }
+
+        header {
+            background-color: #393939;
+        }
+
+        .navbar-nav .nav-link {
+            color: white;
+        }
+
+        .main-container {
+            padding: 40px;
+            color: white;
+        }
+
+        h1,
+        h3 {
+            color: white;
+        }
+
+        .section-box{
+            background-color: #393939;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 2px 5px;
+        }
+
+        h1{
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg ms-1" data-bs-theme="dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="index.html">
+                    <h1 class="text-e7 fw-bolder">MOBEES</h1>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapsibleNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item px-lg-3">
+                            <a class="nav-link active" href="./index.html">Home</a>
+                        </li>
+                        <li class="nav-item px-lg-3">
+                            <a class="nav-link active" href="./search.html?list">Movie List</a>
+                        </li>
+                        <li class="nav-item px-lg-3">
+                            <a class="nav-link active" href="./peoplepage.html">People</a>
+                        </li>
+                        <li class="nav-item dropdown px-lg-3">
+                            <a class="nav-link active dropdown-toggle" href="" role="button"
+                                data-bs-toggle="dropdown">Categories</a>
+                            <ul class="dropdown-menu" id="categoryItems">
+
+                            </ul>
+                        </li>
+                        <li class="nav-item px-lg-3">
+                            <a class="nav-link active" href="./about.html">About</a>
+                        </li>
+                    </ul>
+
+
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container main-container mt-5">
+        <div class="container-about">
+            <div class="row justify-content-center">
+                <div class="section-box col-md-8 m-5 border text-center p-5">
+                    <h1><u>ABOUT US</u></h1>
+                    <p>At Mobees, we believe that movies have the power to inspire, entertain, and connect people from
+                        all
+                        walks of life. Our website is dedicated to providing an immersive movie experience for
+                        enthusiasts
+                        and film lovers.
+                        With Mobees, you can explore a vast collection of movies from various genres, discover new
+                        releases,
+                        and delve into the works of your favorite actors, directors, and artists. We strive to be your
+                        go-to
+                        destination for all things related to movies.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="section-box col-md-8 m-5 border text-center p-5">
+                    <h3>AMAZING MOVIES</h3>
+                    <p>Fun of watching movies, sign up and explore this website and stream movies online or avail of our
+                        sharable apps. This website has the features that suit the taste of the viewing public. Availing
+                        the
+                        services entitle to choose movie categories, which include the following amazing movies whether:
+                        Action, Adventure, Animation, Biography, Comedy and etc.
+                    </p>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="section-box col-md-8 m-5 border text-center p-5">
+                    <h3>DISCOVER TALENTED ACTORS</h3>
+                    <p>Join us in celebrating the talent and dedication of actors who make the magic of movies come
+                        alive.
+                        Explore their profiles, discover their exceptional performances, and gain a deeper appreciation
+                        for
+                        the world of acting at Mobees.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="section-box col-md-8 m-5 border text-center p-5">
+                <h3>ENGAGE WITH VIEWER REVIEWS</h3>
+                <p>At Mobees, we believe in the power of community and the importance of viewer opinions. Our
+                    platform
+                    not only provides access to an extensive collection of movies but also encourages users to share
+                    their thoughts and insights through viewer reviews.
+                </p>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+        <div class="section-box col-md-8 m-5 border text-center p-5">
+            <h3>EASY TO NAVIGATE</h3>
+            <p>With Mobees, you can easily navigate through a vast collection of movies, ranging from the latest
+                blockbusters to timeless classics. Our intuitive search feature allows you to find movies by
+                title, genre, or artist, making it simple to discover films that match your interests.
+            </p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
+        </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+
+        let genres = [];
+
+        const options = {
+            method: 'GET',
+            headers: {
+                accept: 'application/json',
+                Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMzJjNGZlZWViNzFhY2FiMDc4M2QyYTVhNzNjZGQ3NiIsInN1YiI6IjY0NjFmZDc2YTY3MjU0MDE2NGRlYzc3YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.BV3-59m-NcEVwdz_snr_om5eyrwF2zgIdmkHo-Wd7Ls'
+            }
+        };
+
+        // get genres
+        const fetchGenreData = () => {
+            fetch('https://api.themoviedb.org/3/genre/movie/list', options)
+                .then(response => response.json())
+                .then(response => {
+                    response = response.genres;
+
+                    response.forEach((result) => {
+                        //display for navbar category
+                        document.querySelector("#categoryItems").innerHTML += `
+                    <li>
+                        <a class="dropdown-item" href="./search.html?list=${result.id}">${result.name}</a>
+                    </li>
+                    `;
+                    });
+
+                })
+                .catch(err => console.error(err));
+        };
+        fetchGenreData();
+    </script>
+</body>
+
+</html>

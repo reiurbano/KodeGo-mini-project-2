@@ -10,21 +10,26 @@
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
         * {
             font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
         }
-        .text-e7{
+
+        .text-e7 {
             color: #E7C160;
         }
+
         body {
-            background-color: #E7C160;
+            background-color: #626262;
+            /* background-color: #E7C160; */
         }
+
         .artist-details {
             display: flex;
             flex-direction: column;
-            margin-top: 50px;
+            margin-top: 40px;
         }
 
         .artist-image {
@@ -32,22 +37,24 @@
             height: 100%;
             object-fit: cover;
             border-radius: 9px;
+            display: flex;
+            flex-direction: row;
         }
+
         .card-photo {
-            width: 300px;
+            width: 280px;
             margin-top: 20px;
             border-radius: 10px;
-            background-color: #E7C160;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease;
+
         }
+
         .artist-card {
             margin-top: 20px;
-            margin-left: 10px;
             background-color: #E7C160;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease;
-           
+
         }
 
         .movie-list {
@@ -57,18 +64,22 @@
             padding: 10px;
             margin-bottom: 20px;
             scrollbar-width: thin;
-            scrollbar-color: #393939 #E7C160;
+            scrollbar-color: #E7C160;
             font-size: 12px;
         }
-        .movie-list::-webkit-scrollbar{
+
+        .movie-list::-webkit-scrollbar {
             width: 8px;
         }
-        .movie-list::-webkit-scrollbar-track{
-            background: #e2cf9e;
+
+        .movie-list::-webkit-scrollbar-track {
+            background: #E7C160;
+            border-radius: 10px;
         }
-        .movie-list::-webkit-scrollbar-thumb{
+
+        .movie-list::-webkit-scrollbar-thumb {
             background: #393939;
-            border-radius: 4px;
+            border-radius: 10px;
         }
 
         .movie-card {
@@ -84,35 +95,71 @@
             border-radius: 9px;
         }
 
-        nav{
+        header {
             background-color: #393939;
         }
+
         .navbar-nav .nav-link {
             color: white;
         }
 
-        .social-media-logos{
+        .social-media-logos {
             width: 40px;
             margin: 5px;
-            
+
         }
-        .personal-info-box{
-            margin-left: 30px;
-            margin-top: 60px;
+
+        #occupation,
+        #bday,
+        #bplace {
+            margin-left: 10px;
         }
-        #occupation, #bday, #bplace {
-             margin-left: 10px;
-        }
-        .biography-card, .movies-card {
+
+        .biography-card,
+        .movies-card {
             padding: 40px;
+            background-color: #D9D9D9;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+
+        }
+
+        .movies-card {
+            padding: 40px;
+            /* background-color: #E7C160;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); */
+            color: white;
+            background-color: rgb(27, 25, 25);
+
+        }
+
+        .main-container {
+            padding: 40px;
+            /* background-color: #393939; */
+            background-image: linear-gradient(#E7C160, #393939);
+        }
+
+        .photo-info-container {
             background-color: #E7C160;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-           
+            border-radius: 9px;
         }
-       
-        
-        
-        
+
+        @media (min-width: 768px) and (max-width: 991.98px) {
+            .row {
+                flex-direction: row;
+            }
+
+            .card-photo {
+                width: 250px;
+                margin-right: 50px;
+
+            }
+
+            .artist-card {
+                width: calc(85% - 200px);
+                margin-left: 110px;
+            }
+        }
     </style>
 </head>
 
@@ -120,8 +167,11 @@
     <header>
         <nav class="navbar navbar-expand-lg ms-1" data-bs-theme="dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="index.html"><h1 class="text-e7 fw-bolder">MOBEES</h1></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+                <a class="navbar-brand" href="index.html">
+                    <h1 class="text-e7 fw-bolder">MOBEES</h1>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapsibleNavbar">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="collapsibleNavbar">
@@ -136,79 +186,79 @@
                             <a class="nav-link active" href="./peoplepage.html">People</a>
                         </li>
                         <li class="nav-item dropdown px-lg-3">
-                            <a class="nav-link active dropdown-toggle" href="" role="button" data-bs-toggle="dropdown">Categories</a>
-                              <ul class="dropdown-menu" id="categoryItems">
-                                
-                              </ul>
+                            <a class="nav-link active dropdown-toggle" href="" role="button"
+                                data-bs-toggle="dropdown">Categories</a>
+                            <ul class="dropdown-menu" id="categoryItems">
+
+                            </ul>
                         </li>
                         <li class="nav-item px-lg-3">
-                            <a class="nav-link active" href="./calendar.html">Calendar</a>
+                            <a class="nav-link active" href="./about.html">About</a>
                         </li>
                     </ul>
-                    
-                    
+
+
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container main-container mt-5">
         <div class="artist-details">
-            <div class="container bg-primary"></div>
-            <div class="row mb-5">
-                <div class="col-md-3">
-                    <div class="card-photo">
+            <div class="row ">
+                <div class="col-sm-12 col-md-3 mb-5 flex-row">
+                    <div class="card-photo flex-row">
                         <div id="photo"></div>
                     </div>
                 </div>
-                <div class="card artist-card col-md-8">
-                <div class=" personal-info-box">
-                    <div class="row">
-                        <div class="col-md-10 col-sm-12 mt-4 mx-5">
-                            <div id="artistInfo" class="fw-bold"></div>
-                            <div class="row">
-                                <div class="col-md-12 mt-4 mx-4">
-                                    <h6>Occupation:<span id="occupation"></span></h6>
+                <div class="card artist-card col-md-9 mb-5 justify-content-center ">
+                    <div class=" personal-info-box d-flex justify-content-center">
+                        <div class="row">
+                            <div class="col-md-9 col-sm-12 mt-4 mx-md-5">
+                                <div id="artistInfo" class="fw-bold"></div>
+                                <div class="row">
+                                    <div class="col-md-12 mt-4 mx-4">
+                                        <h6><span class="fw-bold">Occupation:</span><span id="occupation"></span></h6>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 mt-3 mx-4">
+                                        <h6><span class="fw-bold">Birthday:</span><span id="bday"></span></h6>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 mt-3 mx-4">
+                                        <h6><span class="fw-bold">Birthday place:</span><span id="bplace"></span></h6>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-12 mt-3 mx-4">
-                                    <h6>Birthday:<span id="bday"></span></h6>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12 mt-3 mx-4">
-                                    <h6>Birthday place:<span id="bplace"></span></h6>
-                                </div>
-                            </div>
+                            <div class="col-md-10 col-sm-12 m-4" id="socialmedia"></div>
                         </div>
-                        <div class="col-md-10 col-sm-12 m-4" id="socialmedia"></div>
                     </div>
-                    </div>
-                </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="card biography-card col-md-11 mt-5 mb-5">
-                    <h4 class="mb-3">Biography</h4>
-                    <div id="biography"></div>
+
                 </div>
             </div>
-            <div class="row">
-                <div class="card movies-card col-md-11 mt-5 mb-5">
-                    <h4>Movies</h4>
-                    <div class="movie-list" id="moviesContainer"></div>
-                </div>
-            </div>
-            
         </div>
+        <div class="row">
+            <div class="card biography-card col-md-12 mt-5 mb-5">
+                <h4 class="mb-3">Biography</h4>
+                <div id="biography"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="card movies-card col-md-12 mt-5 mb-5">
+                <h4>Movies</h4>
+                <div class="movie-list" id="moviesContainer"></div>
+            </div>
+        </div>
+
     </div>
-    
-    
-    
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-    
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const artistId = urlParams.get('id');
@@ -222,16 +272,26 @@
         const moviesContainer = document.getElementById('moviesContainer');
         const socialMediaContainer = document.getElementById('socialmedia');
 
+        let genres = [];
+
+        const options = {
+            method: 'GET',
+            headers: {
+                accept: 'application/json',
+                Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMzJjNGZlZWViNzFhY2FiMDc4M2QyYTVhNzNjZGQ3NiIsInN1YiI6IjY0NjFmZDc2YTY3MjU0MDE2NGRlYzc3YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.BV3-59m-NcEVwdz_snr_om5eyrwF2zgIdmkHo-Wd7Ls'
+            }
+        };
+
         fetch(artistInfoUrl)
             .then(response => response.json())
             .then(data => {
                 const artistName = data.name;
                 const artistImage = `https://image.tmdb.org/t/p/w200${data.profile_path}`;
                 const artistBiography = data.biography;
-                const maxLength =300;
-                let truncatedBiography = artistBiography.substr(0,maxLength);
+                const maxLength = 300;
+                let truncatedBiography = artistBiography.substr(0, maxLength);
 
-                if (artistBiography.length > maxLength){
+                if (artistBiography.length > maxLength) {
                     truncatedBiography += '   ...see more';
                 }
 
@@ -247,9 +307,9 @@
                 biographyElement.innerHTML = `<span id="truncatedBiography">${truncatedBiography}</span>`;
                 biographyElement.classList.add('truncated-biography');
 
-                const toggleBiography =() => {
+                const toggleBiography = () => {
                     const truncatedBiographyElement = document.getElementById('truncatedBiography');
-                    if (truncatedBiographyElement.textContent === truncatedBiography){
+                    if (truncatedBiographyElement.textContent === truncatedBiography) {
                         truncatedBiographyElement.textContent = artistBiography;
                     } else {
                         truncatedBiographyElement.textContent = truncatedBiography;
@@ -257,7 +317,7 @@
                 };
                 biographyElement.addEventListener('click', toggleBiography);
 
-                
+
 
                 photoContainer.appendChild(imageElement);
                 artistInfoContainer.appendChild(nameElement);
@@ -274,17 +334,7 @@
                 fetch(externalIdsUrl)
                     .then(response => response.json())
                     .then(externalIdsData => {
-                        socialMediaContainer.innerHTML = ''; 
-
-                        if (externalIdsData.facebook_id) {
-                            const imdbLink = createSocialMediaLink(
-                                `https://www.facebook .com/${externalIdsData.facebook_id}`,
-                                'Facebook',
-                                'facebook',
-                                'facebookLink'
-                            );
-                            socialMediaContainer.appendChild(facebookLink);
-                        }
+                        socialMediaContainer.innerHTML = '';
 
                         if (externalIdsData.instagram_id) {
                             const instagramLink = createSocialMediaLink(
@@ -307,12 +357,12 @@
                         }
 
                         const instagramLinkElement = document.getElementById('instagramLink');
-                        if (instagramLinkElement && !externalIdsData.instagram_id){
+                        if (instagramLinkElement && !externalIdsData.instagram_id) {
                             instagramLinkElement.style.display = 'none';
                         }
 
                         const twitterLinkElement = document.getElementById('twitterLink');
-                        if (twitterLinkElement && !externalIdsData.twitter_id){
+                        if (twitterLinkElement && !externalIdsData.twitter_id) {
                             twitterLinkElement.style.display = 'none';
                         }
                     })
@@ -350,30 +400,51 @@
                 //const numberOfMoviesToShow = 5;
 
                 movieCredits.forEach(movie => {
-                const movieCard = document.createElement('div');
-                movieCard.classList.add('movie-card');
+                    const movieCard = document.createElement('div');
+                    movieCard.classList.add('movie-card');
 
-                const movieImage = document.createElement('img');
-                movieImage.src = `https://image.tmdb.org/t/p/w200${movie.poster_path}`;
-                movieImage.alt = movie.title;
-                movieImage.classList.add('movie-image');
+                    const movieImage = document.createElement('img');
+                    movieImage.src = `https://image.tmdb.org/t/p/w200${movie.poster_path}`;
+                    movieImage.alt = movie.title;
+                    movieImage.classList.add('movie-image');
 
-                const movieTitle = document.createElement('p');
-                movieTitle.textContent = movie.title;
+                    const movieTitle = document.createElement('p');
+                    movieTitle.textContent = movie.title;
 
-                movieCard.appendChild(movieImage);
-                movieCard.appendChild(movieTitle);
+                    movieCard.appendChild(movieImage);
+                    movieCard.appendChild(movieTitle);
 
-                movieCard.addEventListener('click', () => {
-                    const movieId = movie.id;
-                    const movieInfoUrl = `https://api.themoviedb.org/3/movie/${movieId}?api_key=aadadbbda0dacb0d2cb893bbad0a7d9d`;
-                    window.location.href = `movie.html?id=${movieId}&url=${movieInfoUrl}`;
-                });moviesContainer.appendChild(movieCard);
+                    movieCard.addEventListener('click', () => {
+                        const movieId = movie.id;
+                        const movieInfoUrl = `https://api.themoviedb.org/3/movie/${movieId}?api_key=aadadbbda0dacb0d2cb893bbad0a7d9d`;
+                        window.location.href = `movie.html?id=${movieId}&url=${movieInfoUrl}`;
+                    }); moviesContainer.appendChild(movieCard);
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
             });
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
+
+        // get genres
+        const fetchGenreData = () => {
+            fetch('https://api.themoviedb.org/3/genre/movie/list', options)
+                .then(response => response.json())
+                .then(response => {
+                    response = response.genres;
+
+                    response.forEach((result) => {
+                        //display for navbar category
+                        document.querySelector("#categoryItems").innerHTML += `
+                    <li>
+                        <a class="dropdown-item" href="./search.html?list=${result.id}">${result.name}</a>
+                    </li>
+                    `;
+                    });
+
+                })
+                .catch(err => console.error(err));
+        };
+        fetchGenreData();
     </script>
 </body>
 
