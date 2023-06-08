@@ -55,6 +55,25 @@
             background-color: #5d5d5d;
         }
 
+        /* Search Bar */
+
+        #search-bar {
+            background-color: #E7C160;
+        }
+
+        .input-group-text {
+            background-color: #393939;
+        }
+
+        .input-group-text> i {
+            color: #FFFFFF;
+        }
+
+        #search-btn {
+            background-color: #393939;
+            color: #FFFFFF;
+        }
+
         /* Movie Details */
 
         #poster {
@@ -331,13 +350,25 @@
                             <a class="nav-link active" href="./calendar.html">Calendar</a>
                         </li>
                     </ul>
-
-
                 </div>
             </div>
         </nav>
     </header>
     <main>
+        <!-- Search Bar -->
+        <div class="row align-items-center px-5 py-2" id="search-bar">
+            <div class="col-md-2 mx-2">
+                <h1 class="text-center my-auto fw-bold">MOBEES</h1>
+            </div>
+            <form class="col-md mx-2" action="search.html" method="get">
+                <div class="input-group">
+                    <button class="btn rounded-start-pill" type="button" id="search-btn">
+                        <i class="fa fa-search"></i>
+                    </button>
+                    <input class="form-control rounded-end-pill" type="text" name="search-query" placeholder="Search Bar">
+                </div>
+            </form>
+        </div>
         <!-- Movie Details -->
         <section class="bg-lightgray row justify-content-center p-3">
             <div class="col-lg-5 text-center mb-3" id="movie-poster">
