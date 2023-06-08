@@ -250,26 +250,28 @@
                         <li class="p-2 mx-1 rounded-start-1"><button onClick="handlePage(cpage-1)" class="bg-transparent border-0 text-decoration-none text-e7" id="bpageidprev"><</button></li>
                     `;
 
-                    for(let x=1;x<=response.total_pages;x++){
-                        
-                        if(x==response.page){
+                    if(response.total_pages<=25){
+                            for(let x=1;x<=response.total_pages;x++){
+                            
+                            if(x==response.page){
 
-                            tPaginationUl.innerHTML += `
-                                <li class="p-2 mx-1 bg-e7 rounded-5" ><button onClick="handlePage(${x})"class="bg-transparent border-0 text-decoration-none text-dark" id="tpageid${x}">${x}</button></li>
-                            `;
-                            bPaginationUl.innerHTML += `
-                                <li class="p-2 mx-1 bg-e7 rounded-5"><button onClick="handlePage(${x})"class="bg-transparent border-0 text-decoration-none text-dark" id="bpageid${x}">${x}</button></li>
-                            `;
-                        }else{
-                            tPaginationUl.innerHTML += `
-                                <li class="p-2 mx-1"><button onClick="handlePage(${x})"class="bg-transparent border-0 text-decoration-none text-e7" id="tpageid${x}">${x}</button></li>
-                            `;
-                            bPaginationUl.innerHTML += `
-                                <li class="p-2 mx-1"><button onClick="handlePage(${x})"class="bg-transparent border-0 text-decoration-none text-e7" id="bpageid${x}">${x}</button></li>
-                            `;
+                                tPaginationUl.innerHTML += `
+                                    <li class="p-2 mx-1 bg-e7 rounded-5" ><button onClick="handlePage(${x})"class="bg-transparent border-0 text-decoration-none text-dark" id="tpageid${x}">${x}</button></li>
+                                `;
+                                bPaginationUl.innerHTML += `
+                                    <li class="p-2 mx-1 bg-e7 rounded-5"><button onClick="handlePage(${x})"class="bg-transparent border-0 text-decoration-none text-dark" id="bpageid${x}">${x}</button></li>
+                                `;
+                            }else{
+                                tPaginationUl.innerHTML += `
+                                    <li class="p-2 mx-1"><button onClick="handlePage(${x})"class="bg-transparent border-0 text-decoration-none text-e7" id="tpageid${x}">${x}</button></li>
+                                `;
+                                bPaginationUl.innerHTML += `
+                                    <li class="p-2 mx-1"><button onClick="handlePage(${x})"class="bg-transparent border-0 text-decoration-none text-e7" id="bpageid${x}">${x}</button></li>
+                                `;
+                            }
+
+                            }
                         }
-
-                    }
                     tPaginationUl.innerHTML += `
                         <li class="p-2 mx-1 rounded-start-1"><button onClick="handlePage(cpage+1)" class="bg-transparent border-0 text-decoration-none text-e7"  id="tpageidnext">></button></li>
                     `;
@@ -323,15 +325,15 @@
                         const tPaginationUl = document.querySelector("#tPagination-ul");
                         const bPaginationUl = document.querySelector("#bPagination-ul");
                         cpage=response.page;
-
+    
                         tPaginationUl.innerHTML += `
-                            <li class="p-2 mx-1 rounded-start-1"><button class="bg-transparent border-0 text-decoration-none text-e7"  id="tpageidprev"><</button></li>
+                        <li class="p-2 mx-1 rounded-start-1"><button onClick="handlePage(cpage-1)" class="bg-transparent border-0 text-decoration-none text-e7"  id="tpageidprev"><</button></li>
                         `;
                         bPaginationUl.innerHTML += `
-                            <li class="p-2 mx-1 rounded-start-1"><button class="bg-transparent border-0 text-decoration-none text-e7" id="bpageidprev"><</button></li>
+                        <li class="p-2 mx-1 rounded-start-1"><button onClick="handlePage(cpage-1)" class="bg-transparent border-0 text-decoration-none text-e7" id="bpageidprev"><</button></li>
                         `;
-
-                        for(let x=1;x<=response.total_pages;x++){
+                        if(response.total_pages<=25){
+                            for(let x=1;x<=response.total_pages;x++){
                             
                             if(x==response.page){
 
@@ -350,12 +352,14 @@
                                 `;
                             }
 
+                            }
                         }
+                        
                         tPaginationUl.innerHTML += `
-                            <li class="p-2 mx-1 rounded-start-1"><button class="bg-transparent border-0 text-decoration-none text-e7"  id="tpageidnext">></button></li>
+                        <li class="p-2 mx-1 rounded-start-1"><button onClick="handlePage(cpage+1)" class="bg-transparent border-0 text-decoration-none text-e7"  id="tpageidnext">></button></li>
                         `;
                         bPaginationUl.innerHTML += `
-                            <li class="p-2 mx-1 rounded-start-1"><button class="bg-transparent border-0 text-decoration-none text-e7" id="bpageidnext">></button></li>
+                            <li class="p-2 mx-1 rounded-start-1"><button onClick="handlePage(cpage+1)" class="bg-transparent border-0 text-decoration-none text-e7" id="bpageidnext">></button></li>
                         `;
                     }else{     
                         const tPagination = document.querySelector("#tPagination");
@@ -394,6 +398,53 @@
                         </div>
                     `;
                 });
+                // display pagination
+                if(response.total_pages>1){
+                    const tPaginationUl = document.querySelector("#tPagination-ul");
+                    const bPaginationUl = document.querySelector("#bPagination-ul");
+                    cpage=response.page;
+
+                    tPaginationUl.innerHTML += `
+                        <li class="p-2 mx-1 rounded-start-1"><button onClick="handlePage(cpage-1)" class="bg-transparent border-0 text-decoration-none text-e7"  id="tpageidprev"><</button></li>
+                    `;
+                    bPaginationUl.innerHTML += `
+                        <li class="p-2 mx-1 rounded-start-1"><button onClick="handlePage(cpage-1)" class="bg-transparent border-0 text-decoration-none text-e7" id="bpageidprev"><</button></li>
+                    `;
+
+                    if(response.total_pages<=25){
+                            for(let x=1;x<=response.total_pages;x++){
+                            
+                            if(x==response.page){
+
+                                tPaginationUl.innerHTML += `
+                                    <li class="p-2 mx-1 bg-e7 rounded-5" ><button onClick="handlePage(${x})"class="bg-transparent border-0 text-decoration-none text-dark" id="tpageid${x}">${x}</button></li>
+                                `;
+                                bPaginationUl.innerHTML += `
+                                    <li class="p-2 mx-1 bg-e7 rounded-5"><button onClick="handlePage(${x})"class="bg-transparent border-0 text-decoration-none text-dark" id="bpageid${x}">${x}</button></li>
+                                `;
+                            }else{
+                                tPaginationUl.innerHTML += `
+                                    <li class="p-2 mx-1"><button onClick="handlePage(${x})"class="bg-transparent border-0 text-decoration-none text-e7" id="tpageid${x}">${x}</button></li>
+                                `;
+                                bPaginationUl.innerHTML += `
+                                    <li class="p-2 mx-1"><button onClick="handlePage(${x})"class="bg-transparent border-0 text-decoration-none text-e7" id="bpageid${x}">${x}</button></li>
+                                `;
+                            }
+
+                            }
+                        }
+                    tPaginationUl.innerHTML += `
+                        <li class="p-2 mx-1 rounded-start-1"><button onClick="handlePage(cpage+1)" class="bg-transparent border-0 text-decoration-none text-e7"  id="tpageidnext">></button></li>
+                    `;
+                    bPaginationUl.innerHTML += `
+                        <li class="p-2 mx-1 rounded-start-1"><button onClick="handlePage(cpage+1)" class="bg-transparent border-0 text-decoration-none text-e7" id="bpageidnext">></button></li>
+                    `;
+                }else{     
+                    const tPagination = document.querySelector("#tPagination");
+                    const bPagination = document.querySelector("#bPagination");
+                    tPagination.style.display = "none";        
+                    bPagination.style.display = "none";           
+                }
 
             })
             .catch(err => console.error(err));
@@ -533,6 +584,7 @@
                             </a>
                         </div>
                     `;
+                    
                     })
             })
             .catch(err => console.error(err));
